@@ -1,0 +1,7 @@
+/bin/sandtool.jar
+/bin/edi.jar
+target
+.classpath
+.project
+.settings
+.DS_Store
