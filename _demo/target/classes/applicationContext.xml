@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop
+			 http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	         http://www.springframework.org/schema/beans 
+	         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	         http://www.springframework.org/schema/context
+	         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	         http://www.springframework.org/schema/jee 
+	         http://www.springframework.org/schema/jee/spring-jee-3.0.xsd 
+	         http://www.springframework.org/schema/tx 
+	         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<!-- <context:annotation-config/> -->
+	<context:component-scan base-package="com.wfc.cxf">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:application.properties</value>
+		</property>
+	</bean>
+
+	<bean class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" id="dataSource">
+		<property name="driverClassName" value="${database.write.driverClassName}" />
+		<property name="url" value="${database.write.url}" />
+		<property name="username" value="${database.write.username}" />
+		<property name="password" value="${database.write.password}" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="1800000" />
+		<property name="numTestsPerEvictionRun" value="3" />
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
+		<property name="validationQuery" value="SELECT version();" />
+		<property name="initialSize" value="1" />
+		<property name="maxActive" value="32" />
+		<property name="maxIdle" value="16" />
+	</bean>
+
+	<bean class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" id="dataSourceRead">
+		<property name="driverClassName" value="${database.read_unit.driverClassName}" />
+		<property name="url" value="${database.read_unit.url}" />
+		<property name="username" value="${database.read_unit.username}" />
+		<property name="password" value="${database.read_unit.password}" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="1800000" />
+		<property name="numTestsPerEvictionRun" value="3" />
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
+		<property name="validationQuery" value="SELECT version();" />
+		<property name="initialSize" value="1" />
+		<property name="maxActive" value="32" />
+		<property name="maxIdle" value="16" />
+	</bean>
+
+
+	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
+		id="transactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+		</property>
+	</bean>
+
+	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
+		id="transactionManagerRead">
+		<property name="entityManagerFactory" ref="entityManagerFactoryRead" />
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+		</property>
+	</bean>
+	<!-- model = "aspectj" -->
+	<tx:annotation-driven mode="aspectj"
+		transaction-manager="transactionManager" order="2" />
+	<!-- model = "proxy" -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven transaction-manager="transactionManagerRead" />
+
+	<bean id="persistenceUnitManager"
+		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+		<property name="persistenceXmlLocations">
+			<list>
+				<value>classpath*:META-INF/persistence.xml</value>
+				<value>classpath*:META-INF/persistenceRead.xml</value>
+			</list>
+		</property>
+		<property name="dataSources">
+			<map>
+				<entry key="dataSource" value-ref="dataSource" />
+				<entry key="dataSourceRead" value-ref="dataSourceRead" />
+			</map>
+		</property>
+		<property name="defaultDataSource" ref="dataSource" />
+		<property name="defaultPersistenceUnitRootLocation" value="persistenceUnitWrite" />
+	</bean>
+
+	<bean
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		id="entityManagerFactory">
+		<property name="persistenceUnitName" value="persistenceUnitWrite" />
+		<property name="persistenceUnitManager" ref="persistenceUnitManager" />
+	</bean>
+
+	<bean
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		id="entityManagerFactoryRead">
+		<property name="persistenceUnitName" value="persistenceUnitRead" />
+		<property name="persistenceUnitManager" ref="persistenceUnitManager" />
+	</bean>
+
+
+	<!-- =================================aop layout =========================== -->
+
+	<aop:config>
+		<aop:aspect id="logAop" ref="aopLogBean">
+			<aop:pointcut expression="execution(* com.wfc.cxf.server.impl.*.*(..))"
+				id="aopLogMethod" />
+			<aop:before pointcut-ref="aopLogMethod" method="doBefore" />
+		</aop:aspect>
+	</aop:config>
+	<bean id="aopLogBean" class="com.wfc.cxf.aop.LoggerAop" />
+	<!-- ======================================================================= -->
+
+</beans>
