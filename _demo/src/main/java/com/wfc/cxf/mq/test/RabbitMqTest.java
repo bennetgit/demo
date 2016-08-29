@@ -4,15 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Before;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import com.wfc.cxf.mq.EventTemplate;
 import com.wfc.cxf.mq.common.EventControlConfig;
 import com.wfc.cxf.mq.consumer.EventProcesser;
 import com.wfc.cxf.mq.core.DefaultEventController;
-import org.springframework.util.Assert;
+
 
 public class RabbitMqTest {
     private String defaultHost = "127.0.0.1";
@@ -25,7 +25,7 @@ public class RabbitMqTest {
 
     private EventTemplate eventTemplate;
 
-//    @Before
+    @Before
     public void init() throws IOException {
         EventControlConfig config = new EventControlConfig(defaultHost);
         controller = DefaultEventController.getInstance(config);
@@ -34,20 +34,19 @@ public class RabbitMqTest {
         controller.start();
     }
 
-    @Ignore
-//    @Test
+    @Test
     public void sendString() {
         eventTemplate.send(defaultQueue, defaultExchange, "hello world");
     }
 
     // @Ignore
-//    @Test
+    // @Test
     public void sendObject() {
         eventTemplate.send(defaultQueue, defaultExchange, mockObj());
     }
 
     @Ignore
-//    @Test
+    // @Test
     public void sendTemp() throws InterruptedException {
         String tempExchange = "EXCHANGE_DIRECT_TEST_TEMP";// 以前未声明的exchange
         String tempQueue = "QUEUE_TEST_TEMP";// 以前未声明的queue
@@ -56,7 +55,7 @@ public class RabbitMqTest {
         controller.add(tempQueue, tempExchange, new ApiProcessEventProcessor());
     }
 
-//    @After
+    // @After
     public void end() throws InterruptedException {
         Thread.sleep(2000);
     }
@@ -88,7 +87,7 @@ public class RabbitMqTest {
     class ApiProcessEventProcessor implements EventProcesser {
         @Override
         public void process(Object e) {// 消费程序这里只是打印信息
-//            Assert.assertNotNull(e);
+            // Assert.assertNotNull(e);
             System.out.println(e);
             if (e instanceof People) {
                 People people = (People) e;
