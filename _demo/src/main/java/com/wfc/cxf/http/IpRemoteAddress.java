@@ -66,7 +66,10 @@ public class IpRemoteAddress {
             ia = InetAddress.getLocalHost();
             System.out.println(ia);
             getLocalMac(ia);
-        } catch (UnknownHostException | SocketException e) {
+        } catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SocketException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

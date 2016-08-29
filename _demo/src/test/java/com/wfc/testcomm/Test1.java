@@ -99,7 +99,7 @@ public class Test1 {
     @Test
     public void testUUID() {
 
-        Map<String, T1> testMap = new HashMap<>();
+        Map<String, T1> testMap = new HashMap<String, T1>();
         testMap.put("1", new T1());
         System.out.println(testMap);
         T1 val = testMap.get("1");

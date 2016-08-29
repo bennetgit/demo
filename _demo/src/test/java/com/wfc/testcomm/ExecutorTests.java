@@ -7,13 +7,9 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -34,9 +30,9 @@ public class ExecutorTests {
     @Before
     public void init() {
         atomicInteger = new AtomicInteger(0);
-        executor = new ThreadPoolExecutor(5, 10, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<>(),
-                new BasicThreadFactory.Builder().daemon(true).namingPattern("executor_%d").build(),
-                new CallerRunsPolicy());
+//        executor = new ThreadPoolExecutor(5, 10, 60l, TimeUnit.SECONDS, new LinkedBlockingQueue<Callable>(),
+//                new BasicThreadFactory.Builder().daemon(true).namingPattern("executor_%d").build(),
+//                new ThreadPoolExecutor.CallerRunsPolicy());
     }
 
     @Ignore

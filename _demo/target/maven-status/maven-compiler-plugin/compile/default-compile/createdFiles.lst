@@ -1,5 +1,7 @@
+com/wfc/cxf/ngrinder/ExtractPerfTestLog$Key_Map.class
 com/wfc/cxf/core/domain/Test1.class
 com/wfc/cxf/pattern/decorator/FouthGradeSchoolReport.class
+com/wfc/cxf/runntime/PgRunntime.class
 com/wfc/cxf/core/jpa/ShipmentRepository.class
 com/wfc/cxf/mq/rabbitMq/impl/topics1/Rec$1.class
 com/wfc/cxf/mq/rabbitMq/impl/topics1/Send.class
@@ -10,8 +12,11 @@ com/wfc/cxf/server/IShipmentApi.class
 com/wfc/cxf/core/jpa/ShipmentRepositoryJPA.class
 com/wfc/cxf/mq/core/EventController.class
 com/wfc/cxf/pattern/decoration/Decorator.class
+com/wfc/cxf/ngrinder/ExtractPerfTestLog.class
 com/wfc/cxf/pattern/composite/interfac/IRoot.class
+com/wfc/cxf/ngrinder/ExtractPerfTestLog$1.class
 com/wfc/cxf/mq/test/People.class
+com/wfc/cxf/utils/HttpUtils.class
 com/wfc/cxf/mq/simpleExample/produce/Sender.class
 com/wfc/cxf/pattern/decoration/Father.class
 com/wfc/cxf/pattern/decoration/FouthGradeSchoolReport.class
@@ -38,8 +43,10 @@ com/wfc/cxf/pattern/decoration/SortDecorator.class
 com/wfc/cxf/mq/consumer/MessageErrorHandler.class
 com/wfc/cxf/mq/HessianCodecFactory.class
 com/wfc/cxf/core/exception/CheckShipmentException.class
+com/wfc/cxf/http/IpRemoteAddress.class
 com/wfc/cxf/pattern/composite/impl/Leaf.class
 com/wfc/cxf/mq/consumer/MessageAdapterHandler$EventProcessorWrap.class
+com/wfc/cxf/network/RealIpAddress.class
 com/wfc/cxf/pattern/observer/observer/Liusi.class
 com/wfc/cxf/pattern/decoration/HighScoreDecorator.class
 com/wfc/cxf/mq/EventTemplate.class
