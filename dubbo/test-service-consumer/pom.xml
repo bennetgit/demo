@@ -5,6 +5,12 @@
 	<artifactId>test-service-consumer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<parent>
+		<groupId>dubbo.test</groupId>
+		<artifactId>demo.dubbo.parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
 	<properties>
 		<version.java>1.8</version.java>
 		<spring.version>4.0.0.RELEASE</spring.version>
