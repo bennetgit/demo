@@ -10,7 +10,6 @@
     <name>test</name>
 
     <modules>
-        <module>test-service-exchange</module>
-	<module>springboot-mybatis</module>
-</modules>
+       	<module>springboot-mybatis</module>
+    </modules>
 </project>
