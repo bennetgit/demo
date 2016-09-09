@@ -11,5 +11,6 @@
 
     <modules>
        	<module>springboot-mybatis</module>
+        <module>../springboot-helloworld</module>
     </modules>
 </project>
