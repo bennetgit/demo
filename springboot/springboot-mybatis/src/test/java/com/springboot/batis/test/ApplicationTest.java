@@ -29,4 +29,20 @@ public class ApplicationTest {
 		TestUser user = userMapper.findByName("hello");
 		Assert.assertEquals(1, user.getAge());
 	}
+
+    private static native int readFromPage()
+    /*-{
+        if($wnd.ozonelayerConnectionGuardTimeout) {
+            return $wnd.ozonelayerConnectionGuardTimeout;
+        }
+        return -1;
+    }-*/;
+
+    public void responseHandled() {
+        // expectingResponse = false;
+        // t.cancel();
+        // if (isShowing()) {
+        // hide();
+        // }
+    }
 }
