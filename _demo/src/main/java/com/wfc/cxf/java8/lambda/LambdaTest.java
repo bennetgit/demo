@@ -1,11 +1,7 @@
 package com.wfc.cxf.java8.lambda;
 
-import static java.util.Comparator.comparingDouble;
-
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class LambdaTest {
 
