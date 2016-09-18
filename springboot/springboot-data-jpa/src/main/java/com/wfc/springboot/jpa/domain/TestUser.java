@@ -1,9 +1,13 @@
 package com.wfc.springboot.jpa.domain;
 
+import org.hibernate.annotations.DiscriminatorOptions;
+
 import javax.persistence.*;
 
 @Entity
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorOptions(force = true)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @SequenceGenerator(name = "seq_test_user", sequenceName = "seq_test_user")
 public class TestUser {
 

@@ -1,6 +1,7 @@
 package com.wfc.test;
 
 import com.wfc.springboot.jpa.application.Application;
+import com.wfc.springboot.jpa.domain.TestUser;
 import com.wfc.springboot.jpa.domain.User;
 import com.wfc.springboot.jpa.repository.UserRepository;
 import org.junit.Test;
@@ -29,9 +30,13 @@ public class ApplicationTest {
         user.setAge(123);
         user.setName("hello11");
 
-        repository.save(user);
+        TestUser user1 = new TestUser();
+        user1.setName("hhhh");
+        user1.setAge(112);
 
-        List<User> users = repository.findAll();
+        repository.save(user1);
+
+        List<TestUser> users = repository.findAll();
         System.out.println("xxxxxxxxxxx"+users);
     }
 }

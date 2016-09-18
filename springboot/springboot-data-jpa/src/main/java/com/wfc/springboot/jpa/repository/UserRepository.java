@@ -9,9 +9,9 @@ import java.util.List;
 /**
  * Created by feng on 16/9/14.
  */
-public interface UserRepository extends CrudRepository<User,Long> {
+public interface UserRepository extends CrudRepository<TestUser,Long> {
 
-    List<User> findAll();
+    List<TestUser> findAll();
 
 
 }
