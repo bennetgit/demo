@@ -11,6 +11,6 @@
 
     <modules>
        	<module>springboot-mybatis</module>
-        <module>../springboot-helloworld</module>
+        <module>../springboot-restful</module>
     </modules>
 </project>
