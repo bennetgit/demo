@@ -2,6 +2,7 @@ package com.springboot.test;
 
 import javax.annotation.Resource;
 
+import com.springboot.jdbc.async.Task;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -25,18 +26,28 @@ public class ApplicationTest {
     @Resource
     private JavaMailSender mailSender;
 
+    @Resource
+    private Task task;
+
     @Before
     public void setUp() {
         userService.deleteAllUsers();
     }
 
     @Test
+    public void asyncTaskTest() throws InterruptedException {
+        task.doTaskOne();
+        task.doTaskTwo();
+        task.doTaskThree();
+    }
+
+    @Test
     public void sendSimpleMail(){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("1092221803@qq.com");
-        message.setTo("facheng.wang@aliyun.com");
+        message.setFrom("facheng.wang@aliyun.com");
+        message.setTo("18302155350@139.com");
         message.setSubject("测试邮件");
-        message.setText("测试邮件内容");
+        message.setText("你好啊 ");
         mailSender.send(message);
     }
 
