@@ -81,11 +81,11 @@
 		</property>
 	</bean>
 	<!-- model = "aspectj" -->
-	<tx:annotation-driven mode="aspectj"
-		transaction-manager="transactionManager" order="2" />
+	<!--<tx:annotation-driven mode="aspectj"-->
+		<!--transaction-manager="transactionManager" order="2" />-->
 	<!-- model = "proxy" -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
-	<tx:annotation-driven transaction-manager="transactionManagerRead" />
+	<!--<tx:annotation-driven transaction-manager="transactionManager" />-->
+	<!--<tx:annotation-driven transaction-manager="transactionManagerRead" />-->
 
 	<bean id="persistenceUnitManager"
 		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">

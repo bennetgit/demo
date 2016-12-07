@@ -15,11 +15,11 @@ import org.joda.time.LocalDateTime;
 
 import com.wfc.cxf.core.jpa.ShipmentRepositoryJPA;
 
-@Entity
-@Table(name = "shipment")
-@SequenceGenerator(name = "seq_shipment", sequenceName = "seq_shipment")
-@NamedQueries(value = { @NamedQuery(name = ShipmentRepositoryJPA.LOAD_SHIPMENT, query = "SELECT o FROM Shipment o"),
-        @NamedQuery(name = ShipmentRepositoryJPA.GET_SHIPMENT, query = "SELECT o FROM Shipment o WHERE o.id = :id") })
+//@Entity
+//@Table(name = "shipment")
+//@SequenceGenerator(name = "seq_shipment", sequenceName = "seq_shipment")
+//@NamedQueries(value = { @NamedQuery(name = ShipmentRepositoryJPA.LOAD_SHIPMENT, query = "SELECT o FROM Shipment o"),
+//        @NamedQuery(name = ShipmentRepositoryJPA.GET_SHIPMENT, query = "SELECT o FROM Shipment o WHERE o.id = :id") })
 public class Shipment {
 
     @Id

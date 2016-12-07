@@ -1,0 +1,1541 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified">
+
+    <xs:annotation>
+        <xs:documentation xml:lang="en">
+            This is the XSD schema definition for oTMS web services.
+
+            Please refer to collection of oTMS Web Services Specification documents for
+            further details.
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:element name="orderImportRequest" type="orderImportRequest" />
+    <xs:element name="orderImportResponse" type="orderImportResponse" />
+    <xs:complexType name="orderImportRequest">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                The request for order
+                import. Request contains the necessary
+                information to authenticate
+                into oTMS and
+                the list of order data to import.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="orders">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Contains the list of
+                        order data to import.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="100" minOccurs="0" name="order" type="importedOrder" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="version" type="shortString" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    The version number of
+                    the request.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="login" type="remarksType" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    Login name granted to
+                    perform import order for oTMS registered
+                    company.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="password" type="shortString" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    Supplied password for
+                    login.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="importedOrder">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Single order data to
+                import.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="clientCode" type="clientCode">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Offline client code in
+                        case of SP oTMS perspective. This is skip in
+                        case of SR
+                        perspective.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="clientReferenceNumber" type="remarksType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Customer reference
+                        number. It can be order identifier of a calling
+                        system.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="branch" type="mediumString">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Branch name.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="erpNumber" type="mediumString">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Order Erp Number
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="orderRemarks" type="remarksType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Order remarks.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="allowUpdate" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        True/false flag - if
+                        true then the order will be updated if  
+                        orders imported by API 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:choice minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        ShipFrom location can
+                        be given in two ways:
+                        1) by ShipFrom externalId - defined in
+                        MasterData
+                        2) full location specification
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:element name="shipFromExternalId" type="xs:string" />
+                <xs:element name="shipFrom" type="location" />
+            </xs:choice>
+            <xs:choice minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        ShipTo location can be
+                        given in two ways:
+                        1) by ShipTo externalId - defined in
+                        MasterData
+                        2) full location specification
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:element name="shipToExternalId" type="xs:string" />
+                <xs:element name="shipTo" type="location" />
+            </xs:choice>
+            <xs:element name="timeSchedule" type="importedTimeSchedule" />
+            <xs:element minOccurs="0" maxOccurs="1" name="orderLines">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Defines many
+                        cargo/product lines. May be missing.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="500" minOccurs="0" name="orderLine" type="importedOrderLine" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="concealOrderLines" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        True/false flag - if
+                        true then no cargo/product details will be concealed
+                        from vendor.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="rejectDraft" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        True/false flag - if
+                        true then the order will be rejected if it
+                        reaches only draft status (only orders that
+                        qualify for inbox will be imported)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="autoProcessMode" type="AutoProcessMode" />
+            <xs:element minOccurs="0" name="dispatchBy" type="AutoDispatchTariffSelectionMode" />
+             <xs:element minOccurs="0" name="toTruck" type="importedTruck" />
+            <xs:element name="cargoDetails" type="importedCargoDetails" />
+            <xs:element name="transportMode" type="importedTransportMode" />
+            <xs:element minOccurs="0" name="revenue" type="importedRevenue"/>
+            <xs:element minOccurs="0" name="cost" type="importedRevenue"/>
+            <xs:element minOccurs="0" name="vendorCode" type="clientCode">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Online vendor code
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="tempThreshold" type="importedTemperature"/>
+            <xs:element minOccurs="0" name="customFields" type="importedCustomFields" />
+        </xs:sequence>
+        <xs:attribute name="sequence" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    Each order to import must contain the unique sequence value. The order
+                    responses contain
+                    these too. This way user can match incoming order to outgoing order
+                    response.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
+    </xs:complexType>
+    <xs:complexType name="location">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Describes geographical
+                location of ShipFrom/ShipTo points.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="companyName" type="mediumString">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        ShipFrom/ShipTo
+                        location name.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="postcode" type="zipcodeType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Full Chinese postcode
+                        of the location. 6 digits.
+                        Based on the full postcode and the
+                        town of the location, oTMS
+                        platform uses its Zipcode Engine
+                        to
+                        select right geography area.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="town" type="shortString">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The town name (in
+                        native Chinese).
+                        Based on town, oTMS pltaform uses its Zipcode
+                        Engine to select right
+                        geography area.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="address" type="addressLine">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The address line.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="loading" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        true/false flag saying
+                        if loading takes place in case of ShipFrom location
+                        or unloading
+                        in case of ShipTo location.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="xttSupport" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        true/false flag saying
+                        if order does support xtt
+                        and should send e-mails to contact persons
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="contact" type="importedContactPerson" />
+            <xs:element minOccurs="0" name="locationRemarks" type="remarksType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        ShipFrom/ShipTo point remarks.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="timeWindow" type="pickupDeliveryTime" />
+            <xs:element minOccurs="0" name="weekdays" type="weekdays" />
+            <xs:element minOccurs="0" name="customFields" type="importedCustomFields" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="importedContactPerson">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                The contact details of
+                the person available at point.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="name" type="mediumString">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Family and surname of
+                        contact person available at point.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="phone" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Desktop phone name.
+                        Must conform to the following regexp pattern:
+                        \d{6,10}(-[0-9]{1,5})?
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="phoneAreaCode" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Area code for phone
+                        number.
+                        Regexp:
+                        \d{1,4}
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="mobile" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Mobile phone name.
+                        Must confirm to the following regexp pattern:
+                        \d{11}
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="email" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Email of contact
+                        person. Must be a valid email.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="importedTimeSchedule">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Time schedule for the
+                order. Defines the pickup and delivery dates.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="pickupDate" type="xs:date">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Pickup date in Chinese
+                        Standard Time.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="pickupDateRemarks" type="remarksType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Pickup date remarks.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="deliveryDate" type="xs:date">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Delivery date in
+                        Chinese Standard Time.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="deliveryDateRemarks" type="remarksType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Delivery date remarks.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="pickupTimeFrom" type="xs:time">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						PickupTimeFrom time in
+						Chinese Standard Time.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="pickupTimeTo" type="xs:time">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						PickupTimeTo time in
+						Chinese Standard Time.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="deliveryTimeFrom" type="xs:time">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						DeliveryTimeFrom time in
+						Chinese Standard Time.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="deliveryTimeTo" type="xs:time">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">
+						DeliveryTimeTo time in
+						Chinese Standard Time.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="importedOrderLine">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Contains the
+                cargo/product definition and its amounts in the order.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:choice minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The cargo/product
+                        definition may be referred in two ways:
+                        1) by externalId, a
+                        unique identifier of the cargo definition
+                        within company
+                        master
+                        data
+                        2) cargo/product definition is fully supplied here
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:element name="externalId" type="mediumString" />
+                <xs:element name="cargoDescription" type="importedCargoDescription" />
+            </xs:choice>
+            <xs:element minOccurs="0" name="quantity" type="quantityType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Number of
+                        cargo/product units.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="weight" type="weightType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Total weight of all
+                        units.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="volume" type="volumeType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Total volume of all
+                        units.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="insuranceValue" type="priceType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Total insurance value
+                        of all units.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="remarks" type="remarksType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        User remarks to the
+                        cargo/product line.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="customFields" type="importedCustomFields" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="importedCargoDescription">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Cargo description
+                provides the definition of the product/cargo.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="productCode" type="mediumString">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The product code.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="productName" type="addressLine">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The product name.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="unitType" type="unitType" />
+            <xs:element minOccurs="0" name="stackable" type="stackable" />
+            <xs:element minOccurs="0" name="unitLength" type="dimensionType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Unit length.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="unitWidth" type="dimensionType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Unit width.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="unitHeight" type="dimensionType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Unit height.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="unitWeight" type="weightType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The single unit
+                        weight.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="importedTruck">
+       <xs:annotation>
+           <xs:documentation xml:lang="en">
+               Defines the main
+               information of the truck details.
+           </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+       	    <xs:element minOccurs="0" name="driver" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                         Driver name of the truck.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+              <xs:element minOccurs="0" name="truckPlate" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                       The plate of the truck.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+              <xs:element minOccurs="0" name="phone" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                       Phone number of the truck driver.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="importedCargoDetails">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Defines the main
+                information of the shipping cargo.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="totalQuantity" type="quantityType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Defines the quantity
+                        of physical items to ship.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="totalWeight" type="weightType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Defines the total
+                        weight of the cargo.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="totalVolume" type="volumeType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Defines the total
+                        volume of the cargo.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="totalInsurance" type="priceType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Defines the total
+                        insurance amount of the cargo.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="cargoType" type="cargoType" />
+            <xs:element minOccurs="0" name="packageType" type="packageType" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="importedTransportMode">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Defines the transport
+                aspect for the order.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="transportType" type="transportType" />
+            <xs:element minOccurs="0" name="truckType" type="truckType" />
+            <xs:element minOccurs="0" name="transportRemarks" type="remarksType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        User defined remarks
+                        about the transport mode.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="loadingMeter" type="loadingMeterType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The number of loading
+                        meters.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="truckLength" type="truckLengthType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The truck length. If
+                        given, must be selected from predefined
+                        values. The truck lengths
+                        are
+                        configured per company. The oTMS defines the global set of
+                        supported truck
+                        lengths.
+                        If truck length cannot be matched within
+                        oTMS system - error code
+                        1006 is returned.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="truckCbmCapacity" type="truckCbmCapacityType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The truck CBM
+                        capacity. If given, must be selected from predefined
+                        values.
+                        Truck lengths
+                        define a subset of available CBM truck capacities.
+                        The oTMS defines
+                        the global set of truck lengths
+                        and their
+                        capacities (CBM and MT). If truck CBM capacity cannot be
+                        matched
+                        within oTMS system - error code 1006 is returned.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="truckMtCapacity" type="truckMtCapacityType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        The truck MT capacity.
+                        If given, must be selected from predefined
+                        values. Truck lengths
+                        define a subset of available MT truck capacities. The oTMS
+                        defines the
+                        global set of
+                        truck lengths and their capacities (CBM
+                        and MT). If truck MT capacity
+                        cannot be matched within oTMS
+                        system - error code 1007 is
+                        returned.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="importedRevenue">
+    	<xs:annotation>
+            <xs:documentation xml:lang="en">
+                Defines revenue for order.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="lineHaul" type="priceType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                    	Defines base rate of order.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="baseRateDescription" type="description">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                    	Base rate description.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="other" type="priceType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                    	Defines other fees of order.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="otherFeesDescription" type="description">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                    	Other fees description.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="importedTemperature">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Defines temperature threshold for order.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="minTemp" type="tempType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Defines the minimum temperature
+                         of the cargo.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="maxTemp" type="tempType">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Defines the maximum temperature
+                        of the cargo.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="orderImportResponse">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Response of order import
+                service. Contains global response code for import
+                operation and
+                list of
+                responses per incoming orders - in the same sequence as
+                orders arrived.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="responseCode" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Global response code.
+                        If not empty - indicates general error with the
+                        response:
+
+                        0 - service call not authorised
+                        1 - unsupported version
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" name="processedOrders" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        Number of processed orders.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="orders">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Contains the list of
+                        order responses in the same sequence as order came
+                        in the
+                        request.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="order" type="orderResponse" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="version" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation xml:lang="en">
+                    Returns back the
+                    response version.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="orderResponse">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                A response record for
+                order being imported.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="clientReferenceNumber" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Returns back the
+                        client reference number for the order.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="orderNumber" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Returns back the order
+                        number assigned by oTMS system for imported
+                        order.
+                        If order
+                        couldn't be imported. This may be empty in case of NOT
+                        IMPORTED
+                        status.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="importStatus" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Returns import status
+                        of the order. Three values possible:
+                        INBOX - an order was
+                        qualified as complete in terms of oTMS system
+                        DRAFT - an order
+                        has some missing information, thus it was
+                        qualified as DRAFT
+                        NOT
+                        IMPORTED - an order couldn't be imported at all
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <xs:element minOccurs="0" name="responseCodes">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Contains a list of
+                        response codes that describes more precisely the
+                        problems during
+                        the import of this order.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="responseCode" type="responseCode" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="sequence" type="xs:int" use="required">
+            <xs:annotation>
+                <xs:documentation xml:ns="en">
+                    This is the value of sequence that corresponds to incoming order entry.
+                    This way the order
+                    response can be matched with order to import.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+
+    </xs:complexType>
+    <xs:complexType name="responseCode">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="code" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Following response
+                        codes are enumerated:
+
+                        1000 Client short code not found for order – Order NOT IMPORTED
+                        1001 Invalid datatype in order fields – Order NOT IMPORTED
+                        1002 Reserved for future use
+                        1003 ShipFrom externalId not found
+                        1004 ShipTo externalId not found
+                        1005 Cargo/Product line externalId not found
+                        1006 Truck length mismatch
+                        1007 Truck MT capacity mismatch
+                        1008 Truck CBM capacity mismatch
+                        1009 Multiple ShipFrom externalId found
+                        1010 Multiple ShipTo externalId found
+                        1011 Multiple Cargo/Product line externalId found
+                        1012 No order revenue – this happens at SP perspective - order will be
+                        only a draft
+                        1013 ShipFrom oTMS zipcode cluster matched solely by town
+                        1014 ShipFrom oTMS zipcode cluster matched solely by full postcode
+                        1015 ShipFrom oTMS zipcode cluster unmatched
+                        1016 ShipFrom oTMS zipcode cluster matched by both full postcode and
+                        town
+                        1017 ShipTo oTMS zipcode cluster matched solely by town
+                        1018 ShipTo oTMS zipcode cluster matched solely by full postcode
+                        1019 ShipTo oTMS zipcode cluster unmatched
+                        1020 ShipTo oTMS zipcode cluster matched by both full postcode and
+                        town
+                        1021 No Cargo/Product line definition nor externalId, but
+                        quantities/weights/volumes set
+                        1022 External order number not unique
+
+                        1030 Custom fields disabled for company
+                        1031 Some custom field ignored - disabled in configuration
+                        1032 Missing value of required custom field
+                        1033 Enum value does not exist
+
+                        1040 Branch not found
+
+                        1100 Other failure
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="clientCode">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="8" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="addressLine">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="120" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="shortString">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="32" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="zipcodeType">
+        <xs:restriction base="xs:string">
+            <xs:length value="6" fixed="true" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="mediumString">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="description">
+    	<xs:restriction base="xs:string">
+    		<xs:maxLength value="64"/>
+    	</xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="remarksType">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="250" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="quantityType">
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="0" />
+            <xs:maxExclusive value="1000000000" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="priceType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0" />
+            <xs:maxExclusive value="10000000000" />
+            <xs:fractionDigits value="2" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="weightType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0" />
+            <xs:maxExclusive value="1000000000000" />
+            <xs:fractionDigits value="3" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="volumeType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0" />
+            <xs:maxExclusive value="10000000000" />
+            <xs:fractionDigits value="6" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="dimensionType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0" />
+            <xs:maxExclusive value="1000" />
+            <xs:fractionDigits value="2" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="truckLengthType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0" />
+            <xs:maxExclusive value="100" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="truckMtCapacityType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0" />
+            <xs:maxExclusive value="100" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="truckCbmCapacityType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0" />
+            <xs:maxExclusive value="100" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="loadingMeterType">
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="0" />
+            <xs:maxExclusive value="1000000000" />
+        </xs:restriction>
+    </xs:simpleType>
+       <xs:simpleType name="AutoProcessMode">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Specifying what operation should be 
+                automatically applied to an order 
+                after import if such operation
+                enabled.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Import only.
+                        No other operations.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Order should be 
+                        released after import.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Order should be 
+                        dispatched after import.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="AutoDispatchTariffSelectionMode">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                When auto dispatching, whether tariff
+                selection should base on price or
+                lead time. Will be ignored if auto
+                dispatch not enabled.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Tariff should be chosen by
+                        cheapest price.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Tariff should be chosen by
+                        shortest lead time
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="pickupDeliveryTime">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Pickup / delivery time
+                divides the civil day into time ranges. The
+                pickup or delivery must
+                hit
+                these ranges.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:int">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        whole day = 0:00 -
+                        23:59
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        business hours = 8:00
+                        - 18:00
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        morning = 6:00 - 12:00
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        afternoon = 12:00 -
+                        18:00
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        evening = 18:00 -
+                        23:59
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="6">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        night = 0:00 - 6:00
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="weekdays">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Describes the working
+                days within the week that ShipFrom/ShipTo operates.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:int">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Weekdays from Monday to Friday
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Weekdays from Monday to Saturday
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Weekdays from Monday to Sunday
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="unitType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Specifies the unit type
+                of cargo/product line.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:int">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        A palett.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        A box.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        A bag.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        A piece.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="stackable">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Defines if cargo/product
+                can be stacked and on how many layers.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:int">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Not stackable.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        2 layers.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        3 layers.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        4 layers.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        5 layers.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="6">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        6 layers.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="7">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        7 layers.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        8 layers.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="cargoType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Defines cargo type for
+                the order.
+                Cargo classification allows for common understanding
+                among oTMS users
+                about nature of transport orders exchange.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Ambient regular cargo.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Temperature controlled
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Dangerous goods,
+                        ambient, all classes
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Dangerous goods 
+                        and temperature controlled
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="packageType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Transport Unit (TU)
+                Class - oTMS classifies cargo outer package for
+                transport purposes
+                into 4 classes.
+                TU classification allows for common understanding
+                among oTMS users
+                about nature of transport orders exchange. In case
+                of order
+                contains different TU classes please highest one
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="A">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        A. Loose &amp;
+                        Stackable - stackable by hand on truck with no specific
+                        limitations - it means available truck capacity can be fully
+                        utilised and transport provider doesn't need special loading
+                        equipment.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="B">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        B. Stackable
+                        Pallets/Crates - stackable by forklift to maximum
+                        truck height -
+                        it means generally high truck utilisation, pallet
+                        double stacking
+                        is allowed &amp; possible. Transport provider need
+                        forklift to
+                        reload/unload cargo.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="C">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        C. Non-stackable
+                        Pallets/Crates/Odd Shapes - it means truck height
+                        cannot be fully
+                        utilised. It is recommended that for LTL tariffs
+                        with such cargo
+                        parties agree rates based on LDM (truck floor
+                        loading meters)
+                        instead of CBM/MT.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="D">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        D. FTL-only
+                        -Consolidation not allowed. In such order only FTL
+                        tariffs (pay
+                        by truck size) are found since shipper does not
+                        allow any
+                        consolidation irrespective of shipment size.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="transportType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Freight type.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FTL">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Full truckload
+                        freight.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="LTL">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Less than truckload
+                        shipping.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="AIR">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Airplane transport.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EXPRESS">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Express transport.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="RAIL">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Rail transport.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="truckType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Type of the truck.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:int">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Open truck.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Closed truck.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Any truck.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">
+                        Car Trailer. To set up truck capacity use MT capacity with one of the value: 1, 4, 6, 8, 10, 12, 14, 18, 21, 24. 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="importedCustomFields">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                Custom fields that company has defined.
+
+                It contains up to 10 text fields,
+                10 numerical fields,
+                10 enum fields.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="customText1" type="customTextType" />
+            <xs:element minOccurs="0" name="customText2" type="customTextType" />
+            <xs:element minOccurs="0" name="customText3" type="customTextType" />
+            <xs:element minOccurs="0" name="customText4" type="customTextType" />
+            <xs:element minOccurs="0" name="customText5" type="customTextType" />
+            <xs:element minOccurs="0" name="customText6" type="customTextType" />
+            <xs:element minOccurs="0" name="customText7" type="customTextType" />
+            <xs:element minOccurs="0" name="customText8" type="customTextType" />
+            <xs:element minOccurs="0" name="customText9" type="customTextType" />
+            <xs:element minOccurs="0" name="customText10" type="customTextType" />
+            <xs:element minOccurs="0" name="customNum1" type="customNumType" />
+            <xs:element minOccurs="0" name="customNum2" type="customNumType" />
+            <xs:element minOccurs="0" name="customNum3" type="customNumType" />
+            <xs:element minOccurs="0" name="customNum4" type="customNumType" />
+            <xs:element minOccurs="0" name="customNum5" type="customNumType" />
+            <xs:element minOccurs="0" name="customNum6" type="customNumType" />
+            <xs:element minOccurs="0" name="customNum7" type="customNumType" />
+            <xs:element minOccurs="0" name="customNum8" type="customNumType" />
+            <xs:element minOccurs="0" name="customNum9" type="customNumType" />
+            <xs:element minOccurs="0" name="customNum10" type="customNumType" />
+            <xs:element minOccurs="0" name="customEnum1" type="customEnumValue" />
+            <xs:element minOccurs="0" name="customEnum2" type="customEnumValue" />
+            <xs:element minOccurs="0" name="customEnum3" type="customEnumValue" />
+            <xs:element minOccurs="0" name="customEnum4" type="customEnumValue" />
+            <xs:element minOccurs="0" name="customEnum5" type="customEnumValue" />
+            <xs:element minOccurs="0" name="customEnum6" type="customEnumValue" />
+            <xs:element minOccurs="0" name="customEnum7" type="customEnumValue" />
+            <xs:element minOccurs="0" name="customEnum8" type="customEnumValue" />
+            <xs:element minOccurs="0" name="customEnum9" type="customEnumValue" />
+            <xs:element minOccurs="0" name="customEnum10" type="customEnumValue" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="customTextType">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="customEnumValue">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="64" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="customNumType">
+        <xs:restriction base="xs:decimal">
+            <xs:minExclusive value="-1000000000000" />
+            <xs:maxExclusive value="1000000000000" />
+            <xs:fractionDigits value="6" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="tempType">
+        <xs:restriction base="xs:decimal">
+            <xs:minExclusive value="-10000" />
+            <xs:maxExclusive value="10000" />
+            <xs:fractionDigits value="2" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

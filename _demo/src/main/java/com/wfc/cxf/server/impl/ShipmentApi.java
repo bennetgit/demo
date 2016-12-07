@@ -1,9 +1,15 @@
 package com.wfc.cxf.server.impl;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.cxf.message.Message;
+import org.apache.cxf.phase.PhaseInterceptorChain;
+import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +46,21 @@ public class ShipmentApi implements IShipmentApi {
 
     public Json getShipments() {
 
+    	/**cxf重定向
+    	 * 
+    	    Message message = PhaseInterceptorChain.getCurrentMessage();
+        	HttpServletResponse re = (HttpServletResponse) message
+         	.get(AbstractHTTPDestination.HTTP_RESPONSE);	
+        	try {
+				re.sendRedirect("http://localhost:8080/_demo/test");
+				return null;
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+    	 */
+    	
+    	
         List<ShipmentDTO> sDtos = shipmentService.loadShipments();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("shipments", sDtos);
@@ -105,5 +126,14 @@ public class ShipmentApi implements IShipmentApi {
 
         return json;
     }
+
+	@Override
+	public Json testShip() {
+		Json json = new ShipmentJson();
+
+		json.setFlag(false);
+		json.setMsg("fail , incoming parameter is null");
+		return json;
+	}
 
 }

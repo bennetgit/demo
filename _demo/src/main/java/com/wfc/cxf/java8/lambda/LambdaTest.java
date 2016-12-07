@@ -19,8 +19,8 @@ public class LambdaTest {
 		// e.printStackTrace();
 		// }
 
-		TTT ss = () -> System.out.print("hello lambda");
-		ss.say();
+//		TTT ss = () -> System.out.print("hello lambda");
+//		ss.say();
 	}
 
 	static class Invoice {

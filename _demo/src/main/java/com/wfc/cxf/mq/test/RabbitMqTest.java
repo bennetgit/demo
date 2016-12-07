@@ -1,17 +1,13 @@
 package com.wfc.cxf.mq.test;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import com.wfc.cxf.mq.EventTemplate;
 import com.wfc.cxf.mq.common.EventControlConfig;
 import com.wfc.cxf.mq.consumer.EventProcesser;
 import com.wfc.cxf.mq.core.DefaultEventController;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class RabbitMqTest {
@@ -25,7 +21,7 @@ public class RabbitMqTest {
 
     private EventTemplate eventTemplate;
 
-    @Before
+//    @Before
     public void init() throws IOException {
         EventControlConfig config = new EventControlConfig(defaultHost);
         controller = DefaultEventController.getInstance(config);
@@ -34,7 +30,7 @@ public class RabbitMqTest {
         controller.start();
     }
 
-    @Test
+//    @Test
     public void sendString() {
         eventTemplate.send(defaultQueue, defaultExchange, "hello world");
     }
@@ -45,7 +41,7 @@ public class RabbitMqTest {
         eventTemplate.send(defaultQueue, defaultExchange, mockObj());
     }
 
-    @Ignore
+//    @Ignore
     // @Test
     public void sendTemp() throws InterruptedException {
         String tempExchange = "EXCHANGE_DIRECT_TEST_TEMP";// 以前未声明的exchange

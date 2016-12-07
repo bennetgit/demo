@@ -36,5 +36,9 @@ public interface IShipmentApi {
     @PUT
     @Path("/update")
     public Json updateShipment(ShipmentDTO shipmentDto);
+    
+    @GET
+    @Path("/test")
+    Json testShip();
 
 }
