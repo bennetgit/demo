@@ -22,7 +22,7 @@ public class Send {
         Channel channel = connection.createChannel();
 
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-        String message = "Hello World";
+        String message = "Hello World, wang";
         channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
         System.out.print(" [x] sent '" + message + "'");
 
