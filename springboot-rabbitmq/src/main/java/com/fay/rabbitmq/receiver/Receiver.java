@@ -11,6 +11,6 @@ public class Receiver {
     @RabbitHandler
     public void process(String arg) {
         System.out.println();
-        System.out.println("receiver " + arg);
+        System.out.println("receivRer " + arg);
     }
 }

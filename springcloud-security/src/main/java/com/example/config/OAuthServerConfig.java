@@ -5,12 +5,14 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 
 @Configuration
-public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
+public class OAuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient("client").secret("secret").authorizedGrantTypes("authorization_code")
-                .scopes("app");
+        clients.inMemory()//
+                .withClient("123456").secret("123456")//
+                .authorizedGrantTypes("authorization_code")//
+                .scopes("read", "write", "自定义权限");
     }
 
 }

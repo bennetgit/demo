@@ -11,13 +11,11 @@
 
     <modules>
        	<module>springboot-mybatis</module>
-<<<<<<< HEAD
         <module>springboot-helloworld</module>
         <module>springboot-web</module>
-=======
         <module>../springboot-restful</module>
         <module>springboot-jdbc</module>
         <module>../springboot-rabbitmq</module>
-        >>>>>>> 6a073481312d9b9a3d0ecf61f5d37f7250f40b74
+        <module>../springboot-orderimport</module>
     </modules>
 </project>
