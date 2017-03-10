@@ -1,0 +1,52 @@
+/*bootstrap overwrite*/
+.fixed-table-container thead th .th-inner{
+    padding: 3px 8px;
+    line-height: 24px;
+    vertical-align: top;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.fixed-table-pagination div.pagination,
+.fixed-table-pagination .pagination-detail {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.panel-heading {
+    padding: 5px 5px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    font-size:13px;
+}
+.fixed-table-container .bs-checkbox .th-inner {
+    padding: 0px 0;
+}
+
+.table{
+ margin-bottom:0px;
+}
+
+.input-sms, .form-group-sms .form-control {
+    height: 25px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+/*customize*/
+.layout-btn-right{
+  float:right !important;
+}
+
+.layout-panel{
+  margin:0px;
+}
+
+label{
+ font-weight:normal;
+}

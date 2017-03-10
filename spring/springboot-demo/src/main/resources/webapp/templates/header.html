@@ -5,12 +5,15 @@
 <body>
 <header th:fragment="header">
 
-    <div>
-        <div>
-            <a href="#">HELLO WORLD</a>
+    <div class="layout-header">
+        <div class="layout-header-container">
+            <a class="layout-header-logo" href="#">HELLO WORLD</a>
             <ul class="layout-header-nav float-left">
                 <li><a href="/" target="_self">oTMS</a></li>
                 <li><a href="/script/list">脚本</a></li>
+            </ul>
+            <ul class="layout-header-nav float-right">
+                <li><a href="#">USER</a></li>
             </ul>
         </div>
     </div>

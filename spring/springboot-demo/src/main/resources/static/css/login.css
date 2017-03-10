@@ -1,0 +1,8 @@
+body,html{height:100%;}
+body{background-image:url(../img/blueish.jpg);background-position:center center;background-size:100% 100%;background-repeat:no-repeat;background-attachment:fixed;}
+.login-content{position:absolute;top:50%;left:50%;margin-top:-150px;margin-left:-250px;width:500px;height:300px;border:2px solid snow;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;background-color:#fff;}
+.login-title{height:30%;}
+.login-logo{margin-top:20px;margin-left:25px;}
+.login-body{height:65%;background-color:#f5f5f5;}
+.login-body-content{padding:10px 30px;}
+.login-alert{padding:5px;}
