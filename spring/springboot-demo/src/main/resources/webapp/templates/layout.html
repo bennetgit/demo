@@ -21,20 +21,19 @@
     <script th:src="@{/js/layout-otms.js}"></script>
 </head>
 <body>
-<header th:include="templates/header :: header"></header>
+<header th:include="../templates/header :: header"></header>
 <div class="layout-content">
     <div class="layout-content-left">
         <nav class="layout-menu">
-            <div class="layout-menu-title">oTMS</div>
-            <a href="/">HOME</a>
-            <a href="#">TEST1</a>
+            <div class="layout-menu-title">HELLO WORLD</div>
+            <a href="/users">USER</a>
         </nav>
     </div>
 
-<div class="layout-content-right">
-    <div layout:fragment="layout-content-title" class="layout-content-title"></div>
-    <div layout:fragment="layout-content-body"></div>
-</div>
+    <div class="layout-content-right">
+        <div layout:fragment="layout-content-title" class="layout-content-title"></div>
+        <div layout:fragment="layout-content-body"></div>
+    </div>
 </div>
 </body>
 </html>
