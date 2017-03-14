@@ -1,4 +1,4 @@
-package spring.demo.controller.response;
+package spring.demo.dto.response;
 
 import static spring.demo.constant.Constants.ResponseMsg.FAIL;
 import static spring.demo.constant.Constants.ResponseMsg.SUCCESS;
@@ -46,8 +46,8 @@ public class ResponseInfo<T> {
         this.body = body;
     }
 
-    public static ResponseInfo success() {
-        return new ResponseInfo(ResponseCode.OK, SUCCESS, null);
+    public static <T> ResponseInfo success(T data) {
+        return new ResponseInfo(ResponseCode.OK, SUCCESS, data);
     }
 
     public static ResponseInfo fail() {

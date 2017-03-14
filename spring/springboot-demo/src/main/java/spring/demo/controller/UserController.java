@@ -11,13 +11,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import spring.demo.controller.request.UserRequest;
-import spring.demo.controller.response.ResponseInfo;
+import spring.demo.dto.request.UserRequest;
+import spring.demo.dto.response.ResponseInfo;
 import spring.demo.dto.UserDto;
 import spring.demo.util.PageResult;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Controller
 @RequestMapping("/")
+@ApiIgnore
 public class UserController {
 
     @RequestMapping(value = "users", method = RequestMethod.GET)
@@ -41,7 +43,7 @@ public class UserController {
     @RequestMapping(value = "users", method = RequestMethod.POST)
     @ResponseBody
     public ResponseInfo<UserDto> createUser(@RequestBody UserRequest request) {
-        return ResponseInfo.success();
+        return ResponseInfo.success(null);
     }
 
 }

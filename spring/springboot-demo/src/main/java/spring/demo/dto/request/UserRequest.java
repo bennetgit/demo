@@ -1,4 +1,4 @@
-package spring.demo.controller.request;
+package spring.demo.dto.request;
 
 import org.joda.time.LocalDateTime;
 
