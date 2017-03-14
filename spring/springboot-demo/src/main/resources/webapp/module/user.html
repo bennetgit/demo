@@ -95,10 +95,11 @@
                         dataType: 'JSON',
                         success: function (data, status) {
                             if (status == "success") {
-                                alert('提交数据成功');
+                                showAlert('Update item successful!', 'success');
                             }
                         },
                         error: function () {
+                            showAlert('Update item error!', 'danger');
                             $table.bootstrapTable('updateCell', {
                                 index: $.getRowIndex(row),
                                 field: field,
@@ -131,7 +132,6 @@
         function showAlert(title, type) {
             $alert.attr('class', 'alert alert-' + type || 'success')
                 .html('<i class="glyphicon glyphicon-check"></i> ' + title).show();
-            $alert.show();
             setTimeout(function () {
                 $alert.hide();
             }, 3000);
