@@ -1,34 +1,72 @@
 // global variable
 var optionYesNo = [{key: "1", value: "是"}, {key: "0", value: "否"}];
 var staticSource = {loadImage: "/img/loading.gif"};
-var bootstrapPopoverTemplate = '<div style="min-width:200px;" class="popover" role="tooltip">'+
+var bootstrapPopoverTemplate = '<div style="min-width:200px;" class="popover" role="tooltip">' +
     '<div class="arrow"></div><h4 class="popover-title text-warning"></h4><div class="popover-content"></div></div>';
-$(document).ready(function() {
+$(document).ready(function () {
     // if support NProgress
-    if(typeof NProgress == "object"){
+    if (typeof NProgress == "object") {
         NProgress.start();
-        $(window).load(function() {
+        $(window).load(function () {
             NProgress.done();
         });
     }
+
+    var $table = $('#bootstrapTable'),
+        $remove = $('#remove');
+
+    $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
+        $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+    });
+    $remove.click(function () {
+        var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.id
+        });
+
+        $table.bootstrapTable('remove', {
+            field: 'id',
+            values: ids
+        });
+        $remove.prop('disabled', true);
+    });
 });
 
 (function ($) {
 
-    /** base on bootstarp **/
-    $.fn.bindPopover=function(options){
-      var defaults={animation:true,content:"content",title:"title",template:bootstrapPopoverTemplate,trigger:"manual"};
-      var opts = $.extend(defaults, options);
-      $(this).popover(opts);
+    $.getRowIndex = function (rowData) {
+        var allData = $table.bootstrapTable('getData');
+        var index = 0;
+        $.each(allData, function (i, n) {
+            if (rowData.id === n.id) {
+                index = i;
+            }
+            return;
+        });
+        return index;
     }
 
-    $.fn.showPopover=function(showTime){
+    /** base on bootstarp **/
+    $.fn.bindPopover = function (options) {
+        var defaults = {
+            animation: true,
+            content: "content",
+            title: "title",
+            template: bootstrapPopoverTemplate,
+            trigger: "manual"
+        };
+        var opts = $.extend(defaults, options);
+        $(this).popover(opts);
+    }
+
+    $.fn.showPopover = function (showTime) {
         var obj = this;
-        if(typeof showTime != "number"){
-          showTime=1000;
+        if (typeof showTime != "number") {
+            showTime = 1000;
         }
         $(obj).popover("show");
-        setTimeout(function(){ $(obj).popover("hide");},showTime)
+        setTimeout(function () {
+            $(obj).popover("hide");
+        }, showTime)
     }
 
     /** 自定义 select选项卡 插件 **/

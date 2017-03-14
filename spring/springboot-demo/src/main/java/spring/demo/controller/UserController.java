@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.demo.controller.request.UserRequest;
+import spring.demo.controller.response.ResponseInfo;
 import spring.demo.dto.UserDto;
 import spring.demo.util.PageResult;
 
@@ -35,6 +36,12 @@ public class UserController {
 
         return new PageResult<>(100l, users);
 
+    }
+
+    @RequestMapping(value = "users", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseInfo<UserDto> createUser(@RequestBody UserRequest request) {
+        return ResponseInfo.success();
     }
 
 }

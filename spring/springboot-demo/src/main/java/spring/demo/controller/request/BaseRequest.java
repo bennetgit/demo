@@ -19,6 +19,8 @@ public class BaseRequest implements Serializable {
 
     private String sortOrder;
 
+    private String searchText;
+
     @JsonDeserialize(using = JsonDateTimeDeserializer.class)
     private LocalDateTime requestTimeStart;
 
@@ -71,5 +73,13 @@ public class BaseRequest implements Serializable {
 
     public void setSortOrder(String sortOrder) {
         this.sortOrder = sortOrder;
+    }
+
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
     }
 }
