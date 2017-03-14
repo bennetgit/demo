@@ -9,7 +9,7 @@
         $(function () {
             $("#start").datetimepicker({format: 'Y-m-d H:i:s'});
             $("#end").datetimepicker({format: 'Y-m-d H:i:s'});
-        })
+        });
 
         function queryParams(params) {
             params = $.extend($("#queryFrom").mineSerializeObject(), params);
@@ -18,6 +18,10 @@
 
         function queryClick() {
             $("#bootstrapTable").bootstrapTable('refreshOptions', {pageNumber: 1});
+        }
+
+        function selectAll(){
+            alert("1212");
         }
     </script>
 </head>
@@ -60,7 +64,7 @@
            data-side-pagination="server"
            data-toolbar="#toolbar"
            data-pagination="true"
-           data-search="false"
+           data-search="true"
            data-show-refresh="true"
            data-show-toggle="true"
            data-show-columns="true"
@@ -70,6 +74,7 @@
            data-click-to-select="true">
         <thead>
         <tr>
+            <th data-width="50" data-checkbox="true" onselect="selectAll()"></th>
             <th data-field="id" data-visible="true" data-sortable="true" data-width="80">ID</th>
             <th data-field="userName" data-sortable="true" data-visible="true" data-width="100">用户名</th>
             <th data-field="createdOn" data-visible="true" data-switchable="true" data-sortable="true"

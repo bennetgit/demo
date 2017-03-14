@@ -28,18 +28,20 @@
 </head>
 <body>
 <header th:include="../templates/header :: header"></header>
-<div class="layout-content container-fluid">
-
-    <div class="col-sm-3 col-md-2 sidebar">
+<div class="container-fluid">
+    <div class="row">
+     <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Overview</a></li>
             <li><a href="/users">用户管理</a></li>
         </ul>
-    </div>
+     </div>
 
-    <div class="container-fluid">
+     <!--<div class="container-fluid">-->
+         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div layout:fragment="layout-content-title" class="layout-content-title"></div>
         <div layout:fragment="layout-content-body"></div>
+     </div>
     </div>
 </div>
 </body>
