@@ -8,6 +8,8 @@ public class Constants {
     public static final int DEFAULT_MAXIMUM_POOL_SIZE = 10;
     public static final int DEFAULT_KEEP_ALIVE_TIME = 100;
 
+    public static final String DEFAULT_CHAR_SET = "UTF-8";
+
     public static final String DEFAULT_EXECUTOR_NAME_PATTERN = "Performance_Test_%d";
 
     public static class ResponseMsg {
