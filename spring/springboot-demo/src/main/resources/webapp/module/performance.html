@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+        layout:decorator="../templates/layout">
+<head>
+    <title>性能测试</title>
+    <script>
+
+        var API_URL = '/test/start';
+        $(function () {
+            $('.combobox').combobox();
+        });
+
+        function queryClick() {
+            $.ajax({
+                    url: API_URL,
+                    type: 'post',
+                    contentType: 'application/json',
+                    data: JSON.stringify($('#queryFrom').find('input,select,textarea').mineSerializeObject()),
+                    success: function () {
+                        showAlert('Performance start successful!', 'success');
+                    },
+                    error: function () {
+                        showAlert('Performance tet error!', 'danger');
+                    }
+                });
+        }
+
+        function showAlert(title, type) {
+            $('.alert').attr('class', 'alert alert-' + type || 'success')
+                .html('<i class="glyphicon glyphicon-check"></i> ' + title).show();
+            setTimeout(function () {
+                $('.alert').hide();
+            }, 3000);
+        }
+
+
+    </script>
+</head>
+<body>
+<div layout:fragment="layout-content-title">性能测试</div>
+<div layout:fragment="layout-content-body">
+
+    <div class="panel panel-success layout-panel">
+        <div class="panel-heading">启动条件</div>
+        <div class="panel-body">
+            <form id="queryFrom" class="form-inline">
+                <fieldset>
+
+                    <div class='input-group'>
+                        <span>
+                        <input type="text" class="form-control input-sm" name="url"
+                               value="http://localhost:8080/ws/openapi/users"
+                               placeholder="地址：http:/localhost:8080/ws/openapi/users"/>&nbsp;地址
+                        </span>
+                        <br/><br/>
+                        <span>
+                        <input type="text" class="form-control input-sm" name="taskCount"
+                               value="20"
+                               placeholder="任务数"/>&nbsp;任务数
+                            </span>
+                        <br/><br/>
+                        <span>
+                        <input type="text" class="form-control input-sm" name="threadCount"
+                               value="10"
+                               placeholder="线程数"/>&nbsp;线程数
+                        </span>
+                        <br/><br/>
+                    </div>
+                    <div>
+                        <select name="method" class="form-control">
+                            <option value="POST">POST</option>
+                            <option value="GET">GET</option>
+                        </select>
+                    </div>
+                    <br/>
+                    请求参数
+                    <br/>
+                    <textarea  name="params" placeholder="params" class="form-control" rows="3"></textarea>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" class="btn btn-primary btn-sm layout-btn-center" onclick="queryClick();"
+                           value="启动"/>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
