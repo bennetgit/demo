@@ -8,6 +8,7 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import spring.demo.constant.Constants;
 import spring.demo.dto.request.PerformanceTestRequest;
@@ -30,9 +31,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 public class PerformanceTestServiceImpl implements IPerformanceTestService {
 
+    private static final Logger LOGGER = Logger.getLogger(PerformanceTestServiceImpl.class);
+
     @Override
     public void startTest(PerformanceTestRequest request) throws IOException {
 
+        LOGGER.info("start to performance test");
         AtomicInteger atomicInteger = new AtomicInteger(0);
 
         long start = System.currentTimeMillis();
@@ -55,9 +59,9 @@ public class PerformanceTestServiceImpl implements IPerformanceTestService {
 
             MyWebSocket.sendInfo("cost time " + (System.currentTimeMillis() - start) + "ms");
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (ExecutionException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
 
     }
@@ -78,7 +82,7 @@ public class PerformanceTestServiceImpl implements IPerformanceTestService {
             response = client.execute(httpUriRequest, context);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
 
         return response;

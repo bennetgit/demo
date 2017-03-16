@@ -1,6 +1,8 @@
 package spring.demo.websocket;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
+import spring.demo.service.impl.PerformanceTestServiceImpl;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -18,6 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ServerEndpoint("/websocket")
 @Component
 public class MyWebSocket {
+    private static final Logger LOGGER = Logger.getLogger(MyWebSocket.class);
     // 静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static AtomicInteger onlineCount = new AtomicInteger(0);
 
@@ -35,11 +38,11 @@ public class MyWebSocket {
         this.session = session;
         webSocketSet.add(this); // 加入set中
         addOnlineCount(); // 在线数加1
-        System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
+        LOGGER.info("有新连接加入！当前在线人数为" + getOnlineCount());
         try {
             sendMessage("test start");
         } catch (IOException e) {
-            System.out.println("IO异常");
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -50,7 +53,7 @@ public class MyWebSocket {
     public void onClose() {
         webSocketSet.remove(this); // 从set中删除
         subOnlineCount(); // 在线数减1
-        System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
+        LOGGER.info("有一连接关闭！当前在线人数为" + getOnlineCount());
     }
 
     /**
@@ -68,15 +71,14 @@ public class MyWebSocket {
             try {
                 item.sendMessage(message);
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
     }
 
     @OnError
     public void onError(Session session, Throwable error) {
-        System.out.println("发生错误");
-        error.printStackTrace();
+        LOGGER.info("发生错误", error);
     }
 
     public void sendMessage(String message) throws IOException {
