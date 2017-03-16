@@ -1,8 +1,9 @@
-package spring.demo.dao.impl;
+package spring.demo.jdbctemplate.impl;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import spring.demo.dao.IUserDao;
+import spring.demo.jdbctemplate.IUserDao;
 
 import javax.annotation.Resource;
 
@@ -13,6 +14,7 @@ import javax.annotation.Resource;
 public class UserDaoImpl implements IUserDao {
 
     @Resource
+    @Qualifier("primaryJdbcTemplate")
     private JdbcTemplate jdbcTemplate;
 
     @Override

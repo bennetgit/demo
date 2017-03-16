@@ -1,4 +1,4 @@
-package spring.demo.dao;
+package spring.demo.jdbctemplate;
 
 /**
  * Created by facheng on 16.03.17.

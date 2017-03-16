@@ -1,4 +1,4 @@
-package spring.demo.domain;
+package spring.demo.persistence.primary.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

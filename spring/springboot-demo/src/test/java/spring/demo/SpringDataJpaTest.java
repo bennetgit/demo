@@ -4,12 +4,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import spring.demo.dao.IUserRepository;
-import spring.demo.domain.DemoUser;
-
-import javax.annotation.Resource;
+import spring.demo.persistence.primary.jpa.IUserRepository;
+import spring.demo.persistence.primary.domain.DemoUser;
 
 /**
  * Created by facheng on 16.03.17.
@@ -19,7 +18,7 @@ import javax.annotation.Resource;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class SpringDataJpaTest {
 
-    @Resource
+    @Autowired
     private IUserRepository userRepository;
 
     @Before

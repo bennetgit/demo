@@ -1,7 +1,7 @@
 package spring.demo.service.impl;
 
 import org.springframework.stereotype.Service;
-import spring.demo.dao.IUserDao;
+import spring.demo.jdbctemplate.IUserDao;
 import spring.demo.service.IUserService;
 
 import javax.annotation.Resource;
