@@ -3,7 +3,7 @@ package spring.demo.dto.response;
 import static spring.demo.constant.Constants.ResponseMsg.FAIL;
 import static spring.demo.constant.Constants.ResponseMsg.SUCCESS;
 
-import spring.demo.ResponseCode;
+import spring.demo.enums.ResponseCode;
 
 public class ResponseInfo<T> {
 

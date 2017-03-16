@@ -1,4 +1,4 @@
-package spring.demo;
+package spring.demo.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
