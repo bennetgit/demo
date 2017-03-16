@@ -1,0 +1,33 @@
+# LOG4J配置
+log4j.rootCategory=INFO, stdout, file
+# 控制台输出
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n
+
+# root日志输出
+log4j.appender.file=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.file.file=/home/fcw/wfc/logs/all.log
+log4j.appender.file.DatePattern='.'yyyy-MM-dd
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n
+
+
+# spring.demo.controller包下的日志配置
+log4j.category.spring.demo.controller=DEBUG, controller
+# com.didispace下的日志输出
+log4j.appender.controller=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.controller.file=/home/fcw/wfc/logs/controller.log
+log4j.appender.controller.DatePattern='.'yyyy-MM-dd
+log4j.appender.controller.layout=org.apache.log4j.PatternLayout
+log4j.appender.controller.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L ---- %m%n
+
+
+log4j.logger.error=errorfile
+# error日志输出
+log4j.appender.errorfile=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.errorfile.file=/home/fcw/wfc/logs/error.log
+log4j.appender.errorfile.DatePattern='.'yyyy-MM-dd
+log4j.appender.errorfile.Threshold = ERROR
+log4j.appender.errorfile.layout=org.apache.log4j.PatternLayout
+log4j.appender.errorfile.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n

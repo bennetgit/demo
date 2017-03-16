@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import spring.demo.annotation.WebLog;
 import spring.demo.dto.PerformanceTestDto;
 import spring.demo.dto.request.PerformanceTestRequest;
 import spring.demo.dto.response.ResponseInfo;
@@ -22,6 +23,7 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/test")
 @ApiIgnore
+@WebLog
 public class PerformanceTestController {
 
     @Resource

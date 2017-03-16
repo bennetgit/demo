@@ -1,8 +1,8 @@
 package spring.demo.websocket;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import spring.demo.service.impl.PerformanceTestServiceImpl;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ServerEndpoint("/websocket")
 @Component
 public class MyWebSocket {
-    private static final Logger LOGGER = Logger.getLogger(MyWebSocket.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MyWebSocket.class);
     // 静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static AtomicInteger onlineCount = new AtomicInteger(0);
 

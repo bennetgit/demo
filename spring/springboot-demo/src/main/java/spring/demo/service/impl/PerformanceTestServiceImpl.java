@@ -8,7 +8,8 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import spring.demo.constant.Constants;
 import spring.demo.dto.request.PerformanceTestRequest;
@@ -31,7 +32,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 public class PerformanceTestServiceImpl implements IPerformanceTestService {
 
-    private static final Logger LOGGER = Logger.getLogger(PerformanceTestServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PerformanceTestServiceImpl.class);
 
     @Override
     public void startTest(PerformanceTestRequest request) throws IOException {
