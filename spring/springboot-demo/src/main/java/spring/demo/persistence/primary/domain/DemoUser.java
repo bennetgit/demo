@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * Created by facheng on 16.03.17.
@@ -15,8 +16,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "demo_user")
 @SequenceGenerator(name = "seq_demo_user", sequenceName = "seq_demo_user")
-public class DemoUser {
+public class DemoUser implements Serializable {
 
+    private static final long serialVersionUID = 2832544526842891863L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_demo_user")
     private Long id;

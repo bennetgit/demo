@@ -19,16 +19,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Swagger2 {
 
     private static final String TITLE = "API INFO";
+    // http://localhost:8080/swagger-ui.html to access swagger info
 
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("spring.demo"))
-                .paths(PathSelectors.any()).build();
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
+                .apis(RequestHandlerSelectors.basePackage("spring.demo.api")).paths(PathSelectors.any()).build();
     }
-
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title(TITLE).description("测试swagger2").build();

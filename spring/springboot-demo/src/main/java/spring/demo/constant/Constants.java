@@ -12,6 +12,8 @@ public class Constants {
 
     public static final String DEFAULT_EXECUTOR_NAME_PATTERN = "Performance_Test_%d";
 
+    public static final String DEFAULT_RABBIT_QUEUE_NAME = "spring.demo.rabbitmq";
+
     public static class ResponseMsg {
         public static final String SUCCESS = "success";
 

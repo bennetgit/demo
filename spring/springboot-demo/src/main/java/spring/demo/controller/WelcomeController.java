@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by facheng on 10.03.17.
  */
 @Controller
-public class HelloController {
+public class WelcomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap map) {
         map.addAttribute("host", "hello world");
-        return "index";
+        return "user";
     }
 }
