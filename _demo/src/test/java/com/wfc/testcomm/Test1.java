@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.joda.time.LocalDateTime;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -109,11 +110,16 @@ public class Test1 {
 
     @Test
     public void testModulo() {
-        int i = 10;
-        int[] arrs = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        for (int arr : arrs) {
-            System.out.println(arr % i);
-        }
+        String date_pattern = "yyyy-MM-DD HH:mm:ss.Szz";
+
+        LocalDateTime time = LocalDateTime.now();
+
+        System.out.println(time.equals(LocalDateTime.fromDateFields(time.toDate())));
+        // int i = 10;
+        // int[] arrs = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        // for (int arr : arrs) {
+        // System.out.println(arr % i);
+        // }
     }
 
     enum Test13 {

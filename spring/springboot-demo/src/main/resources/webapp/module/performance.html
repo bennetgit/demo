@@ -86,6 +86,7 @@
             websocket.send(message);
         }
 
+
     </script>
 </head>
 <body>
@@ -101,7 +102,7 @@
                     <div class='input-group'>
                         <span>
                         <input type="text" class="form-control input-sm" name="url"
-                               value="http://localhost:8088/ws/openapi/users/test"
+                               value="http://localhost:8088/ws/openapi/1.0/pair/delivery/orders"
                                placeholder="地址：http:/localhost:8080/ws/openapi/users"/>&nbsp;地址
                         </span>
                         <br/><br/>
@@ -129,10 +130,16 @@
                     <br/>
                     <textarea name="params" placeholder="params" class="form-control" rows="3">
                         {
-                                 "userAccount":"otms@com.cn",
-                                  "companyApiAccount":"j4U4DQzU",
-                                 "companyApiPassword":"******"
-                        }
+  "driverAccount": "12sdf3456789012345678901234",
+  "orders": [
+    {
+      "erpNumber": "erp1234"
+    },
+    {
+       "erpNumber": "erp1235"
+    }
+  ]
+}
                     </textarea>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="button" class="btn btn-primary btn-sm layout-btn-center" onclick="queryClick();"
