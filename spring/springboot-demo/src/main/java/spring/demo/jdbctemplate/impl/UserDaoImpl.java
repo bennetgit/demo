@@ -19,22 +19,22 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public void create(String name, Integer age) {
-        jdbcTemplate.update("insert into admin_user(name, age) values(?, ?)", name, age);
+        jdbcTemplate.update("insert into _user(name, age) values(?, ?)", name, age);
 
     }
 
     @Override
     public void deleteByName(String name) {
-        jdbcTemplate.update("delete from admin_user where name = ?", name);
+        jdbcTemplate.update("delete from _user where name = ?", name);
     }
 
     @Override
     public Long getAllUsers() {
-        return jdbcTemplate.queryForObject("select count(*) from admin_user", Long.class);
+        return jdbcTemplate.queryForObject("select count(*) from _user", Long.class);
     }
 
     @Override
     public void deleteAllUsers() {
-        jdbcTemplate.update("delete from admin_user");
+        jdbcTemplate.update("delete from _user");
     }
 }

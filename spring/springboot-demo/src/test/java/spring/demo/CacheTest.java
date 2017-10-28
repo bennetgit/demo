@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
 import org.springframework.test.context.junit4.SpringRunner;
-import spring.demo.persistence.primary.domain.DemoUser;
+import spring.demo.persistence.primary.domain.User;
 import spring.demo.persistence.primary.jpa.IUserRepository;
 
 import javax.annotation.Resource;
@@ -29,9 +29,9 @@ public class CacheTest {
 
     @Test
     public void testCache() {
-        DemoUser u1 = userRepository.findByName("a");
+        User u1 = userRepository.findByUsername("a");
         LOGGER.info("第一次查询");
-        DemoUser u2 = userRepository.findByName("a");
+        User u2 = userRepository.findByUsername("a");
         LOGGER.info("第二次查询");
     }
 }

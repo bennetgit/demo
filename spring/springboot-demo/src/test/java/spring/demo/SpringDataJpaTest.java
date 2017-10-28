@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import spring.demo.persistence.primary.jpa.IUserRepository;
-import spring.demo.persistence.primary.domain.DemoUser;
+import spring.demo.persistence.primary.domain.User;
 
 /**
  * Created by facheng on 16.03.17.
@@ -28,11 +28,11 @@ public class SpringDataJpaTest {
 
     @Test
     public void testSpringDataJpa() {
-        userRepository.save(new DemoUser("a", 1));
-        userRepository.save(new DemoUser("b", 2));
-        userRepository.save(new DemoUser("c", 3));
-        userRepository.save(new DemoUser("d", 4));
-        userRepository.save(new DemoUser("e", 5));
+        userRepository.save(new User("a", 1));
+        userRepository.save(new User("b", 2));
+        userRepository.save(new User("c", 3));
+        userRepository.save(new User("d", 4));
+        userRepository.save(new User("e", 5));
 
         Assert.assertEquals(5, userRepository.count());
 
