@@ -9,7 +9,7 @@ import static spring.demo.constant.Constants.DEFAULT_RABBIT_QUEUE_NAME;
 /**
  * Created by facheng on 17.03.17.
  */
-@Configuration
+//@Configuration
 public class RabbitConfig {
 
     @Bean

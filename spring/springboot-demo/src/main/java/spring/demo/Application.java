@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 @SpringBootApplication
-@EnableWebSocket
+//@EnableWebSocket
 @EnableScheduling
 //@EnableWebSecurity
 @EnableCaching

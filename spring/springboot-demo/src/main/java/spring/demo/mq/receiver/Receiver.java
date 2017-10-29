@@ -12,12 +12,12 @@ import static spring.demo.constant.Constants.DEFAULT_RABBIT_QUEUE_NAME;
  * Created by facheng on 17.03.17.
  */
 @Component
-@RabbitListener(queues = DEFAULT_RABBIT_QUEUE_NAME)
+//@RabbitListener(queues = DEFAULT_RABBIT_QUEUE_NAME)
 public class Receiver {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
 
-    @RabbitHandler
+//    @RabbitHandler
     public void process(String say) {
         LOGGER.info("what this? {}", say);
     }

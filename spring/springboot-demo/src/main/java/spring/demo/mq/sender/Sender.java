@@ -17,7 +17,7 @@ public class Sender {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Sender.class);
 
-    @Resource
+//    @Resource
     private AmqpTemplate rabbitTemplate;
 
     public void send() {
