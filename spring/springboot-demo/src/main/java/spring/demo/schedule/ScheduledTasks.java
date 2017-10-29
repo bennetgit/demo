@@ -18,7 +18,7 @@ public class ScheduledTasks {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.FULL_DATE_PATTERN);
 
-    @Scheduled(cron = "0/10 * * * * *")
+//    @Scheduled(cron = "0/10 * * * * *")
     public void execute() {
         LOGGER.info("当前时间：" + dateFormat.format(new Date()));
     }

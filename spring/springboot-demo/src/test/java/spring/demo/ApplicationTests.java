@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import spring.demo.controller.WelcomeController;
+import spring.demo.controller.IndexController;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -20,7 +20,7 @@ public class ApplicationTests {
 
     @Before
     public void doBefore() {
-        mockMvc = MockMvcBuilders.standaloneSetup(new WelcomeController()).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(new IndexController()).build();
     }
 
     @Test

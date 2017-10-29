@@ -8,12 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by feng on 17/10/28.
@@ -31,7 +33,7 @@ public class Menu {
     @Column
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id")
     private Menu parent;
 
@@ -40,6 +42,9 @@ public class Menu {
 
     @Column
     private Integer sequence = 0;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
+    private List<Menu> children;
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
@@ -99,5 +104,13 @@ public class Menu {
 
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    public List<Menu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Menu> children) {
+        this.children = children;
     }
 }
