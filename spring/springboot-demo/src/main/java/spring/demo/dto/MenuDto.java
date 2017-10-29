@@ -16,6 +16,10 @@ public class MenuDto implements Serializable {
 
     private String name;
 
+    private String parentName;
+
+    private Long pid;
+
     private List<MenuDto> subMenus = new ArrayList<>();
 
     public Long getId() {
@@ -54,10 +58,28 @@ public class MenuDto implements Serializable {
         this.subMenus.add(subMenu);
     }
 
-    public static final MenuDto of(String name, String url) {
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    public Long getPid() {
+        return pid;
+    }
+
+    public void setPid(Long pid) {
+        this.pid = pid;
+    }
+
+    public static final MenuDto of(String name, String url, String pName, Long pid) {
         MenuDto menu = new MenuDto();
         menu.setName(name);
         menu.setUrl(url);
+        menu.setParentName(pName);
+        menu.setPid(pid);
         return menu;
     }
 }

@@ -33,11 +33,11 @@ public class IndexController {
         List<MenuDto> menus = new ArrayList<MenuDto>() {
             {
 
-                MenuDto level1_sys = MenuDto.of("系统管理", "system");
-                MenuDto level1_other = MenuDto.of("其他管理", "other");
-                MenuDto level2_user = MenuDto.of("用户管理", "user");
-                MenuDto level2_menu = MenuDto.of("菜单管理", "menu.list");
-                MenuDto level2_other = MenuDto.of("菜单管理_2", "other.2");
+                MenuDto level1_sys = MenuDto.of("系统管理", "system", null, null);
+                MenuDto level1_other = MenuDto.of("其他管理", "other", null, null);
+                MenuDto level2_user = MenuDto.of("用户管理", "user", null, null);
+                MenuDto level2_menu = MenuDto.of("菜单管理", "menu.list", null, null);
+                MenuDto level2_other = MenuDto.of("菜单管理_2", "other.2", null, null);
 
                 level1_sys.addSubMenu(level2_menu);
                 level1_sys.addSubMenu(level2_user);

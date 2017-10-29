@@ -1,5 +1,8 @@
 package spring.demo.persistence.primary.domain;
 
+import com.google.common.base.Strings;
+import spring.demo.util.StringUtils;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,6 +35,9 @@ public class Menu {
 
     @Column
     private String name;
+
+    @Column(insertable = false, updatable = false)
+    private Long parentId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id")
@@ -112,5 +118,17 @@ public class Menu {
 
     public void setChildren(List<Menu> children) {
         this.children = children;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public String parentName() {
+        return getParent() != null ? getParent().getName() : StringUtils.EMPTY;
     }
 }
