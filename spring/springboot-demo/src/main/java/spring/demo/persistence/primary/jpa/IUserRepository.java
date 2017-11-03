@@ -23,6 +23,6 @@ public interface IUserRepository extends JpaRepository<User, Long> {
     @Query("from User u where u.username = :name")
     User findUser(@Param("name") String name);
 
-    @Cacheable(key = "#p0.username")
+//    @Cacheable(key = "#p0.username")
     User save(User user);
 }

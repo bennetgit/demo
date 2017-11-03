@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 @SpringBootApplication
-@EnableWebSocket
+//@EnableWebSocket
 @EnableScheduling
 @EnableWebSecurity
 @EnableCaching

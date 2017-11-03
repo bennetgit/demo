@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,8 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,29 +25,23 @@ import javax.persistence.TemporalType;
  */
 
 @Entity
-@Table(name = "_menu")
-@SequenceGenerator(name = "seq_menu", sequenceName = "seq_menu")
-public class Menu {
+@Table(name = "_role")
+@SequenceGenerator(name = "seq_role", sequenceName = "seq_role")
+public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_menu")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_role")
     private Long id;
 
     @Column
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
-    private Menu parent;
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users = new ArrayList<>();
 
-    @Column
-    private String url;
-
-    @Column
-    private Integer sequence = 0;
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "menus")
-    private List<Role> roles = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "role_menu", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "menu_id"))
+    private List<Menu> menus = new ArrayList<>();
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
@@ -68,30 +63,6 @@ public class Menu {
         this.name = name;
     }
 
-    public Menu getParent() {
-        return parent;
-    }
-
-    public void setParent(Menu parent) {
-        this.parent = parent;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public Integer getSequence() {
-        return sequence;
-    }
-
-    public void setSequence(Integer sequence) {
-        this.sequence = sequence;
-    }
-
     public Date getCreatedOn() {
         return createdOn;
     }
@@ -108,11 +79,19 @@ public class Menu {
         this.updatedOn = updatedOn;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
     }
 }

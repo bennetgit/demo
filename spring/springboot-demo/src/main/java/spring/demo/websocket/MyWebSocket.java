@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by facheng on 15.03.17.
  */
-@ServerEndpoint("/websocket")
+//@ServerEndpoint("/websocket")
 @Component
 public class MyWebSocket {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyWebSocket.class);

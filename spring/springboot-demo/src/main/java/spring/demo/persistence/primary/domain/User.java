@@ -1,17 +1,30 @@
 package spring.demo.persistence.primary.domain;
 
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.io.Serializable;
-import java.time.Instant;
-import java.util.Date;
+
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+
+import spring.demo.enums.SexType;
 
 /**
  * Created by facheng on 16.03.17.
@@ -37,7 +50,13 @@ public class User implements Serializable {
     private Integer age;
 
     @Column
-    private Integer sex;
+    @Type(type = "spring.demo.enums.DBEnumType", parameters = {
+            @Parameter(name = "enumClass", value = "spring.demo.enums.SexType") })
+    private SexType sex;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
@@ -59,30 +78,6 @@ public class User implements Serializable {
         return id;
     }
 
-    public String getUserName() {
-        return username;
-    }
-
-    public void setUserName(String name) {
-        this.username = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Integer getSex() {
-        return sex;
-    }
-
-    public void setSex(Integer sex) {
-        this.sex = sex;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -97,6 +92,30 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public SexType getSex() {
+        return sex;
+    }
+
+    public void setSex(SexType sex) {
+        this.sex = sex;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public Date getCreatedOn() {
