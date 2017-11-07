@@ -1,4 +1,4 @@
-package spring.demo.security;
+package spring.demo.security.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -12,5 +12,9 @@ public class Authority implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 }

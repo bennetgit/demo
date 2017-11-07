@@ -1,4 +1,4 @@
-package spring.demo.security;
+package spring.demo.security.service;
 
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;

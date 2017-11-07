@@ -53,6 +53,6 @@
     </beans:bean>
 
     <!--自定义UserDeatilsService-->
-    <beans:bean id="userDetailsService" class="spring.demo.security.MyUserDetailsService"/>
-    <beans:bean id="passwordEncoder" class="spring.demo.security.AuthPasswordEncoder"/>
+    <beans:bean id="userDetailsService" class="spring.demo.security.service.MyUserDetailsService"/>
+    <beans:bean id="passwordEncoder" class="spring.demo.security.entity.AuthPasswordEncoder"/>
 </beans:beans>

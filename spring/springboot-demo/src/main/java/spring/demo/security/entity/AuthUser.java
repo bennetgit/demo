@@ -1,10 +1,13 @@
-package spring.demo.security;
+package spring.demo.security.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import spring.demo.dto.MenuDto;
 
 /**
  * Created by wangfacheng on 2017-11-07.
@@ -19,15 +22,18 @@ public class AuthUser implements UserDetails {
 
     private boolean enable;
 
+    private List<MenuDto> menus = new ArrayList<>();
+
     private Collection<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
 
-    AuthUser(Long id, String username, String password, boolean enable,
-            Collection<GrantedAuthority> grantedAuthorityList) {
+    AuthUser(Long id, String username, String password, boolean enable, List<MenuDto> menus,
+             Collection<GrantedAuthority> grantedAuthorityList) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.enable = enable;
         this.grantedAuthorityList = grantedAuthorityList;
+        this.menus = menus;
     }
 
     @Override
@@ -65,8 +71,16 @@ public class AuthUser implements UserDetails {
         return enable;
     }
 
-    public static final AuthUser of(Long id, String username, String password, boolean enable,
-            Collection<GrantedAuthority> grantedAuthorityList) {
-        return new AuthUser(id, username, password, enable, grantedAuthorityList);
+    public List<MenuDto> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<MenuDto> menus) {
+        this.menus = menus;
+    }
+
+    public static final AuthUser of(Long id, String username, String password, boolean enable, List<MenuDto> menus,
+                                    Authority... grantedAuthorityList) {
+        return new AuthUser(id, username, password, enable, menus, Arrays.asList(grantedAuthorityList));
     }
 }

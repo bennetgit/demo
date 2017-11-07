@@ -1,4 +1,4 @@
-package spring.demo.security;
+package spring.demo.security.service;
 
 import java.util.Collection;
 import java.util.Iterator;

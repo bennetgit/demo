@@ -1,4 +1,4 @@
-package spring.demo.config;
+package spring.demo.security.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,6 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/js/**", "/css/**", "/plugins/**").permitAll().anyRequest()
                 .fullyAuthenticated().and().formLogin().loginPage("/login").failureUrl("/login?error").permitAll().and()
                 .logout().permitAll();
+
         http.csrf().disable();
     }
 

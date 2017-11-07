@@ -17,6 +17,8 @@ public class UserDto implements Serializable {
 
     private String userName;
 
+    private String password;
+
     @JsonSerialize(using = JsonDateTimeSerializer.class)
     private LocalDateTime createdOn;
 
@@ -75,6 +77,14 @@ public class UserDto implements Serializable {
 
     public void setMenus(List<MenuDto> menus) {
         this.menus = menus;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<RoleDto> getRoles() {

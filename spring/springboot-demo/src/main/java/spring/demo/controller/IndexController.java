@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import spring.demo.dto.MenuDto;
 import spring.demo.dto.response.ResponseInfo;
-import spring.demo.security.AuthUser;
+import spring.demo.security.entity.AuthUser;
 
 /**
  * Created by facheng on 10.03.17.
@@ -32,7 +32,7 @@ public class IndexController {
             return ResponseInfo.fail();
         }
 
-        return ResponseInfo.success(authUser.getAuthorities());
+        return ResponseInfo.success(authUser.getMenus());
     }
 
 }
