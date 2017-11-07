@@ -1,7 +1,9 @@
 package spring.demo.persistence.primary.domain;
 
-import com.google.common.base.Strings;
-import spring.demo.util.StringUtils;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,15 +12,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.time.Instant;
-import java.util.Date;
-import java.util.List;
+
+import spring.demo.util.StringUtils;
 
 /**
  * Created by feng on 17/10/28.
@@ -27,6 +29,7 @@ import java.util.List;
 @Entity
 @Table(name = "_menu")
 @SequenceGenerator(name = "seq_menu", sequenceName = "seq_menu")
+
 public class Menu {
 
     @Id
@@ -51,6 +54,9 @@ public class Menu {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private List<Menu> children;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "menus")
+    private List<Role> roles = new ArrayList<>();
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
@@ -130,5 +136,13 @@ public class Menu {
 
     public String parentName() {
         return getParent() != null ? getParent().getName() : StringUtils.EMPTY;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

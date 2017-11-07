@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$!ResourcesHelper.info($request.getRequestURI())[1]</title>
+    #include("common/meta.vm")
+    #include("common/css.vm")
+</head>
+<body>
+    <div class="page-container">
+        <form action="javascript:;" src="/role/add.json" method="post" class="form form-horizontal" id="add-frm">
+            <div class="row cl">
+                <label class="form-label col-xs-3"><span class="c-red">*</span>角色名：</label>
+                <div class="formControls col-xs-8">
+                    <input type="text" class="input-text" value="" placeholder="角色名" id="name" name="name">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3"><span class="c-red">*</span>角色备注：</label>
+                <div class="formControls col-xs-8">
+                    <input type="text" class="input-text" value="" placeholder="角色备注" id="nameRemark" name="nameRemark">
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
+            </div>
+        </form>
+    </div>
+    #parse("common/js.vm")
+    #parse("common/form-js.vm")
+    <script type="text/javascript">
+        $(function(){
+            $("#add-frm").validate({
+                rules:{
+                    name:{
+                        required:true
+                    },
+                    nameRemark:{
+                        required:true,
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    role.operate.add(form);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

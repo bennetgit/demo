@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hong610.mapper.UserMapper">
+    <!-- 开启缓存 -->
+    <!-- <cache type="com.hong610.redis.LoggingRedisCache" /> -->
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, nick, user_name, user_pwd, admin, register_time, modified_time, status, is_delete
+    </sql>
+
+    <select id="findAdmin" resultType="UserAdmin">
+        select id, nick, user_name, user_pwd, admin, register_time, modified_time, status, is_delete,(select
+        group_concat(role.name_remark) from sys_role inner join user_role on role.id = user_role.role_id where user_id =
+        user.id and role.is_delete = 0 and user_role.is_delete = 0 group by user_id) as roleName from sys_user where
+        user.admin = #{admin} and user.is_delete = 0
+        <if test="nick != null and nick != ''">
+            and nick like '%${nick}%'
+        </if>
+    </select>
+</mapper>

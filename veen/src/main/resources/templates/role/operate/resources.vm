@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$!ResourcesHelper.info($request.getRequestURI())[1]</title>
+    #include("common/meta.vm")
+    #include("common/css.vm")
+    <style>
+        .fold { cursor: pointer;}
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <form action="javascript:;" src="/role/resources.json" method="post" class="form form-horizontal" id="resources-frm">
+            <input type="hidden" name="roleId" value="$!id" />
+            <div class="row cl">
+                <label class="form-label col-xs-3"><span class="c-red">*</span>全部资源：</label>
+                <div class="formControls col-xs-8">
+                    #foreach($menu in $!topMenu)
+                        <dl class="permission-list">
+                            #foreach($menu1 in $!oneMenu)
+                                #set($index01 = $velocityCount)
+                                #if($!menu.id == $!menu1.parentId)
+                                    <dt>
+                                        <label>
+                                            <input type="checkbox" value="$!menu1.id" name="ids" id="user-Character-${index01}" #if($!ResourcesHelper.isResources($!roleResources, $!menu1.url) == true) checked="checked" #end>
+                                            $!menu1.name
+                                        </label>
+                                        <i class="Hui-iconfont menu_dropdown-arrow r fold">&#xe6d6;</i>
+                                    </dt>
+                                    <dd>
+                                    #foreach($menu2 in $!twoMenu)
+                                        #set($index02 = $velocityCount)
+                                        #if($!menu1.id == $!menu2.parentId)
+                                        <dl class="cl permission-list2">
+                                            <dt>
+                                                <label class="">
+                                                    <input type="checkbox" value="$!menu2.id"" name="ids" id="user-Character-${index01}-${index02}" #if($!ResourcesHelper.isResources($!roleResources, $!menu2.url) == true) checked="checked" #end>
+                                                    $!menu2.name
+                                                </label>
+                                            </dt>
+                                            <dd>
+                                            #foreach($link in $!links)
+                                                #set($index03 = $velocityCount)
+                                                #if($!menu2.id == $!link.parentId)
+                                                <label class="">
+                                                    <input type="checkbox" value="$!link.id" name="ids" id="user-Character-${index01}-${index02}-${index03}" #if($!ResourcesHelper.isResources($!roleResources, $!link.url) == true) checked="checked" #end>
+                                                    $!link.name
+                                                </label>
+                                                #end
+                                            #end
+                                            </dd>
+                                        </dl>
+                                        #end
+                                    #end
+                                    </dd>
+                                #end
+                        </dl>
+                        #end
+                    #end
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
+            </div>
+        </form>
+    </div>
+    #parse("common/js.vm")
+    #parse("common/form-js.vm")
+    <script type="text/javascript">
+        $(function(){
+            $("#resources-frm").validate({
+                rules:{
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    role.operate.resources(form);
+                }
+            });
+            $(".permission-list dt input:checkbox").click(function(){
+                $(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
+            });
+            $(".permission-list2 dd input:checkbox").click(function(){
+                var l =$(this).parent().parent().find("input:checked").length;
+                var l2=$(this).parents(".permission-list").find(".permission-list2 dd").find("input:checked").length;
+                if($(this).prop("checked")){
+                    $(this).closest("dl").find("dt input:checkbox").prop("checked",true);
+                    $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",true);
+                }
+                else{
+                    if(l==0){
+                        $(this).closest("dl").find("dt input:checkbox").prop("checked",false);
+                    }
+                    if(l2==0){
+                        $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",false);
+                    }
+                }
+            });
+            $(".fold").click(function(){
+                $(".fold").removeClass("selected");
+                $(".fold").parent().next("dd").slideUp(100);
+
+                $(this).addClass("selected");
+                $(this).parent().next("dd").slideDown(100);
+
+                $(".fold").each(function(){
+                    if($(this).attr("class").indexOf("selected") != -1){
+                        $(this).html("&#xe6d6;");
+                    }else{
+                        $(this).html("&#xe6d5;");
+                    }
+                })
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<script type="text/javascript" src="/assets/js/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery/jquery-extend.js"></script>
+    <script type="text/javascript" src="/assets/js/H-ui.js"></script>
+    <script type="text/javascript" src="/assets/lib/layer/3.0.1/layer.js"></script>
+    <script type="text/javascript" src="/assets/js/pager.js"></script>
+    <script type="text/javascript" src="/assets/js/H-ui.admin.js"></script>
+    <script type="text/javascript" src="/assets/js/app.js?timestrmp=$Date.getSystemTime()" charset="utf-8"></script>

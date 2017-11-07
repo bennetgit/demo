@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$!ResourcesHelper.info($request.getRequestURI())[1]</title>
+    #include("common/meta.vm")
+    #include("common/css.vm")
+    <style>
+        .line-right { border-right: 1px dashed #ddd;}
+        .aside { height: 100%; overflow-y: auto; overflow-x: hidden;}/*侧边栏*/
+        .aside a { text-decoration: none; color: #6a6a6a; cursor: default;}
+        .aside dt {color:#333; line-height: 30px; cursor: default; padding-right: 10px;}
+        .aside dt:hover { background-color:#eee; }
+        .aside dd { }
+        .aside li {padding-left: 20px; line-height: 24px;}
+        .aside li:hover { background-color: #eee;}
+        .aside .active { background-color:#eee; }
+        .aside .title { font-size: 16px; margin: 0px; padding: 5px 0px;}
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <table class="table table-border table-bordered table-bg mt-20">
+            <thead>
+                <tr>
+                    <th colspan="2" scope="col">资源信息</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="30%">资源名字</td>
+                    <td><i class="Hui-iconfont">$!resources.icon</i> $!resources.name</td>
+                </tr>
+                <tr>
+                    <td>权限名字</td>
+                    <td>$!resources.authority</td>
+                </tr>
+                <tr>
+                    <td>权限路径</td>
+                    <td>$!resources.url</td>
+                </tr>
+                <tr>
+                    <td>资源类型</td>
+                    <td>
+                        #foreach($t in $!type)
+                            #if($t.value == $!resources.type)
+                            $!t.text
+                            #end
+                        #end
+                    </td>
+                </tr>
+                <tr>
+                    <td>所属父级</td>
+                    <td>$!parentResources.name</td>
+                </tr>
+                <tr>
+                    <td>排序</td>
+                    <td>$!resources.sort</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    #parse("common/js.vm")
+</body>
+</html>

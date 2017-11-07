@@ -1,0 +1,9 @@
+/**
+ * 样式必须是.menu父级
+ * 标题的样式名是title
+ */
+.menu { width:200px; border: 1px solid #DDDDDD; position: absolute; display: none; background: #EEEEEE; z-index: 9999; border-radius: 5px; padding: 5px 0px; }
+.menu .title { font-size: 16px; line-height: 20px; padding: 0px 10px 5px 10px; border-bottom: 1px solid #CCCCCC;}
+.menu li { padding: 0px 10px;}
+.menu li:hover { background-color: #DDDDDD; cursor: pointer;}
+.menu li a { text-decoration: none; color: #555555; }

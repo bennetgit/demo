@@ -1,0 +1,2 @@
+JAVA_OPTS="$JAVA_OPTS -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=7880"
+java  -Dappliction=SpringSecurity $JAVA_OPTS  -Djava.ext.dirs="./lib:${JAVA_HOME}/jre/lib/ext"  com.hong610.Application

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$!ResourcesHelper.info($request.getRequestURI())[1]</title>
+    #include("common/meta.vm")
+    #include("common/css.vm")
+</head>
+<body>
+    <div class="page-container">
+        <form action="javascript:;" src="/account/edit.json" method="post" class="form form-horizontal" id="edit-frm">
+            <input type="hidden" name="id" value="$!user.id" />
+            <div class="row cl">
+                <label class="form-label col-xs-3"><span class="c-red">*</span>昵称：</label>
+                <div class="formControls col-xs-8">
+                    <input type="text" class="input-text" value="$!user.nick" placeholder="昵称" id="nick" name="nick">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3">角色管理：</label>
+                <div class="formControls col-xs-8">
+                    <div class="panel panel-default">
+                        <div class="panel-header">我的角色</div>
+                        <div class="panel-body">
+                            <ul>
+                            #foreach($item in $roles)
+                                #set($flag = false)
+                                #foreach($myItem in $myRole)
+                                    #if($item.id == $myItem.id)
+                                        #set($flag = true)
+                                    #end
+                                #end
+                                <li>
+                                    <input type="checkbox" id="checkbox-$item.id" value="$item.id" name="roleIds" #if($flag)checked="checked"#end />
+                                    <label for="checkbox-$item.id">$item.nameRemark</label>
+                                </li>
+                            #end
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
+            </div>
+        </form>
+    </div>
+    #parse("common/js.vm")
+    #parse("common/form-js.vm")
+    <script type="text/javascript">
+        $(function(){
+            $("#edit-frm").validate({
+                rules:{
+                    nick:{
+                        required:true,
+                        minlength:2,
+                        maxlength:12
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    account.operate.edit(form);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    #include("common/meta.vm")
+    #include("common/css.vm")
+</head>
+<body>
+    <div class="page-container">
+        <p class="f-20 text-success">欢迎使用 Spring Security for SpringBoot<span class="f-14"> 1.0.0</span></p>
+        <p>登录次数：$!Login.loginCount </p>
+        <p>上次登录IP：$!Login.ipAddress  上次登录时间：$!Date.format("yyyy-MM-dd HH:mm:ss", $!Login.loginTime)</p>
+    </div>
+    #parse("common/js.vm")
+    <script type="text/javascript">
+
+    </script>
+</body>
+</html>

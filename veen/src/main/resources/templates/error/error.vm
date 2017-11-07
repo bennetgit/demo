@@ -1,0 +1,20 @@
+#if($request.getHeader("X-Requested-With") == "XMLHttpRequest")
+$response.setHeader("Content-Type","applicaiton/json")
+$!err
+#else
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Title</title>
+    <meta charset="UTF-8">
+    #include("common/meta.vm")
+    #include("common/css.vm")
+</head>
+<body>
+    <div class="page-container">
+        <h1>$StringUtils.getErrorMessage($!err)</h1>
+    </div>
+    #include("common/js.vm")
+</body>
+</html>
+#end

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hong610.mapper.RoleMapper">
+	<!-- 开启缓存 -->
+	<!-- <cache type="com.hong610.redis.LoggingRedisCache" /> -->
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, name, name_remark, created_time, modified_time, status, is_delete
+	</sql>
+
+	<select id="findRoleByUser" resultType="Role">
+		select r.id, r.name, r.name_remark, r.created_time, r.modified_time, r.status, r.is_delete from role r inner join user_role ro on r.id = ro.role_id where ro.user_id = #{userId} and r.is_delete = 0 and ro.is_delete = 0
+	</select>
+
+	<select id="findAll" resultType="Role">
+		select id, name, name_remark, created_time, modified_time, status, is_delete from sys_role where is_delete = 0 and status = 1
+		<if test="name != null and name != ''">
+			and (name like '%${name}%' or name_remark like '%${name}%')
+		</if>
+	</select>
+
+</mapper>
