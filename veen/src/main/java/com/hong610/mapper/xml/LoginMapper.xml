@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hong610.mapper.LoginMapper">
+	<!-- 开启缓存 -->
+	<!-- <cache type="com.hong610.redis.LoggingRedisCache" /> -->
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, user_id, user_agent, ip_address, type, login_time, modified_time, status, is_delete
+	</sql>
+
+	<select id="findNewestLogin" resultType="Login">
+		select id, user_id, user_agent, ip_address, type, login_time, modified_time, status, is_delete from login where is_delete = 0 and status = 1 and user_id = #{userId} order by id desc limit 1
+	</select>
+
+</mapper>

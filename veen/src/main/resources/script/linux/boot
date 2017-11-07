@@ -1,0 +1,81 @@
+#!/bin/bash
+# description: Auto-starts SpringBoot
+
+Tag="SpringSecurity"
+MainClass="com.hong610.Application"
+JVM="-server -Xms128m -Xmx128m -XX:PermSize=32M -XX:MaxNewSize=64m -XX:MaxPermSize=64m -Djava.awt.headless=true -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled"
+Lib="./lib"
+echo $Tag
+
+RETVAL="0"
+
+# See how we were called.
+function start() {
+    echo -n $Tag
+    if [ ! -f "nohup.out" ]; then
+        touch "nohup.out"
+    fi
+	nohup java $JVM -Dappliction=$Tag -Djava.ext.dirs=$Lib":${JAVA_HOME}/jre/lib/ext" $MainClass & tail -f nohup.out
+    echo 
+}
+
+function stop() {
+	pid=$(ps -ef | grep -v 'grep' | egrep $Tag| awk '{printf $2 " "}')
+	if [ "$pid" != "" ]; then 		
+        echo -n "$Tag ( pid $pid) is running"
+        echo 
+        echo -n $"Shutting down boot: "
+		pid=$(ps -ef | grep -v 'grep' | egrep $Tag| awk '{printf $2 " "}')
+		if [ "$pid" != "" ]; then
+			echo "kill $Tag process"
+			kill -9 "$pid"
+		fi
+        else 
+             echo "$Tag is stopped"
+        fi
+
+        status
+}
+
+function status()
+{
+	pid=$(ps -ef | grep -v 'grep' | egrep $Tag| awk '{printf $2 " "}')
+	#echo "$pid"
+	if [ "$pid" != "" ]; then
+		echo "Status $Tag is running, pid is $pid"
+	else
+		echo "Status $Tag is stopped"
+	fi
+}
+
+function usage()
+{
+   echo "Usage: $0 {start|stop|restart|status}"
+   RETVAL="2"
+}
+
+# See how we were called.
+RETVAL="0"
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    reload)
+        RETVAL="3"
+        ;;
+    status)
+        status
+        ;;
+    *)
+      usage
+      ;;
+esac
+
+exit $RETVAL

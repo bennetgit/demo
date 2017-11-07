@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$!ResourcesHelper.info($request.getRequestURI())[1]</title>
+    #include("common/meta.vm")
+    #include("common/css.vm")
+    <link rel="stylesheet" type="text/css" href="/assets/css/jquery-contextmenu.css" />
+    <style>
+        .line-right { border-right: 1px dashed #ddd;}
+        .aside { height: 100%; overflow-y: auto; overflow-x: hidden;}/*侧边栏*/
+        .aside a { text-decoration: none; color: #6a6a6a; cursor: default;}
+        .aside dt {color:#333; line-height: 30px; cursor: default; padding-right: 10px;}
+        .aside dt:hover { background-color:#eee; }
+        .aside dd { }
+        .aside li {padding-left: 20px; line-height: 24px;}
+        .aside li:hover { background-color: #eee;}
+        .aside .active { background-color:#eee; }
+        .aside .title { font-size: 16px; margin: 0px; padding: 5px 0px;}
+
+        .iframe { width: 100%; height: 98%; border: hidden;}
+    </style>
+</head>
+<body>
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span> $!ResourcesHelper.info($request.getRequestURI())[0]
+        <span class="c-gray en">&gt;</span> $!ResourcesHelper.info($request.getRequestURI())[1]
+        <a class="btn btn-success radius r btn-refresh" style="line-height:1.6em;margin-top:4px" href="javascript:;" onclick="location.replace(location.href);" title="刷新" >
+            <i class="Hui-iconfont">&#xe68f;</i>
+        </a>
+    </nav>
+    <div class="page-container">
+        <div class="row cl">
+            <div class="col-xs-2 aside line-right">
+                <div class="menu_dropdown">
+                    #foreach($topMenu in $!topMenu)
+                        <h1 class="title" value="$topMenu.id">$!topMenu.name</h1>
+                        #foreach($menu1 in $!oneMenu)
+                            #if($menu1.parentId == $topMenu.id)
+                                <dl id="menu-article">
+                                    <dt value="$!menu1.id" class="selected"><i class="Hui-iconfont">$!menu1.icon</i> $!menu1.name<i class="Hui-iconfont menu_dropdown-arrow r">&#xe6d6;</i></dt>
+                                    <dd>
+                                        <ul>
+                                            #foreach($menu2 in $!twoMenu)
+                                                #if($!menu1.id == $!menu2.parentId)
+                                                <li value="$!menu2.id"><a _href="$!menu2.url" data-title="$!menu2.name" href="javascript:void(0)">$!menu2.name</a></li>
+                                                #end
+                                            #end
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            #end
+                        #end
+                    #end
+                </div>
+            </div>
+            <div class="col-xs-4 aside">
+                <iframe name="iframe_view" class="iframe">
+
+                </iframe>
+            </div>
+            <div class="col-xs-6 aside">
+                <iframe name="iframe_manager" class="iframe">
+
+                </iframe>
+            </div>
+        </div>
+    </div>
+    #parse("common/js.vm")
+    <script type="text/javascript" src="/assets/js/jquery/jquery-contextmenu.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".aside").height($(window).height() - 80);
+            $(window).resize(function(){
+                $(".aside").height($(this).height() - 80);
+            });
+            $("#menu-article dt").click(function(){//菜单点击
+                $("#menu-article dt").each(function(){
+                    if($(this).attr("class").indexOf("selected") != -1){
+                        $(this).find(".menu_dropdown-arrow").html("&#xe6d6;");
+                    }else{
+                        $(this).find(".menu_dropdown-arrow").html("&#xe6d5;");
+                    }
+                })
+            });
+
+            var datas = {title: "菜单管理", datas: [
+                {text:"查看", func: function(e){
+                    var id = $(e).attr("value");
+                    resource.list.view(id);
+                }},
+                {text:"添加子菜单", func: function(e){
+                    var id = $(e).attr("value");
+                    resource.list.addChildMenu('添加子菜单','/resource/addChildMenu.html?parentId='+id)
+                }},
+                {text:"修改菜单", func: function(e){
+                    var id = $(e).attr("value");
+                    resource.list.edit('修改菜单','/resource/edit.html?id='+id)
+                }},
+                {text:"删除菜单", func: function(e){
+                    var id = $(e).attr("value");
+                    resource.list.remove(id);
+                }}
+            ]};
+            $("#menu-article dt").showMenu(datas);
+
+            var datas = {title: "菜单管理", datas: [
+                {text:"查看", func: function(e){
+                    var id = $(e).attr("value");
+                    resource.list.view(id);
+                }},
+                {text:"管理链接", func: function(e){
+                    var id = $(e).attr("value");
+                    resource.list.manager(id);
+                }},
+                {text:"修改菜单", func: function(e){
+                    var id = $(e).attr("value");
+                    resource.list.edit('修改菜单','/resource/edit.html?id='+id)
+                }},
+                {text:"删除菜单", func: function(e){
+                    var id = $(e).attr("value");
+                    resource.list.remove(id);
+                }}
+            ]};
+            $("#menu-article li").showMenu(datas);
+
+            var datas = {title: "菜单管理", datas: [
+                {text:"添加菜单", func: function(e){
+                    var id = $(e).attr("value");
+                    resource.list.addMenu('添加菜单','/resource/addMenu.html?parentId='+id)
+                }}
+            ]};
+            $(".menu_dropdown h1").showMenu(datas);
+
+        });
+        function addLink(id){//打开添加链接的窗口
+            resource.list.addLink("添加链接", "/resource/addLink.html?parentId="+id);
+        }
+        function bindContextMenu(obj){//为链接绑定右击事件
+            var datas = {title: "链接管理", datas: [
+                {text:"查看", func: function(e){
+                    var id = $(e).attr("value");
+                    resource.list.view(id);
+                }},
+                {text:"修改链接", func: function(e){
+                    var id = $(e).attr("value");
+                    resource.list.edit('修改链接','/resource/edit.html?id='+id)
+                }},
+                {text:"删除链接", func: function(e){
+                    var id = $(e).attr("value");
+                    resource.list.remove(id);
+                }}
+            ]};
+            obj.showMenu(datas);
+        }
+    </script>
+</body>
+</html>

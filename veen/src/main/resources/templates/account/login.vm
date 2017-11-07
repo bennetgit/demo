@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8"/>
+    #include("common/meta.vm")
+    #include("common/css.vm")
+    <link href="/assets/css/admin/H-ui.login.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <input type="hidden" id="TenantId" name="TenantId" value=""/>
+    <div class="header"></div>
+    <div class="loginWraper">
+        <div id="loginform" class="loginBox">
+            <form class="form form-horizontal" action="/account/login.html" method="post">
+                <div class="row cl">
+                    <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+                    <div class="formControls col-xs-8">
+                        <input id="username" name="username" type="text" placeholder="账户" class="input-text size-L">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+                    <div class="formControls col-xs-8">
+                        <input id="password" name="password" type="password" placeholder="密码" class="input-text size-L">
+                    </div>
+                </div>
+                #if($!captcha == true)
+                <div class="row cl">
+                    <div class="formControls col-xs-8 col-xs-offset-3">
+                        <input class="input-text size-L" name="captcha" type="text" placeholder="验证码" style="width:150px;">
+                        <img src="/captcha.jpg" id="captcha" onclick="common.reloadCaptcha();"/>
+                    </div>
+                </div>
+                #end
+                <div class="row cl">
+                    <div class="formControls col-xs-8 col-xs-offset-3">
+                        <label for="remember-me"><input type="checkbox" name="remember-me" id="remember-me" value="true"> 记住我</label>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <div class="formControls col-xs-8 col-xs-offset-3">
+                        <input name="" type="submit" class="btn btn-success radius size-L"  value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+                        <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                    </div>
+                </div>
+                #if($StringUtils.isEmpty($!login_error) == false)
+                    <div class="row cl" style="margin-top: 0px;">
+                        <div class="formControls col-xs-8 col-xs-offset-3 err">
+                            $!login_error
+                        </div>
+                    </div>
+                #end
+            </form>
+        </div>
+    </div>
+    <div class="footer">Copyright SpringSecurity For SpringBoot.</div>
+    #parse("common/js.vm")
+    <script type="text/javascript">
+        if(self.frameElement.tagName=="IFRAME"){
+            parent.window.location = location.href;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$!ResourcesHelper.info($request.getRequestURI())[1]</title>
+    #include("common/meta.vm")
+    #include("common/css.vm")
+</head>
+<body>
+    <div class="page-container">
+        <form action="javascript:;" src="/resource/add.json" method="post" class="form form-horizontal" id="add-frm">
+            <input type="hidden" name="parentId" value="$!parentId"/>
+            <input type="hidden" name="type" value="$!type"/>
+            <div class="row cl">
+                <label class="form-label col-xs-3"><span class="c-red">*</span>资源名：</label>
+                <div class="formControls col-xs-8">
+                    <input type="text" class="input-text" value="" placeholder="资源名" id="name" name="name">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3"><span class="c-red">*</span>权限名：</label>
+                <div class="formControls col-xs-8">
+                    <input type="text" class="input-text" value="" placeholder="权限名" id="authority" name="authority">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3"><span class="c-red">*</span>路径：</label>
+                <div class="formControls col-xs-8">
+                    <input type="text" class="input-text" value="" placeholder="路径" id="url" name="url">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3"><span class="c-red">*</span>排序：</label>
+                <div class="formControls col-xs-8">
+                    <input type="text" class="input-text" value="0" placeholder="排序" id="sort" name="sort">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-3"><span class="c-red"></span>图标：</label>
+                <div class="formControls col-xs-8">
+                    <input type="text" class="input-text" value="" placeholder="图标" id="icon" name="icon">
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
+            </div>
+        </form>
+    </div>
+    #parse("common/js.vm")
+    #parse("common/form-js.vm")
+    <script type="text/javascript">
+        $(function(){
+            $("#add-frm").validate({
+                rules:{
+                    name:{
+                        required:true,
+                        minlength:2
+                    },
+                    authority:{
+                        required:true,
+                        minlength:1
+                    },
+                    url:{
+                        required:true
+                    },
+                    sort:{
+                        required:true,
+                        number:true
+                    }
+                },
+                onkeyup:false,
+                focusCleanup:true,
+                success:"valid",
+                submitHandler:function(form){
+                    resource.operate.add(form);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

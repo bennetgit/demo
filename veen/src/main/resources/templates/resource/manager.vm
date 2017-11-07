@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$!ResourcesHelper.info($request.getRequestURI())[1]</title>
+    #include("common/meta.vm")
+    #include("common/css.vm")
+    <link rel="stylesheet" type="text/css" href="/assets/css/jquery-contextmenu.css" />
+    <style>
+        .title { font-size: 18px; font-weight: 500; border-bottom: 1px solid #ddd;}
+        .add { cursor: pointer;}
+        .links { }
+        .links li { line-height: 30px; cursor: pointer; padding-left: 5px;}
+        .links li:hover { background-color: #eee;}
+        .active { background-color:#eee; }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <input type="hidden" name="parentId" value="$!resources.id" />
+        <input type="hidden" name="type" value="$!type" />
+        <h1 class="title">$!resources.name #if($!ResourcesHelper.exists("/resource/add"))<i class="Hui-iconfont r add" onclick="parent.addLink('$!resources.id')">&#xe600;</i>#end</h1>
+        <ul class="links">
+            #foreach($item in $!links)
+            <li value="$item.id">$velocityCount ) $item.name</li>
+            #end
+        </ul>
+    </div>
+    #parse("common/js.vm")
+    <script type="text/javascript" src="/assets/js/jquery/jquery-contextmenu.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            parent.bindContextMenu($(".links li"));
+        })
+    </script>
+</body>
+</html>

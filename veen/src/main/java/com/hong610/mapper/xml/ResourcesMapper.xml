@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hong610.mapper.ResourcesMapper">
+	<!-- 开启缓存 -->
+	<!-- <cache type="com.hong610.redis.LoggingRedisCache" /> -->
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, icon, name, authority, url, type, parent_id, sort, created_time, modified_time, status, is_delete
+	</sql>
+
+	<select id="findResourcesByUser" resultType="Resources">
+		select distinct r.id, r.icon, r.name, r.authority, r.url, r.type, r.parent_id, r.sort, r.created_time, r.modified_time, r.status, r.is_delete from role
+		inner join user_role ro on role.id = ro.role_id
+		inner join role_resources rr on ro.id = rr.role_id
+		inner join sys_resources r on rr.resource_id = r.id
+		where ro.user_id = #{userId} and role.is_delete = 0 and ro.is_delete = 0 and rr.is_delete = 0 and r.is_delete = 0
+	</select>
+
+	<select id="findResourcesByRoleId" resultType="Resources">
+		select distinct r.id, r.icon, r.name, r.authority, r.url, r.type, r.parent_id, r.sort, r.created_time, r.modified_time, r.status, r.is_delete from role_resources rr
+		inner join sys_resources r on rr.resource_id = r.id
+		where rr.role_id = #{roleId} and rr.is_delete = 0 and r.is_delete = 0
+	</select>
+
+</mapper>
