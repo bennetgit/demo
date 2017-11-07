@@ -29,7 +29,6 @@ import spring.demo.util.StringUtils;
 @Entity
 @Table(name = "_menu")
 @SequenceGenerator(name = "seq_menu", sequenceName = "seq_menu")
-
 public class Menu {
 
     @Id

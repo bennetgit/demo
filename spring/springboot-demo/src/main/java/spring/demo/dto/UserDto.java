@@ -1,6 +1,8 @@
 package spring.demo.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.joda.time.LocalDateTime;
 
@@ -20,6 +22,10 @@ public class UserDto implements Serializable {
 
     @JsonSerialize(using = JsonDateTimeSerializer.class)
     private LocalDateTime updatedOn;
+
+    private List<MenuDto> menus = new ArrayList<>();
+
+    private List<RoleDto> roles = new ArrayList<>();
 
     public UserDto() {
     }
@@ -61,5 +67,21 @@ public class UserDto implements Serializable {
 
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    public List<MenuDto> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<MenuDto> menus) {
+        this.menus = menus;
+    }
+
+    public List<RoleDto> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleDto> roles) {
+        this.roles = roles;
     }
 }

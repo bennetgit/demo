@@ -1,5 +1,7 @@
 package spring.demo.service;
 
+import spring.demo.dto.UserDto;
+
 /**
  * Created by facheng on 16.03.17.
  */
@@ -12,4 +14,6 @@ public interface IUserService {
     Long getAllUsers();
 
     void deleteAllUsers();
+
+    UserDto getUserByName(String username);
 }
