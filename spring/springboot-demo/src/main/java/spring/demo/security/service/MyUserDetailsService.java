@@ -14,7 +14,6 @@ import spring.demo.service.IUserService;
 /**
  * Created by wangfacheng on 2017-11-06.
  */
-@Service
 public class MyUserDetailsService implements UserDetailsService {
 
     @Resource

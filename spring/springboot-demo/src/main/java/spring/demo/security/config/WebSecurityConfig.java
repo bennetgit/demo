@@ -53,12 +53,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.rememberMe()// 记住我
                 .rememberMeCookieName("remember-me").userDetailsService(userDetailService());
 
-        http.sessionManagement()// Session管理器
-                .sessionFixation().changeSessionId().sessionAuthenticationErrorUrl("/account/login.html")
-                .invalidSessionUrl("/account/login.html")// Session失效
-                .maximumSessions(1)// 只能同时一个人在线
-                .sessionRegistry(mySessionRegistry())// 启用这个让maximumSessions生效
-                .expiredUrl("/account/login.html");
+//        http.sessionManagement()// Session管理器
+//                .sessionFixation().changeSessionId().sessionAuthenticationErrorUrl("/account/log3in.html")
+//                .invalidSessionUrl("/account/log1in.html")// Session失效
+//                .maximumSessions(1)// 只能同时一个人在线
+//                .sessionRegistry(mySessionRegistry())// 启用这个让maximumSessions生效
+//                .expiredUrl("/account/log2in.html");
 
         http.exceptionHandling()// 权限验证失败进入的页面（只对使用自定义拦截有效）
                 .accessDeniedPage("/access_denied.html");
@@ -69,7 +69,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // auth.inMemoryAuthentication().withUser("root").password("root").roles("USER");
         auth.authenticationProvider(myAuthenticationProvider());
     }
 

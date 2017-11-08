@@ -146,4 +146,8 @@ public class Menu {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+    public boolean isRoot() {
+        return parentId == null;
+    }
 }

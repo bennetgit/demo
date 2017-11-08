@@ -15,9 +15,7 @@ public final class MenuParser {
             return null;
         }
 
-        MenuDto menuDto = new MenuDto();
-        menuDto.of(menu.getName(), menu.getUrl(), menu.parentName(), menu.getParentId());
-        return menuDto;
+        return MenuDto.of(menu.getName(), menu.getUrl(), menu.parentName(), menu.getParentId());
     }
 
 }

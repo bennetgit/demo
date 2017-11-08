@@ -9,7 +9,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.stereotype.Service;
 
 import spring.demo.security.entity.AuthUser;
 import spring.demo.util.helper.HttpHelper;
@@ -18,7 +17,6 @@ import spring.demo.util.helper.PasswordHelper;
 /**
  * Created by wangfacheng on 2017-11-08.
  */
-@Service
 public class MyAuthenticationProvider implements AuthenticationProvider {
 
     @Resource

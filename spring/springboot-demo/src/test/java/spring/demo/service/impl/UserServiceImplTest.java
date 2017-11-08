@@ -42,7 +42,7 @@ public class UserServiceImplTest {
 
         // User user = em.find(User.class, 12550l);
 
-        User user = userRepository.findById(12550l);
+        User user = userRepository.findUser("hello");
 
         System.out.println(user.getRoles());
 

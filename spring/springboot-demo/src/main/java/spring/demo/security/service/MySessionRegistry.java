@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
  * Created by wangfacheng on 2017-11-08.
  */
 
-@Service
 public class MySessionRegistry extends SessionRegistryImpl {
     @Override
     public void refreshLastRequest(String sessionId) {

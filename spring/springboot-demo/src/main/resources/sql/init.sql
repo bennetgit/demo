@@ -96,3 +96,18 @@ DO  $$
        RAISE NOTICE 'sequence [seq_menu] already exists' ;
    END ;
    $$;
+
+----username: admin    password: a
+insert into _user values(nextval('seq_user', 10, null, 'admin', '0cc175b9c0f1b6a831c399e269772661', now(),now()));
+
+insert into _role values(nextval('seq_role'),'管理员',now(),now());
+insert into user_role values(1,1);
+
+insert into _menu values(nextval('seq_menu'), '系统管理',1,'sys',0,now(),now());
+insert into _menu values(nextval('seq_menu'), '其他管理',null,'other.list',1,now(),now());
+
+insert into _menu values(nextval('seq_menu'), '用户管理',1,'user.list',0,now(),now());
+insert into _menu values(nextval('seq_menu'), '菜单管理',1,'menu.list',1,now(),now());
+insert into _menu values(nextval('seq_menu'), 'other管理',2,'other.list',0,now(),now());
+
+insert into role_menu values(1,6),(1,2),(1,3),(1,4),(1,5),(1,1);

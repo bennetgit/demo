@@ -1,7 +1,9 @@
 package spring.demo.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.joda.time.LocalDateTime;
 import org.springframework.util.CollectionUtils;
@@ -37,11 +39,32 @@ public class UserParser {
             return userDto;
         }
 
+        Map<Long, MenuDto> tempTreeMenuMap = new HashMap<>();
+
+        MenuDto tempMenu;
         for (Role role : user.getRoles()) {
+
             for (Menu menu : role.getMenus()) {
-                menus.add(MenuParser.fromDomain(menu));
+                tempMenu = MenuParser.fromDomain(menu);
+                if (menu.isRoot()) {
+                    if (tempTreeMenuMap.containsKey(menu.getId())) {
+                        continue;
+                    }
+                    tempTreeMenuMap.put(menu.getId(), tempMenu);
+                    continue;
+                }
+
+                if (tempTreeMenuMap.containsKey(menu.getParentId())) {
+                    tempTreeMenuMap.get(menu.getParentId()).addSubMenu(tempMenu);
+                } else {
+                    tempTreeMenuMap.put(menu.getId(), MenuParser.fromDomain(menu.getParent()));
+                    continue;
+                }
+
             }
         }
+
+        menus.addAll(tempTreeMenuMap.values());
 
         return userDto;
     }
