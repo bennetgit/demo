@@ -19,7 +19,7 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public void create(String name, Integer age) {
-        jdbcTemplate.update("insert into _user(name, age) values(?, ?)", name, age);
+        jdbcTemplate.update("insert into _user(username, age) values(?, ?)", name, age);
 
     }
 

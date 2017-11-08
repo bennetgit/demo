@@ -29,9 +29,9 @@ public class CacheTest {
 
     @Test
     public void testCache() {
-        User u1 = userRepository.findByUsername("a");
+        // User u1 = userRepository.findByUsername("a");
         LOGGER.info("第一次查询");
-        User u2 = userRepository.findByUsername("a");
+        // User u2 = userRepository.findByUsername("a");
         LOGGER.info("第二次查询");
     }
 }

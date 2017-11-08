@@ -25,7 +25,7 @@ public class ApplicationTests {
 
     @Test
     public void contextLoads() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/hello").accept(MediaType.APPLICATION_JSON_UTF8))
+        mockMvc.perform(MockMvcRequestBuilders.get("/index/menuList").accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk()).andExpect(content().string("Hello index"));
     }
 

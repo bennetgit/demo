@@ -15,12 +15,9 @@ import spring.demo.persistence.primary.domain.User;
 /**
  * Created by wangfacheng on 2017-11-07.
  */
-public final class UserParser {
+public class UserParser {
 
-    private UserParser() {
-    }
-
-    public static final UserDto fromDomain(User user) {
+    public static UserDto fromDomain(User user) {
 
         if (user == null) {
             return null;
@@ -32,7 +29,7 @@ public final class UserParser {
         userDto.setUserName(user.getUsername());
         userDto.setCreatedOn(LocalDateTime.fromDateFields(user.getCreatedOn()));
         userDto.setUpdatedOn(LocalDateTime.fromDateFields(user.getUpdatedOn()));
-
+        userDto.setPassword(user.getPassword());
         List<MenuDto> menus = new ArrayList<>();
         userDto.setMenus(menus);
 

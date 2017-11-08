@@ -36,7 +36,8 @@ public class Role {
     @Column
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

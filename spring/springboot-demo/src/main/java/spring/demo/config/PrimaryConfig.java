@@ -25,7 +25,7 @@ import java.util.Map;
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactoryPrimary", //
         transactionManagerRef = "transactionManagerPrimary", //
-        basePackages = "spring.demo.persistence.primary")
+        basePackages = "spring.demo.persistence.primary.jpa")
 public class PrimaryConfig {
 
     @Resource
@@ -45,7 +45,7 @@ public class PrimaryConfig {
     @Bean(name = "entityManagerFactoryPrimary")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary(EntityManagerFactoryBuilder builder) {
         return builder.dataSource(primaryDataSource).properties(getVendorProperties(primaryDataSource))
-                .packages("spring.demo.persistence.primary") // 设置实体类所在位置
+                .packages("spring.demo.persistence.primary.domain") // 设置实体类所在位置
                 .persistenceUnit("primaryPersistenceUnit").build();
     }
 

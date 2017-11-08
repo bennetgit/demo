@@ -1,14 +1,16 @@
 package spring.demo.service.impl;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import spring.demo.dto.UserDto;
 import spring.demo.jdbctemplate.IUserDao;
+import spring.demo.persistence.primary.domain.User;
 import spring.demo.persistence.primary.jpa.IUserRepository;
 import spring.demo.service.IUserService;
 import spring.demo.util.UserParser;
-
-import javax.annotation.Resource;
 
 /**
  * Created by facheng on 16.03.17.
@@ -22,10 +24,12 @@ public class UserServiceImpl implements IUserService {
     @Resource
     private IUserRepository userRepository;
 
-    @Transactional
     @Override
+    @Transactional
     public void create(String name, Integer age) {
-        userDao.create(name, age);
+        User user = new User(name, age);
+        user.setPassword("12312");
+        userRepository.save(user);
     }
 
     @Transactional
@@ -49,6 +53,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     @Transactional
     public UserDto getUserByName(String username) {
-        return UserParser.fromDomain(userRepository.findByUsername(username));
+        return UserParser.fromDomain(userRepository.findUser(username));
     }
+
 }

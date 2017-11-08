@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactorySecond", //
         transactionManagerRef = "transactionManagerSecond", //
-        basePackages = "spring.demo.persistence.second")
+        basePackages = "spring.demo.persistence.second.jpa")
 public class SecondConfig {
 
     @Autowired

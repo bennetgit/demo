@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -38,7 +39,7 @@ public class Menu {
     @Column
     private String name;
 
-    @Column(insertable = false, updatable = false)
+    @Column(name = "parent_id", insertable = false, updatable = false)
     private Long parentId;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -54,7 +55,8 @@ public class Menu {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     private List<Menu> children;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "menus")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "role_menu", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
 
     @Column
