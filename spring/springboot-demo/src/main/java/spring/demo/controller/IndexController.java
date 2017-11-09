@@ -16,15 +16,15 @@ import spring.demo.security.entity.AuthUser;
  * Created by facheng on 10.03.17.
  */
 @Controller
-@RequestMapping("/index")
+@RequestMapping("/")
 public class IndexController {
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "index", method = RequestMethod.GET)
     public ModelAndView index() {
         return new ModelAndView("index");
     }
 
-    @GetMapping("/menuList")
+    @GetMapping("/index/menuList")
     @ResponseBody
     public ResponseInfo<MenuDto> initMenuList() {
         AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
