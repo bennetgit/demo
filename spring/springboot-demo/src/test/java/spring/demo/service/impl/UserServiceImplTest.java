@@ -37,7 +37,6 @@ public class UserServiceImplTest {
     }
 
     @Test
-    @Transactional
     public void getUserByUsernameTest() {
 
         // User user = em.find(User.class, 12550l);
