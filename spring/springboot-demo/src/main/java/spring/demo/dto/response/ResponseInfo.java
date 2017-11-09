@@ -9,17 +9,17 @@ public class ResponseInfo<T> {
 
     private ResponseCode code;
 
-    private String msg;
+    private String message;
 
-    private T body;
+    private T content;
 
     public ResponseInfo() {
     }
 
-    public ResponseInfo(ResponseCode code, String msg, T body) {
+    ResponseInfo(ResponseCode code, String message, T content) {
         this.code = code;
-        this.msg = msg;
-        this.body = body;
+        this.message = message;
+        this.content = content;
     }
 
     public ResponseCode getCode() {
@@ -30,20 +30,20 @@ public class ResponseInfo<T> {
         this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public T getBody() {
-        return body;
+    public T getContent() {
+        return content;
     }
 
-    public void setBody(T body) {
-        this.body = body;
+    public void setContent(T content) {
+        this.content = content;
     }
 
     public static <T> ResponseInfo success(T data) {

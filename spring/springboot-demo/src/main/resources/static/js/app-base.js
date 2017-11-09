@@ -19,12 +19,12 @@ function verifyData(data) {
 
 mainApp.controller("leftController", function ($http, $scope, $location, $sessionStorage, $state, mineMessage, mineHttp) {
     $scope.loadMenu = function () {
-        mineHttp.send("GET", "/index/menuList", {}, function (data) {
+        mineHttp.send("GET", "index/menuList", {}, function (data) {
             if (verifyData(data)) {
-                $scope.buildMenu(data.body);
+                $scope.buildMenu(data.content);
                 $scope.menuListener();
             } else {
-                $scope.msg = data.msg;
+                $scope.message = data.message;
             }
         });
     };

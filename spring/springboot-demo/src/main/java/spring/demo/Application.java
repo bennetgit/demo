@@ -16,12 +16,11 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 @EnableWebSecurity
 @EnableCaching
 @EnableRabbit
-// @ImportResource({ "classpath:META-INF/spring/applicationContext*.xml" })
+@ImportResource({ "classpath:META-INF/spring/applicationContext*.xml" })
 public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
 
 }

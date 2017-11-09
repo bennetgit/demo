@@ -15,7 +15,7 @@
     <link rel="stylesheet" th:href="@{/css/overwrite.css}"/>
 </head>
 <body>
-<input id="appContextPath" type="hidden" th:value="@{/}" />
+<input id="appContextPath" type="hidden" th:value="@{/}"/>
 <div class="app app-header-fixed" ng-app="mainApp">
     <!--<div ng-controller="headerController" ng-include="'layout/header.html'" class="app-header"></div>-->
     <div ng-controller="leftController" ng-include="'layout/left.html'" class="app-aside bg-dark"></div>
@@ -43,7 +43,7 @@
 <script th:src="@{/js/app-base.js}"></script>
 <script th:src="@{/js/app-service.js}"></script>
 <script th:src="@{/js/app-factory.js}"></script>
-<script th:src="@{/js/module/system_menu.js}"></script>
+<script th:src="@{/js/module/system.js}"></script>
 <script th:src="@{/lib/umeditor/umeditor.config.js}"></script>
 <script th:src="@{/lib/umeditor/umeditor.js}"></script>
 <script th:src="@{/lib/umeditor/lang/zh-cn/zh-cn.js}"></script>

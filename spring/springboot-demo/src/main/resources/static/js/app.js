@@ -13,6 +13,8 @@ function routeConfig($stateProvider, $urlRouterProvider) {
             controller: "systemMenuListCtl"
         })
         .state("menu", {url: "/menu", templateUrl: "./module/system/menu/menu.html"})
+        .state("user", {url: "/user", templateUrl: './module/system/user/user.html'})
+        .state("user.list", {url: "/list", templateUrl: './module/system/user/userList.html', controller: "systemUserListCtl"})
     ;
 }
 

@@ -24,7 +24,7 @@ public class IndexController {
         return new ModelAndView("index");
     }
 
-    @GetMapping("/index/menuList")
+    @GetMapping("index/menuList")
     @ResponseBody
     public ResponseInfo<MenuDto> initMenuList() {
         AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

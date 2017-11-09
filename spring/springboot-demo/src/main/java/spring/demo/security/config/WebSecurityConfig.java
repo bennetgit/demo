@@ -29,9 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()// 全部页面都要验证
         ;// .accessDecisionManager(accessDecisionManagerService());//使用自定义拦截
 
-        // http.csrf()// 禁用csrf - 使用自定义登录页面
-        // .disable();
-        //
+        http.csrf()// 禁用csrf - 使用自定义登录页面
+                .disable();
+
         http.formLogin()// 登录
                 // .loginPage("/account/login.html").usernameParameter("username").passwordParameter("password")
                 .defaultSuccessUrl("/index.html")// 先defaultSuccessUrl后successHandler，不然successHandler不会执行
