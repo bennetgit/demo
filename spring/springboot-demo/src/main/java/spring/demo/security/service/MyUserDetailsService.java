@@ -4,7 +4,6 @@ import javax.annotation.Resource;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 import spring.demo.dto.UserDto;
 import spring.demo.security.entity.AuthUser;
@@ -31,7 +30,7 @@ public class MyUserDetailsService implements UserDetailsService {
         Authority authority = new Authority();
         authority.setAuthority("ROLE_ADMIN");
 
-        return AuthUser.of(userDto.getId(), userDto.getUserName(), userDto.getPassword(), true, userDto.getMenus(),
+        return AuthUser.of(userDto.getId(), userDto.getUsername(), userDto.getPassword(), true, userDto.getMenus(),
                 authority);
     }
 }

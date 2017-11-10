@@ -16,4 +16,5 @@ public enum SexType implements DBEnum {
     public Integer getConstant() {
         return dbConstant;
     }
+
 }

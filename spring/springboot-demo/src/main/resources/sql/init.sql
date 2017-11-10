@@ -1,7 +1,7 @@
 drop table if exists _user;
 create table if not exists _user(
     id bigint not null,
-    age integer,
+    mobile varchar(11),
     sex integer,
     username varchar(255) not null,
     password varchar(255) not null,

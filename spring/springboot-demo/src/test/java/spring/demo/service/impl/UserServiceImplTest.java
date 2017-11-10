@@ -8,8 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import org.springframework.transaction.annotation.Transactional;
-import spring.demo.dto.UserDto;
 import spring.demo.persistence.primary.domain.User;
 import spring.demo.persistence.primary.jpa.IUserRepository;
 import spring.demo.service.IUserService;
@@ -33,7 +31,7 @@ public class UserServiceImplTest {
 
     @Test
     public void createTest() {
-        userService.create("hello", 10);
+        userService.create("hello", "4");
     }
 
     @Test

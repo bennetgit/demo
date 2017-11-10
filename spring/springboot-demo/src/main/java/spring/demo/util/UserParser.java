@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.joda.time.LocalDateTime;
 import org.springframework.util.CollectionUtils;
+
+import com.google.common.collect.Lists;
 
 import spring.demo.dto.MenuDto;
 import spring.demo.dto.UserDto;
@@ -28,8 +31,8 @@ public class UserParser {
         UserDto userDto = new UserDto();
 
         userDto.setId(user.getId());
-        userDto.setUserName(user.getUsername());
-        userDto.setCreatedOn(LocalDateTime.fromDateFields(user.getCreatedOn()));
+        userDto.setUsername(user.getUsername());
+        userDto.setCreatedOnStart(LocalDateTime.fromDateFields(user.getCreatedOn()));
         userDto.setUpdatedOn(LocalDateTime.fromDateFields(user.getUpdatedOn()));
         userDto.setPassword(user.getPassword());
         List<MenuDto> menus = new ArrayList<>();
@@ -67,5 +70,22 @@ public class UserParser {
         menus.addAll(tempTreeMenuMap.values());
 
         return userDto;
+    }
+
+    public static final List<UserDto> toSimpleUserDto(List<User> users) {
+        if (CollectionUtils.isEmpty(users)) {
+            return Lists.newArrayList();
+        }
+
+        return users.stream().map(UserParser::toSimpleUserDto).collect(Collectors.toList());
+    }
+
+    public static final UserDto toSimpleUserDto(User user) {
+        if (user == null) {
+            return null;
+        }
+
+        return UserDto.of(user.getId(), user.getUsername(), user.getMobile(), user.getSex(),
+                LocalDateTime.fromDateFields(user.getCreatedOn()));
     }
 }

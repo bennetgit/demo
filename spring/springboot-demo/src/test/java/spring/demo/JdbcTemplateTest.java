@@ -30,11 +30,11 @@ public class JdbcTemplateTest {
     @Test
 
     public void test() throws Exception {
-        userService.create("a", 1);
-        userService.create("b", 2);
-        userService.create("c", 3);
-        userService.create("d", 4);
-        userService.create("e", 5);
+        userService.create("a", "1");
+        userService.create("b", "2");
+        userService.create("c", "3");
+        userService.create("d", "4");
+        userService.create("e", "4");
 
         Assert.assertEquals(5, userService.getAllUsers().intValue());
 

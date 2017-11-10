@@ -24,9 +24,9 @@ public class UserApiService {
     public ResponseInfo<UserDto> getUserInfo(@PathVariable("id") String id) {
         UserDto user = new UserDto();
         user.setId(12l);
-        user.setCreatedOn(LocalDateTime.now());
+        user.setCreatedOnStart(LocalDateTime.now());
         user.setUpdatedOn(LocalDateTime.now());
-        user.setUserName("haha");
+        user.setUsername("haha");
         return ResponseInfo.success(user);
     }
 }

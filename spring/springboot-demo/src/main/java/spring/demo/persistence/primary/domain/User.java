@@ -46,7 +46,7 @@ public class User implements Serializable {
     private String password;
 
     @Column
-    private Integer age;
+    private String mobile;
 
     @Column
     @Type(type = "spring.demo.enums.DBEnumType", parameters = {
@@ -68,9 +68,9 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String name, Integer age) {
+    public User(String name, String mobile) {
         this.username = name;
-        this.age = age;
+        this.mobile = mobile;
     }
 
     public Long getId() {
@@ -93,12 +93,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public SexType getSex() {

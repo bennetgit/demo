@@ -1,8 +1,5 @@
 package spring.demo.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.apache.logging.log4j.LogManager;
@@ -32,9 +29,7 @@ public class UserController {
     @PostMapping(value = "/list")
     public ResponseInfo<PageResult<UserDto>> list(@PagerQueryParam PageQuery pageQuery,
             @RequestBody UserRequest userQuery) {
-
-        List<UserDto> users = new ArrayList<>();
-        return ResponseInfo.success(new PageResult<>(100l, users));
+        return ResponseInfo.success(userService.getUserListByPage(pageQuery, UserDto.from(userQuery)));
     }
 
 }

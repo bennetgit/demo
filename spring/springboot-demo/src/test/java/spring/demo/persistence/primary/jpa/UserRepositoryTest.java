@@ -44,7 +44,7 @@ public class UserRepositoryTest {
         };
 
         mockUser = new User();
-        mockUser.setAge(11);
+        mockUser.setMobile("11");
         mockUser.setPassword("12312321");
         mockUser.setSex(SexType.FEMALE);
         mockUser.setUsername("hello world");

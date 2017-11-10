@@ -21,7 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import spring.demo.util.StringUtils;
+import spring.demo.util.StringUtil;
 
 /**
  * Created by feng on 17/10/28.
@@ -136,7 +136,7 @@ public class Menu {
     }
 
     public String parentName() {
-        return getParent() != null ? getParent().getName() : StringUtils.EMPTY;
+        return getParent() != null ? getParent().getName() : StringUtil.EMPTY;
     }
 
     public List<Role> getRoles() {

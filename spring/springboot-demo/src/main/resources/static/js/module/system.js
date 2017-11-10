@@ -140,12 +140,12 @@ mainApp.controller("systemUserListCtl", function ($scope, $uibModal, mineHttp, m
         requestMethod: "POST",
         requestUrl: fullPath("users/list"),
         columnDefs: [{field: 'username', displayName: '用户名'},
-//            {field: 'name', displayName: '姓名'},
-//            {
-//                field: 'gender',
-//                displayName: '性别',
-//                cellTemplate: "<span class='mine-table-span'>{{row.entity.genderMessage}}</span>"
-//            },
+            {field: 'age', displayName: '年龄'},
+            {
+                field: 'gender',
+                displayName: '性别',
+                cellTemplate: "<span class='mine-table-span'>{{row.entity.genderMessage}}</span>"
+            },
 //            {
 //                field: 'approveRole',
 //                displayName: '审批角色',
@@ -153,7 +153,7 @@ mainApp.controller("systemUserListCtl", function ($scope, $uibModal, mineHttp, m
 //            },
 //            {field: 'email', displayName: '电子邮箱'},
 //            {field: 'mobile', displayName: '联系电话'},
-//            {field: 'createdAt', displayName: '创建时间'},
+            {field: 'createdOn', displayName: '创建时间'},
 //            {field: 'status', displayName: '状态'},
             {
                 field: 'id',

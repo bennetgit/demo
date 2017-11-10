@@ -31,4 +31,8 @@ public class PageResult<T> {
     public void setRows(List<T> rows) {
         this.rows = rows;
     }
+
+    public static final <T> PageResult of(Long total, List<T> rows) {
+        return new PageResult(total, rows);
+    }
 }
