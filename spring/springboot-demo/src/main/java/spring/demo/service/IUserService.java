@@ -9,7 +9,7 @@ import spring.demo.util.PageResult;
  */
 public interface IUserService {
 
-    void create(String name, String mobile);
+    void create(UserDto userDto);
 
     void deleteByName(String name);
 

@@ -165,6 +165,7 @@ public class UserDto implements Serializable {
         userDto.setMobile(request.getMobile());
         userDto.setSexType(request.getSex());
         userDto.setUsername(request.getUsername());
+        userDto.setPassword(request.getPassword());
 
         return userDto;
     }

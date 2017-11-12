@@ -35,10 +35,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     @Transactional
-    public void create(String name, String mobile) {
-        User user = new User(name, mobile);
-        user.setPassword("12312");
-        userRepository.save(user);
+    public void create(UserDto userDto) {
+        userRepository.save(UserParser.fromDto(userDto));
     }
 
     @Transactional

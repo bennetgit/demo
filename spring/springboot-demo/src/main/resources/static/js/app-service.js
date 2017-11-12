@@ -19,7 +19,7 @@ mainApp.service("mineHttp", function ($http, Upload) {
         }).progress(function (evt) {
             //进度条
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('progess:' + progressPercentage + '%' + evt.config.file.name);
+            console.log('progress:' + progressPercentage + '%' + evt.config.file.name);
         }).success(function (data, status, headers, config) {
             callback(data);
         }).error(function (data, status, headers, config) {

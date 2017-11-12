@@ -1,16 +1,15 @@
 package spring.demo.service.impl;
 
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import spring.demo.persistence.primary.domain.User;
 import spring.demo.persistence.primary.jpa.IUserRepository;
 import spring.demo.service.IUserService;
+
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
 
 /**
  * Created by wangfacheng on 2017-11-08.
@@ -31,7 +30,6 @@ public class UserServiceImplTest {
 
     @Test
     public void createTest() {
-        userService.create("hello", "4");
     }
 
     @Test

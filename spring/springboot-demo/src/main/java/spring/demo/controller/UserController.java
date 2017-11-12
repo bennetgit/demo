@@ -32,4 +32,10 @@ public class UserController {
         return ResponseInfo.success(userService.getUserListByPage(pageQuery, UserDto.from(userQuery)));
     }
 
+    @PostMapping(value = "")
+    public ResponseInfo<UserDto> add(@RequestBody UserRequest userRequest){
+        userService.create(UserDto.from(userRequest));
+        return ResponseInfo.success(null);
+    }
+
 }

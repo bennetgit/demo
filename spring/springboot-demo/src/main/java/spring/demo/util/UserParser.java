@@ -16,11 +16,19 @@ import spring.demo.dto.UserDto;
 import spring.demo.persistence.primary.domain.Menu;
 import spring.demo.persistence.primary.domain.Role;
 import spring.demo.persistence.primary.domain.User;
+import spring.demo.util.helper.PasswordHelper;
 
 /**
  * Created by wangfacheng on 2017-11-07.
  */
 public class UserParser {
+
+    public static User fromDto(UserDto userDto) {
+        User user = new User(userDto.getUsername(), userDto.getMobile());
+        user.setPassword(PasswordHelper.password(userDto.getPassword()));
+        user.setSex(userDto.getSexType());
+        return user;
+    }
 
     public static UserDto fromDomain(User user) {
 

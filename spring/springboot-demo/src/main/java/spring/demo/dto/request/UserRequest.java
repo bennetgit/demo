@@ -13,6 +13,8 @@ public class UserRequest extends BaseRequest {
 
     private String mobile;
 
+    private String password;
+
     @JsonDeserialize(using = JsonEnumDeserializer.class)
     private SexType sex;
 
@@ -58,5 +60,13 @@ public class UserRequest extends BaseRequest {
 
     public void setSex(SexType sex) {
         this.sex = sex;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -1,6 +1,5 @@
 package spring.demo;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,18 +29,6 @@ public class JdbcTemplateTest {
     @Test
 
     public void test() throws Exception {
-        userService.create("a", "1");
-        userService.create("b", "2");
-        userService.create("c", "3");
-        userService.create("d", "4");
-        userService.create("e", "4");
-
-        Assert.assertEquals(5, userService.getAllUsers().intValue());
-
-        userService.deleteByName("a");
-        userService.deleteByName("b");
-
-        Assert.assertEquals(3, userService.getAllUsers().intValue());
 
     }
 }
