@@ -116,7 +116,7 @@ mainApp.controller("leftController", function ($http, $scope, $location, $sessio
 });
 mainApp.controller("headerController", function($http, $scope){
     $scope.logout = function(){
-        alert("logout");
+        location.href = fullPath("logout")
     }
 });
 

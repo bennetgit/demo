@@ -27,6 +27,7 @@ public class UserParser {
         User user = new User(userDto.getUsername(), userDto.getMobile());
         user.setPassword(PasswordHelper.password(userDto.getPassword()));
         user.setSex(userDto.getSexType());
+        user.setAdmin(userDto.getAdmin());
         return user;
     }
 
@@ -41,7 +42,9 @@ public class UserParser {
         userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
         userDto.setCreatedOnStart(LocalDateTime.fromDateFields(user.getCreatedOn()));
-        userDto.setUpdatedOn(LocalDateTime.fromDateFields(user.getUpdatedOn()));
+        if (user.getUpdatedOn() != null) {
+            userDto.setUpdatedOn(LocalDateTime.fromDateFields(user.getUpdatedOn()));
+        }
         userDto.setPassword(user.getPassword());
         userDto.setAdmin(user.getAdmin());
         List<MenuDto> menus = new ArrayList<>();
@@ -94,7 +97,10 @@ public class UserParser {
             return null;
         }
 
-        return UserDto.of(user.getId(), user.getUsername(), user.getMobile(), user.getSex(),
+        UserDto result = UserDto.of(user.getId(), user.getUsername(), user.getMobile(), user.getSex(),
                 LocalDateTime.fromDateFields(user.getCreatedOn()));
+        result.setAdmin(user.getAdmin());
+
+        return result;
     }
 }

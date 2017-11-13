@@ -23,6 +23,16 @@ public class UserRequest extends BaseRequest {
 
     private List<Long> roleIds = new ArrayList<>();
 
+    private Boolean isAdmin = false;
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
     public String getUsername() {
         return username;
     }

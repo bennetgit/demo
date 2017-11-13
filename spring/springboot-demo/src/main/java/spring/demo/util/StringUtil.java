@@ -18,4 +18,8 @@ public final class StringUtil {
     public static final boolean isNotBlank(String str) {
         return StringUtils.isNotBlank(str);
     }
+
+    public static final String wildcard(String source) {
+        return "%" + source + "%";
+    }
 }

@@ -53,7 +53,7 @@ public class Role {
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedOn = Date.from(Instant.now());
+    private Date updatedOn;
 
     public Long getId() {
         return id;

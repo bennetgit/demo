@@ -124,7 +124,6 @@ mainApp.controller("systemMenuEditController", function ($scope, data, $uibModal
 });
 
 
-
 //-----------user ------------------------------------------------------------------
 
 mainApp.controller("systemUserListCtl", function ($scope, $uibModal, mineHttp, mineGrid, mineUtil) {
@@ -145,6 +144,12 @@ mainApp.controller("systemUserListCtl", function ($scope, $uibModal, mineHttp, m
                 displayName: '性别',
                 cellTemplate: "<span class='mine-table-span'>{{row.entity.sexType}}</span>"
             },
+            {
+                field: 'isAdmin',
+                displayName: '是否为超级管理员',
+                cellTemplate: "<span class='mine-table-span'>{{row.entity.admin}}</span>"
+            },
+
 //            {
 //                field: 'approveRole',
 //                displayName: '审批角色',
@@ -308,7 +313,7 @@ mainApp.controller("systemRoleListCtl", function ($scope, $uibModal, mineHttp, m
         multiSelect: true,
         selectWithCheckboxOnly: true,
         requestMethod: "POST",
-        requestUrl: fullPath("role/list"),
+        requestUrl: fullPath("roles/list"),
         columnDefs: [
             {field: 'name', displayName: '角色名'},
             {field: 'description', displayName: '描述'},
@@ -335,27 +340,27 @@ mainApp.controller("systemRoleListCtl", function ($scope, $uibModal, mineHttp, m
         $scope.gridPageQuery({}, $scope.roleQuery);
     };
     $scope.add = function () {
-        var modalInstance = mineUtil.modal("module/system/role/roleAdd.htm", "systemRoleAddController", {});
+        var modalInstance = mineUtil.modal("module/system/role/roleAdd.html", "systemRoleAddController", {});
         modalInstance.result.then(function () {
         }, function () {
             $scope.query();
         });
     };
     $scope.edit = function (role) {
-        var modalInstance = mineUtil.modal("module/system/role/roleEdit.htm", "systemRoleEditController", role);
+        var modalInstance = mineUtil.modal("module/system/role/roleEdit.html", "systemRoleEditController", role);
         modalInstance.result.then(function () {
         }, function () {
             $scope.query();
         });
     };
     $scope.detail = function (role) {
-        var modalInstance = mineUtil.modal("module/system/role/roleDetail.htm", "systemRoleDetailController", role);
+        var modalInstance = mineUtil.modal("module/system/role/roleDetail.html", "systemRoleDetailController", role);
         modalInstance.result.then(function () {
         }, function () {
         });
     };
     $scope.privilege = function (role) {
-        var modalInstance = mineUtil.modal("module/system/role/rolePrivilege.htm", "systemRolePrivilegeController", role);
+        var modalInstance = mineUtil.modal("module/system/role/rolePrivilege.html", "systemRolePrivilegeController", role);
         modalInstance.result.then(function () {
         }, function () {
         });
@@ -363,7 +368,7 @@ mainApp.controller("systemRoleListCtl", function ($scope, $uibModal, mineHttp, m
 });
 mainApp.controller("systemRoleAddController", function ($scope, $uibModalInstance, mineHttp) {
     $scope.ok = function () {
-        mineHttp.send("POST", "role", {data: $scope.role}, function (result) {
+        mineHttp.send("POST", "roles", {data: $scope.role}, function (result) {
             $scope.messageStatus = verifyData(result);
             $scope.message = result.message;
             if ($scope.messageStatus) {
@@ -377,7 +382,7 @@ mainApp.controller("systemRoleAddController", function ($scope, $uibModalInstanc
 });
 
 mainApp.controller("systemRoleEditController", function ($scope, $uibModalInstance, mineHttp, data) {
-    mineHttp.send("GET", "role/" + data.id, {}, function (result) {
+    mineHttp.send("GET", "roles/" + data.id, {}, function (result) {
         if (!verifyData(result)) {
             $scope.messageStatus = false;
             $scope.message = result.message;
@@ -385,7 +390,7 @@ mainApp.controller("systemRoleEditController", function ($scope, $uibModalInstan
         $scope.role = result.content;
     });
     $scope.ok = function () {
-        mineHttp.send("PUT", "role/" + data.id, {data: $scope.role}, function (result) {
+        mineHttp.send("PUT", "roles/" + data.id, {data: $scope.role}, function (result) {
             $scope.messageStatus = verifyData(result);
             $scope.message = result.message;
         });
@@ -395,7 +400,7 @@ mainApp.controller("systemRoleEditController", function ($scope, $uibModalInstan
     };
 });
 mainApp.controller("systemRoleDetailController", function ($scope, $uibModalInstance, mineHttp, data) {
-    mineHttp.send("GET", "role/" + data.id, {}, function (result) {
+    mineHttp.send("GET", "roles/" + data.id, {}, function (result) {
         $scope.message = result.message;
         $scope.role = result.content;
     });
@@ -404,17 +409,17 @@ mainApp.controller("systemRoleDetailController", function ($scope, $uibModalInst
     };
 });
 mainApp.controller("systemRolePrivilegeController", function ($scope, $uibModalInstance, mineHttp, data, mineTree) {
-    mineHttp.send("GET", "role/" + data.id, {}, function (result) {
+    mineHttp.send("GET", "roles/" + data.id, {}, function (result) {
         $scope.message = result.message;
         $scope.role = result.content;
     });
     var menuTree = {};
     var permitTree = {};
     $scope.buildTree = function (callback) {
-        mineHttp.send("GET", "role/" + data.id + "/privilege", {}, function (data) {
+        mineHttp.send("GET", "roles/" + data.id + "/privilege", {}, function (data) {
             var options = {check: {enable: true}};
             menuTree = mineTree.build($("#menuTree"), data.content.roleMenus, options);
-            permitTree = mineTree.build($("#functionTree"), data.content.rolePermits, options);
+            permitTree = mineTree.build($("#functionTree"), data.content.rolePrivileges, options);
         });
     };
     $scope.buildTree();
@@ -431,7 +436,7 @@ mainApp.controller("systemRolePrivilegeController", function ($scope, $uibModalI
         for (var index in permitNodes) {
             $scope.rolePrivilege.permitCodes.push(permitNodes[index].id);
         }
-        mineHttp.send("PUT", "role/" + data.id + "/privilege", {data: $scope.rolePrivilege}, function (result) {
+        mineHttp.send("PUT", "roles/" + data.id + "/privilege", {data: $scope.rolePrivilege}, function (result) {
             $scope.messageStatus = verifyData(result);
             $scope.message = result.message;
         });

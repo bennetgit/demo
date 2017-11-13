@@ -35,4 +35,10 @@ public class IndexController {
         return ResponseInfo.success(authUser.getMenus());
     }
 
+    @GetMapping("logout")
+    public String logout() {
+        SecurityContextHolder.clearContext();
+        return "redirect:login";
+    }
+
 }

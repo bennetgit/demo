@@ -3,6 +3,7 @@ package spring.demo.util;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.joda.time.LocalDateTime;
 import org.springframework.util.CollectionUtils;
 
 import com.google.common.collect.Lists;
@@ -18,6 +19,13 @@ public final class RoleParser {
     private RoleParser() {
     }
 
+    public static final Role fromDto(RoleDto roleDto) {
+        Role role = new Role();
+        role.setName(roleDto.getName());
+        role.setDescription(roleDto.getDescription());
+        return role;
+    }
+
     public static final RoleDto fromDomain(Role role) {
         if (role == null) {
             return null;
@@ -26,7 +34,11 @@ public final class RoleParser {
         RoleDto roleDto = new RoleDto();
         roleDto.setId(role.getId());
         roleDto.setName(role.getName());
-
+        roleDto.setDescription(role.getDescription());
+        roleDto.setCreatedOn(LocalDateTime.fromDateFields(role.getCreatedOn()));
+        if (role.getUpdatedOn() != null) {
+            roleDto.setUpdatedOn(LocalDateTime.fromDateFields(role.getUpdatedOn()));
+        }
         return roleDto;
     }
 

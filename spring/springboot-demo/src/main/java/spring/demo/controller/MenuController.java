@@ -44,7 +44,7 @@ public class MenuController {
     }
 
     @PostMapping("")
-    public ResponseInfo<MenuDto> addMenu(@RequestBody MenuRequest request) {
+    public ResponseInfo addMenu(@RequestBody MenuRequest request) {
 
         try {
             menuService.addMenu(MenuDto.from(request));
@@ -56,7 +56,7 @@ public class MenuController {
     }
 
     @PutMapping("/{id}")
-    public ResponseInfo<MenuDto> update(@RequestBody MenuRequest request) {
+    public ResponseInfo update(@RequestBody MenuRequest request) {
 
         try {
             menuService.updateMenu(MenuDto.from(request));
@@ -68,7 +68,7 @@ public class MenuController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseInfo<MenuDto> delete(@PathVariable Long id) {
+    public ResponseInfo delete(@PathVariable Long id) {
         try {
             menuService.deleteMenu(id);
             return success();

@@ -1,24 +1,24 @@
 drop table if exists _user;
 create table if not exists _user(
-    id bigint not null,
-    mobile varchar(11),
-    sex integer,
-    username varchar(255) not null,
-    password varchar(255) not null,
-    created_on timestamp without time zone,
-    updated_on timestamp without time zone,
-    is_admin boolean not null default false,
- constraint user_pk primary key(id)
-   )with (
-     oids=false
-    );
+  id bigint not null,
+  mobile varchar(11),
+  sex integer,
+  username varchar(255) not null,
+  password varchar(255) not null,
+  created_on timestamp without time zone,
+  updated_on timestamp without time zone,
+  is_admin boolean not null default false,
+  constraint user_pk primary key(id)
+)with (
+oids=false
+);
 
 drop sequence if exists seq_user;
 create sequence seq_user
-       increment 1
-       start 1
-       minvalue 1
-       maxvalue 9223372036854775807
+increment 1
+start 1
+minvalue 1
+maxvalue 9223372036854775807
 cache 1;
 
 
@@ -44,11 +44,11 @@ oids=false
 
 drop sequence if exists seq_role;
 create sequence seq_role
-       increment 1
-       start 1
-       minvalue 1
-       maxvalue 9223372036854775807
-       cache 1;
+increment 1
+start 1
+minvalue 1
+maxvalue 9223372036854775807
+cache 1;
 
 
 drop table if exists role_menu;
@@ -74,12 +74,12 @@ oids=false
 );
 
 drop sequence if exists seq_menu;
- create sequence seq_menu
-       increment 1
-       start 1
-       minvalue 1
-       maxvalue 9223372036854775807
-  cache 1;
+create sequence seq_menu
+increment 1
+start 1
+minvalue 1
+maxvalue 9223372036854775807
+cache 1;
 
 
 ----username: admin    password: a
@@ -89,11 +89,10 @@ insert into _role values(nextval('seq_role'),'管理员',now(),now());
 insert into user_role values(1,1);
 
 insert into _menu values(nextval('seq_menu'), '系统管理',1,'sys',0,now(),now());
-insert into _menu values(nextval('seq_menu'), '其他管理',null,'other.list',1,now(),now());
+insert into _menu values(nextval('seq_menu'), '角色管理',1,'role.list',1,now(),now());
 
 insert into _menu values(nextval('seq_menu'), '用户管理',1,'user.list',0,now(),now());
 insert into _menu values(nextval('seq_menu'), '菜单管理',1,'menu.list',1,now(),now());
-insert into _menu values(nextval('seq_menu'), 'other管理',2,'other.list',0,now(),now());
 
 insert into role_menu values(1,6),(1,2),(1,3),(1,4),(1,5),(1,1);
 

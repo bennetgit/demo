@@ -65,7 +65,7 @@ public class Menu {
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedOn = Date.from(Instant.now());
+    private Date updatedOn;
 
     public Long getId() {
         return id;
@@ -150,5 +150,6 @@ public class Menu {
     public boolean isRoot() {
         return parentId == null;
     }
+
 
 }

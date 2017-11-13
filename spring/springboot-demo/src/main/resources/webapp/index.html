@@ -17,7 +17,7 @@
 <body>
 <input id="appContextPath" type="hidden" th:value="@{/}"/>
 <div class="app app-header-fixed" ng-app="mainApp">
-    <!--<div ng-controller="headerController" ng-include="'layout/header.html'" class="app-header"></div>-->
+    <div ng-controller="headerController" ng-include="'layout/header.html'" class="app-header"></div>
     <div ng-controller="leftController" ng-include="'layout/left.html'" class="app-aside bg-dark"></div>
     <div ng-controller="contentController" class="app-content">
         <div ui-view></div>

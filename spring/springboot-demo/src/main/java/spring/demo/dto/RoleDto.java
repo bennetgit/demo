@@ -1,6 +1,8 @@
 package spring.demo.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.joda.time.LocalDateTime;
 
@@ -22,6 +24,11 @@ public class RoleDto implements Serializable {
 
     @JsonSerialize(using = JsonDateTimeSerializer.class)
     private LocalDateTime createdOn;
+
+    @JsonSerialize(using = JsonDateTimeSerializer.class)
+    private LocalDateTime updatedOn;
+
+    private List<Long> menuIds = new ArrayList<>();
 
     public RoleDto() {
     }
@@ -64,12 +71,29 @@ public class RoleDto implements Serializable {
         this.description = description;
     }
 
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public List<Long> getMenuIds() {
+        return menuIds;
+    }
+
+    public void setMenuIds(List<Long> menuIds) {
+        this.menuIds = menuIds;
+    }
+
     public static final RoleDto from(RoleRequest request) {
         if (request == null) {
             return null;
         }
 
         RoleDto roleDto = new RoleDto(request.getId(), request.getName(), request.getDescription());
+        roleDto.setMenuIds(request.getMenuIds());
         return roleDto;
     }
 }

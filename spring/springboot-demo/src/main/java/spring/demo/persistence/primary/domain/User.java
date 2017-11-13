@@ -53,7 +53,7 @@ public class User implements Serializable {
 
     @Column
     @Type(type = "spring.demo.enums.DBEnumType", parameters = {
-            @Parameter(name = "enumClass", value = "spring.demo.enums.SexType") })
+            @Parameter(name = "enumClass", value = "spring.demo.enums.SexType")})
     private SexType sex;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -66,7 +66,7 @@ public class User implements Serializable {
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedOn = Date.from(Instant.now());
+    private Date updatedOn;
 
     public User() {
     }

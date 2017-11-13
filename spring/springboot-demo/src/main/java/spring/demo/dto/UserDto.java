@@ -182,7 +182,7 @@ public class UserDto implements Serializable {
         userDto.setSexType(request.getSex());
         userDto.setUsername(request.getUsername());
         userDto.setPassword(request.getPassword());
-
+        userDto.setAdmin(request.getIsAdmin());
         return userDto;
     }
 

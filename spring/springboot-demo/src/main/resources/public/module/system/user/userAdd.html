@@ -42,6 +42,18 @@
                     </label>
                 </div>
             </div>
+
+            <div class="form-group">
+                <mine-label class="col-sm-2" name="是否超级管理员" required></mine-label>
+                <div class="col-sm-5">
+                    <label class="radio-inline">
+                        <input type="radio" name="isAdmin" ng-model="user.isAdmin" ng-value="true" ng-checked="true"> 是
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="isAdmin" ng-model="user.isAdmin" ng-value="false"> 否
+                    </label>
+                </div>
+            </div>
             <div class="form-group" ng-class="{false:'has-error'}[userForm.email.$valid]">
                 <mine-label class="col-sm-2" name="邮箱"></mine-label>
                 <div class="col-sm-5">

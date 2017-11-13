@@ -44,7 +44,7 @@ public class UserController {
 
     @PostMapping(value = "/list")
     public ResponseInfo<PageResult<UserDto>> list(@PagerQueryParam PageQuery pageQuery,
-            @RequestBody UserRequest userQuery) {
+                                                  @RequestBody UserRequest userQuery) {
         return success(userService.getUserListByPage(pageQuery, UserDto.from(userQuery)));
     }
 
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @PutMapping(value = "")
-    public ResponseInfo<UserDto> update(@RequestBody UserRequest request) {
+    public ResponseInfo update(@RequestBody UserRequest request) {
         try {
             userService.update(UserDto.from(request));
         } catch (Exception e) {
@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}/role")
-    public ResponseInfo<UserDto> getUserRoleWithId(@PathVariable Long id) {
+    public ResponseInfo getUserRoleWithId(@PathVariable Long id) {
         try {
 
             Pair<UserDto, List<TreeNode<Long>>> userAndRoleTree = userService.getUserAndRoleTree(id);
@@ -87,7 +87,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}/role")
-    public ResponseInfo<UserDto> updateUserRole(@PathVariable Long id, @RequestBody UserRequest request) {
+    public ResponseInfo updateUserRole(@PathVariable Long id, @RequestBody UserRequest request) {
 
         try {
             userService.updateUserRole(id, request.getRoleIds());

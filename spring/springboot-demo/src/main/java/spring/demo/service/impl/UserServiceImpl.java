@@ -127,7 +127,7 @@ public class UserServiceImpl implements IUserService {
         user.setUpdatedOn(Date.from(Instant.now()));
         user.setMobile(userDto.getMobile());
         user.setSex(userDto.getSexType());
-
+        user.setAdmin(userDto.getAdmin());
     }
 
     @Override
