@@ -95,6 +95,26 @@ mainApp.service("mineUtil", function ($uibModal) {
     };
 });
 
+mainApp.controller("confirmController", function ($scope, $uibModalInstance, data) {
+    $scope.message = data;
+    $scope.ok = function () {
+        $uibModalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    }
+});
+mainApp.controller("alertController", function ($scope, $uibModalInstance, data) {
+    $scope.message = data;
+    $scope.ok = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    }
+});
+
 mainApp.service("mineTree", function () {
     var defaultSetting = {
         data: {

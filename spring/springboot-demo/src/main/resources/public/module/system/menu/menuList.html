@@ -5,7 +5,7 @@
             <div class="mine-normal-button">
                 <button class="btn btn-sm btn-danger" type="button" ng-click="add(true)">一级菜单</button>
                 <button class="btn btn-primary btn-sm" type="button" ng-click="add(false)"
-                        ng-disabled="menu.level != 1">子菜单
+                        ng-disabled="menu.parentId != null">子菜单
                 </button>
                 <button class="btn btn-primary btn-sm" type="button" ng-click="edit()"
                         ng-disabled="menu.id == null || menuForm.$invalid">编辑

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import spring.demo.dto.request.MenuRequest;
+
 /**
  * Created by feng on 17/10/28.
  */
@@ -21,6 +23,8 @@ public class MenuDto implements Serializable {
     private Long pid;
 
     private List<MenuDto> subMenus = new ArrayList<>();
+
+    private Integer sequence;
 
     public Long getId() {
         return id;
@@ -74,12 +78,37 @@ public class MenuDto implements Serializable {
         this.pid = pid;
     }
 
-    public static final MenuDto of(String name, String url, String pName, Long pid) {
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
+    }
+
+    public static final MenuDto of(Long id, String name, String url, String pName, Long pid) {
         MenuDto menu = new MenuDto();
+        menu.setId(id);
         menu.setName(name);
         menu.setUrl(url);
         menu.setParentName(pName);
         menu.setPid(pid);
         return menu;
+    }
+
+    public static final MenuDto from(MenuRequest request) {
+        MenuDto menu = new MenuDto();
+        menu.setId(request.getId());
+        menu.setName(request.getName());
+        menu.setUrl(request.getUrl());
+        menu.setParentName(request.getParentName());
+        menu.setPid(request.getParentId());
+        menu.setSequence(request.getSequence() == null ? 0 : request.getSequence());
+        return menu;
+    }
+
+    @Override
+    public String toString() {
+        return "MenuDto{" + "id=" + id + ", url='" + url + '\'' + ", name='" + name + '\'' + '}';
     }
 }

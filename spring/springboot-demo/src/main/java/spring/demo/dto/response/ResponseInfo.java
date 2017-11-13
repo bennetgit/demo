@@ -57,4 +57,8 @@ public class ResponseInfo<T> {
     public static ResponseInfo fail() {
         return new ResponseInfo(ResponseCode.FAIL, FAIL, null);
     }
+
+    public static <T> ResponseInfo fail(T content) {
+        return new ResponseInfo(ResponseCode.FAIL, FAIL, content);
+    }
 }

@@ -2,7 +2,7 @@ mainApp.controller("systemMenuListCtl", function ($scope, $http, mineTree, mineH
     var menuTree;
     $scope.ztreeSelected = function (event, treeId, treeNode) {
         $scope.messageStatus = null;
-        var url = "admin/menu/" + treeNode.id;
+        var url = "menus/" + treeNode.id;
         mineHttp.send("GET", url, {}, function (data) {
             if (verifyData(data)) {
                 $scope.menu = data.content;
@@ -12,7 +12,7 @@ mainApp.controller("systemMenuListCtl", function ($scope, $http, mineTree, mineH
         });
     };
     $scope.buildTree = function (callback) {
-        mineHttp.send("GET", "admin/menu/treeList", {}, function (data) {
+        mineHttp.send("GET", "menus/treeList", {}, function (data) {
             var options = {
                 callback: {
                     onClick: $scope.ztreeSelected
@@ -30,20 +30,20 @@ mainApp.controller("systemMenuListCtl", function ($scope, $http, mineTree, mineH
         if (!oneLevelFlag) {
             params = $scope.menu;
         }
-        var modalInstance = mineUtil.modal("admin/_system/menu/menuAdd.htm", "systemMenuAddController", params);
+        var modalInstance = mineUtil.modal("module/system/menu/menuAdd.html", "systemMenuAddController", params);
         modalInstance.result.then(function (selectedItem) {
         }, function () {
         });
     };
     $scope.edit = function () {
-        var modalInstance = mineUtil.modal("admin/_system/menu/menuEdit.htm", "systemMenuEditController", $scope.menu);
+        var modalInstance = mineUtil.modal("module/system/menu/menuEdit.html", "systemMenuEditController", $scope.menu);
         modalInstance.result.then(function (selectedItem) {
         }, function () {
         });
     };
     $scope.drop = function () {
         mineUtil.confirm("确认删除吗？", function () {
-            var url = "admin/menu/" + $scope.menu.id;
+            var url = "menus/" + $scope.menu.id;
             var parentNodeTemp = menuTree.getNodeByParam("id", $scope.menu.id).getParentNode();
             mineHttp.send("DELETE", url, {}, function (data) {
 
@@ -85,7 +85,7 @@ mainApp.controller("systemMenuAddController", function ($scope, data, $uibModalI
     };
     $scope.initPage();
     $scope.ok = function () {
-        mineHttp.send("POST", "admin/menu", {data: $scope.menu}, function (result) {
+        mineHttp.send("POST", "menus", {data: $scope.menu}, function (result) {
             $scope.messageStatus = verifyData(result);
             $scope.message = result.message;
             if ($scope.messageStatus) {
@@ -101,7 +101,7 @@ mainApp.controller("systemMenuAddController", function ($scope, data, $uibModalI
 });
 
 mainApp.controller("systemMenuEditController", function ($scope, data, $uibModalInstance, mineHttp, mineMessage) {
-    mineHttp.send("GET", "admin/menu/" + data.id, {}, function (data) {
+    mineHttp.send("GET", "menus/" + data.id, {}, function (data) {
         if (verifyData(data)) {
             $scope.menu = data.content;
         } else {
@@ -109,7 +109,7 @@ mainApp.controller("systemMenuEditController", function ($scope, data, $uibModal
         }
     });
     $scope.ok = function () {
-        mineHttp.send("PUT", "admin/menu/" + $scope.menu.id, {data: $scope.menu}, function (data) {
+        mineHttp.send("PUT", "menus/" + $scope.menu.id, {data: $scope.menu}, function (data) {
             $scope.menu = data.content;
             $scope.messageStatus = verifyData(data);
             $scope.message = data.message;

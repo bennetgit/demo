@@ -150,4 +150,5 @@ public class Menu {
     public boolean isRoot() {
         return parentId == null;
     }
+
 }

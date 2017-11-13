@@ -15,7 +15,22 @@ public final class MenuParser {
             return null;
         }
 
-        return MenuDto.of(menu.getName(), menu.getUrl(), menu.parentName(), menu.getParentId());
+        MenuDto menuDto = MenuDto.of(menu.getId(), menu.getName(), menu.getUrl(), menu.parentName(),
+                menu.getParentId());
+        menuDto.setSequence(menu.getSequence());
+        return menuDto;
+    }
+
+    public static final Menu fromDto(MenuDto menuDto) {
+        if (menuDto == null) {
+            return null;
+        }
+
+        Menu menu = new Menu();
+        menu.setName(menuDto.getName());
+        menu.setUrl(menuDto.getUrl());
+        menu.setSequence(menuDto.getSequence() == null ? 0 : menuDto.getSequence());
+        return menu;
     }
 
 }
