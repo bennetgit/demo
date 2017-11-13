@@ -30,7 +30,7 @@ public final class RoleParser {
         return roleDto;
     }
 
-    public static final List<RoleDto> fromDomails(List<Role> roles) {
+    public static final List<RoleDto> fromDomains(List<Role> roles) {
         if (CollectionUtils.isEmpty(roles)) {
             return Lists.newArrayList();
         }

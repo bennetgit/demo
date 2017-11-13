@@ -1,13 +1,17 @@
 package spring.demo.security.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import spring.demo.dto.MenuDto;
 import spring.demo.dto.UserDto;
 import spring.demo.security.entity.AuthUser;
 import spring.demo.security.entity.Authority;
+import spring.demo.service.IMenuService;
 import spring.demo.service.IUserService;
 
 /**
@@ -17,6 +21,9 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Resource
     private IUserService userService;
+
+    @Resource
+    private IMenuService menuService;
 
     @Override
     public AuthUser loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -28,9 +35,15 @@ public class MyUserDetailsService implements UserDetailsService {
         }
 
         Authority authority = new Authority();
-        authority.setAuthority("ROLE_ADMIN");
+        List<MenuDto> menus;
+        if (userDto.getAdmin()) {
+            authority.setAuthority("ROLE_ADMIN");
+            menus = menuService.findAll();
+        } else {
+            authority.setAuthority("ROLE_USER");
+            menus = userDto.getMenus();
+        }
 
-        return AuthUser.of(userDto.getId(), userDto.getUsername(), userDto.getPassword(), true, userDto.getMenus(),
-                authority);
+        return AuthUser.of(userDto.getId(), userDto.getUsername(), userDto.getPassword(), true, menus, authority);
     }
 }

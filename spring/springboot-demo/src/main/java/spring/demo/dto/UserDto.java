@@ -31,6 +31,8 @@ public class UserDto implements Serializable {
 
     private String mobile;
 
+    private Boolean isAdmin;
+
     @JsonSerialize(using = JsonEnumSerializer.class)
     @JsonDeserialize(using = JsonEnumDeserializer.class)
     private SexType sexType;
@@ -147,6 +149,14 @@ public class UserDto implements Serializable {
 
     public void setSexType(SexType sexType) {
         this.sexType = sexType;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 
     public static final UserDto of(Long id, String userName, String mobile, SexType sexType, LocalDateTime createdOn) {

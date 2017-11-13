@@ -1,5 +1,14 @@
 package spring.demo.util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.util.CollectionUtils;
+
+import com.google.common.collect.Lists;
+
 import spring.demo.dto.MenuDto;
 import spring.demo.persistence.primary.domain.Menu;
 
@@ -31,6 +40,36 @@ public final class MenuParser {
         menu.setUrl(menuDto.getUrl());
         menu.setSequence(menuDto.getSequence() == null ? 0 : menuDto.getSequence());
         return menu;
+    }
+
+    public static final List<MenuDto> toTreeMenus(List<Menu> menus) {
+        if (CollectionUtils.isEmpty(menus)) {
+            return Lists.newArrayList();
+        }
+
+        Map<Long, MenuDto> tempTreeMenuMap = new HashMap<>();
+
+        MenuDto tempMenu;
+        for (Menu menu : menus) {
+            tempMenu = MenuParser.fromDomain(menu);
+            if (menu.isRoot()) {
+                if (tempTreeMenuMap.containsKey(menu.getId())) {
+                    continue;
+                }
+                tempTreeMenuMap.put(menu.getId(), tempMenu);
+                continue;
+            }
+
+            if (tempTreeMenuMap.containsKey(menu.getParentId())) {
+                tempTreeMenuMap.get(menu.getParentId()).addSubMenu(tempMenu);
+            } else {
+                tempTreeMenuMap.put(menu.getId(), MenuParser.fromDomain(menu.getParent()));
+                continue;
+            }
+
+        }
+
+        return new ArrayList<>(tempTreeMenuMap.values());
     }
 
 }

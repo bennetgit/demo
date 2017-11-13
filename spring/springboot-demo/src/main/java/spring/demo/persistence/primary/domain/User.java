@@ -49,6 +49,9 @@ public class User implements Serializable {
     private String mobile;
 
     @Column
+    private Boolean isAdmin;
+
+    @Column
     @Type(type = "spring.demo.enums.DBEnumType", parameters = {
             @Parameter(name = "enumClass", value = "spring.demo.enums.SexType") })
     private SexType sex;
@@ -131,5 +134,13 @@ public class User implements Serializable {
 
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 }

@@ -40,7 +40,7 @@ public class MenuServiceImpl implements IMenuService {
             return Lists.newArrayList();
         }
 
-        return null;
+        return MenuParser.toTreeMenus(menus);
     }
 
     @Override

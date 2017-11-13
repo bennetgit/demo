@@ -7,6 +7,7 @@ create table if not exists _user(
     password varchar(255) not null,
     created_on timestamp without time zone,
     updated_on timestamp without time zone,
+    is_admin boolean not null default false,
  constraint user_pk primary key(id)
    )with (
      oids=false
@@ -33,6 +34,7 @@ drop table if exists _role;
 create table if not exists _role(
   id bigint not null,
   name varchar(255) not null,
+  description varchar(255) not null,
   created_on timestamp without time zone,
   updated_on timestamp without time zone,
   constraint role_pk primary key(id)
@@ -81,7 +83,7 @@ drop sequence if exists seq_menu;
 
 
 ----username: admin    password: a
-insert into _user values(nextval('seq_user'), 10, null, 'admin', '0cc175b9c0f1b6a831c399e269772661', now(),now());
+insert into _user values(nextval('seq_user'), 10, null, 'admin', '0cc175b9c0f1b6a831c399e269772661', now(),now(),true);
 
 insert into _role values(nextval('seq_role'),'管理员',now(),now());
 insert into user_role values(1,1);

@@ -43,6 +43,7 @@ public class UserParser {
         userDto.setCreatedOnStart(LocalDateTime.fromDateFields(user.getCreatedOn()));
         userDto.setUpdatedOn(LocalDateTime.fromDateFields(user.getUpdatedOn()));
         userDto.setPassword(user.getPassword());
+        userDto.setAdmin(user.getAdmin());
         List<MenuDto> menus = new ArrayList<>();
         userDto.setMenus(menus);
 
