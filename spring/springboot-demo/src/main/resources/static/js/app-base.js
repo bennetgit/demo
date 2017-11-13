@@ -19,10 +19,11 @@ function verifyData(data) {
 
 mainApp.controller("leftController", function ($http, $scope, $location, $sessionStorage, $state, mineMessage, mineHttp) {
     $scope.loadMenu = function () {
-        mineHttp.send("GET", "index/menuList", {}, function (data) {
+        mineHttp.send("GET", "index/init", {}, function (data) {
             if (verifyData(data)) {
-                $scope.buildMenu(data.content);
+                $scope.buildMenu(data.content.menus);
                 $scope.menuListener();
+                $scope.user=data.content;
             } else {
                 $scope.message = data.message;
             }
@@ -41,8 +42,9 @@ mainApp.controller("leftController", function ($http, $scope, $location, $sessio
                 }
                 sub += "</ul>";
             }
-            html += "<li mark='menuOne'><a href='javascript:void(0);' class='first-menu-a'><span class='pull-right'><i class='fa fa-angle-right'></i></span>" +
-                "<i class='fa fa-bars' style='font-size: 20px;'></i>&nbsp;&nbsp;&nbsp;&nbsp;" + menu.name + "</span></a>"
+            html += "<li mark='menuOne'><a href='javascript:void(0);' class='first-menu-a'><span class='pull-right'>" +
+                "<i class='fa fa-angle-right'></i></span>" +
+                "<i class='fa fa-circle-o' style='font-size: 12px;color:orange;'></i>&nbsp;&nbsp;&nbsp;&nbsp;" + menu.name + "</span></a>"
                 + sub + "</li>";
         }
         $(pNode).append(html);

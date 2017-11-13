@@ -24,15 +24,15 @@ public class IndexController {
         return new ModelAndView("index");
     }
 
-    @GetMapping("index/menuList")
+    @GetMapping("index/init")
     @ResponseBody
-    public ResponseInfo<MenuDto> initMenuList() {
+    public ResponseInfo initMenuList() {
         AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (authUser == null) {
             return ResponseInfo.fail();
         }
 
-        return ResponseInfo.success(authUser.getMenus());
+        return ResponseInfo.success(authUser);
     }
 
     @GetMapping("logout")
