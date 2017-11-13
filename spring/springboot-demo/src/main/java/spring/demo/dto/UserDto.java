@@ -6,11 +6,14 @@ import java.util.List;
 
 import org.joda.time.LocalDateTime;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import spring.demo.dto.request.UserRequest;
 import spring.demo.enums.SexType;
 import spring.demo.util.JsonDateTimeSerializer;
+import spring.demo.util.JsonEnumDeserializer;
+import spring.demo.util.JsonEnumSerializer;
 
 public class UserDto implements Serializable {
 
@@ -28,6 +31,8 @@ public class UserDto implements Serializable {
 
     private String mobile;
 
+    @JsonSerialize(using = JsonEnumSerializer.class)
+    @JsonDeserialize(using = JsonEnumDeserializer.class)
     private SexType sexType;
 
     @JsonSerialize(using = JsonDateTimeSerializer.class)
@@ -162,11 +167,18 @@ public class UserDto implements Serializable {
         }
         UserDto userDto = new UserDto();
 
+        userDto.setId(request.getId());
         userDto.setMobile(request.getMobile());
         userDto.setSexType(request.getSex());
         userDto.setUsername(request.getUsername());
         userDto.setPassword(request.getPassword());
 
         return userDto;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" + "id=" + id + ", username='" + username + '\'' + ", password='" + password + '\''
+                + ", mobile='" + mobile + '\'' + ", sexType=" + sexType + '}';
     }
 }

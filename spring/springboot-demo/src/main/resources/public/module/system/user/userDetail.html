@@ -13,16 +13,12 @@
         <table class="table table-bordered table-striped">
             <tbody>
             <tr>
-                <td width="100" class="mine-title-td">账号</td>
-                <td>{{user.account}}</td>
-            </tr>
-            <tr>
                 <td class="mine-title-td">用户名</td>
-                <td>{{user.name}}</td>
+                <td>{{user.username}}</td>
             </tr>
             <tr>
                 <td class="mine-title-td">性别</td>
-                <td>{{user.genderMessage}}</td>
+                <td>{{user.sexType}}</td>
             </tr>
             <tr>
                 <td class="mine-title-td">邮箱</td>
@@ -33,28 +29,16 @@
                 <td>{{user.mobile}}</td>
             </tr>
             <tr>
-                <td class="mine-title-td">座机</td>
-                <td>{{user.telephone}}</td>
-            </tr>
-            <tr>
                 <td class="mine-title-td">状态</td>
                 <td>{{user.status}}</td>
             </tr>
             <tr>
                 <td class="mine-title-td">创建时间</td>
-                <td>{{user.createdAt}}</td>
-            </tr>
-            <tr>
-                <td class="mine-title-td">创建者</td>
-                <td>{{user.createdBy}}</td>
+                <td>{{user.createdOn}}</td>
             </tr>
             <tr>
                 <td class="mine-title-td">修改时间</td>
-                <td>{{user.updatedAt}}</td>
-            </tr>
-            <tr>
-                <td class="mine-title-td">修改者</td>
-                <td>{{user.updatedBy}}</td>
+                <td>{{user.updatedOn}}</td>
             </tr>
             </tbody>
         </table>

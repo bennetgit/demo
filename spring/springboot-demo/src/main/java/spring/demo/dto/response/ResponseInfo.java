@@ -50,6 +50,10 @@ public class ResponseInfo<T> {
         return new ResponseInfo(ResponseCode.OK, SUCCESS, data);
     }
 
+    public static <T> ResponseInfo success() {
+        return new ResponseInfo(ResponseCode.OK, SUCCESS, null);
+    }
+
     public static ResponseInfo fail() {
         return new ResponseInfo(ResponseCode.FAIL, FAIL, null);
     }

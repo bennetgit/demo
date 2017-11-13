@@ -1,5 +1,12 @@
 package spring.demo.util;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.util.CollectionUtils;
+
+import com.google.common.collect.Lists;
+
 import spring.demo.dto.RoleDto;
 import spring.demo.persistence.primary.domain.Role;
 
@@ -22,4 +29,13 @@ public final class RoleParser {
 
         return roleDto;
     }
+
+    public static final List<RoleDto> fromDomails(List<Role> roles) {
+        if (CollectionUtils.isEmpty(roles)) {
+            return Lists.newArrayList();
+        }
+
+        return roles.stream().map(RoleParser::fromDomain).collect(Collectors.toList());
+    }
+
 }

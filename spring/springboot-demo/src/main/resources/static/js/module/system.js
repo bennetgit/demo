@@ -143,7 +143,7 @@ mainApp.controller("systemUserListCtl", function ($scope, $uibModal, mineHttp, m
             {
                 field: 'sex',
                 displayName: '性别',
-                cellTemplate: "<span class='mine-table-span'>{{row.entity.sex}}</span>"
+                cellTemplate: "<span class='mine-table-span'>{{row.entity.sexType}}</span>"
             },
 //            {
 //                field: 'approveRole',
@@ -247,9 +247,6 @@ mainApp.controller("systemUserAddController", function ($scope, $uibModalInstanc
     };
 });
 mainApp.controller("systemUserEditController", function ($scope, $uibModalInstance, mineHttp, data) {
-    mineHttp.constant("approveRole", function (data) {
-        $scope.approveRoles = data.content;
-    });
     mineHttp.send("GET", "users/" + data.id, {}, function (result) {
         if (!verifyData(result)) {
             $scope.messageStatus = false;
@@ -258,7 +255,7 @@ mainApp.controller("systemUserEditController", function ($scope, $uibModalInstan
         $scope.user = result.content;
     });
     $scope.ok = function () {
-        mineHttp.send("PUT", "users/" + data.id, {data: $scope.user}, function (result) {
+        mineHttp.send("PUT", "users/", {data: $scope.user}, function (result) {
             $scope.messageStatus = verifyData(result);
             $scope.message = result.message;
         });

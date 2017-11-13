@@ -95,6 +95,47 @@ mainApp.service("mineUtil", function ($uibModal) {
     };
 });
 
+mainApp.service("mineTree", function () {
+    var defaultSetting = {
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pid",
+                rootPId: null
+            }
+        }
+    };
+    this.build = function (obj, nodes, options) {
+        var setting = {};
+        $.extend(setting, defaultSetting);
+        if (typeof options != "undefined") {
+            $.extend(setting, options);
+        }
+        return $.fn.zTree.init(obj, setting, nodes);
+    };
+
+    this.buildAsync = function (obj, url, nodes, options) {
+        var filter = function (treeId, parentNode, childNodes) {
+            return childNodes;
+        };
+        var setting = {
+            async: {
+                autoParam: ["id", "name", "level"],
+                enable: true,
+                type: "GET",
+                url: fullPath(url),
+                dataFilter: filter,
+            }
+        };
+        $.extend(setting, defaultSetting);
+        if (typeof options != "undefined") {
+            $.extend(setting, options);
+        }
+        return $.fn.zTree.init(obj, setting, nodes);
+    }
+});
+
 mainApp.service("mineGrid", function ($http, $parse) {
     var defaultSetting = {
         requestUrl: undefined,

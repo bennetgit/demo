@@ -1,6 +1,7 @@
 package spring.demo.dto.request;
 
-import org.joda.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -15,12 +16,12 @@ public class UserRequest extends BaseRequest {
 
     private String password;
 
+    private Long id;
+
     @JsonDeserialize(using = JsonEnumDeserializer.class)
     private SexType sex;
 
-    private LocalDateTime createdOn;
-
-    private LocalDateTime updatedOn;
+    private List<Long> roleIds = new ArrayList<>();
 
     public String getUsername() {
         return username;
@@ -28,22 +29,6 @@ public class UserRequest extends BaseRequest {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public LocalDateTime getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(LocalDateTime updatedOn) {
-        this.updatedOn = updatedOn;
     }
 
     public String getMobile() {
@@ -68,5 +53,21 @@ public class UserRequest extends BaseRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
     }
 }

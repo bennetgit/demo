@@ -2,6 +2,7 @@ package spring.demo.persistence.primary.jpa;
 
 import javax.annotation.Resource;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,13 +23,13 @@ import java.util.List;
 public class RoleRepositoryTest {
 
     @Resource
-    private IRoleRepository RoleRepository;
+    private IRoleRepository roleRepository;
 
     private Role mockRole;
 
     @Before
     public void setup() {
-        RoleRepository.deleteAll();
+        roleRepository.deleteAll();
         List<Menu> mockMenus = new ArrayList<>();
         mockRole = new Role();
         mockRole.setName("role_1");
@@ -37,6 +38,12 @@ public class RoleRepositoryTest {
 
     @Test
     public void saveMenuTest() {
-        RoleRepository.save(mockRole);
+        roleRepository.save(mockRole);
+    }
+
+    @Test
+    public void findRolesWithUserIdTest() {
+        List<Role> roles = roleRepository.findRolesWithUserId(1l);
+        Assert.assertNotNull(roles);
     }
 }
