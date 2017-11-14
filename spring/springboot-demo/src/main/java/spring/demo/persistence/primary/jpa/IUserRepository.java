@@ -15,7 +15,7 @@ import spring.demo.persistence.primary.domain.User;
 @CacheConfig(cacheNames = "demoUsers")
 public interface IUserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
-    @Query("from User u where u.username = :name")
+    @Query("from User u where u.username = :name and u.status = 1")
     User findUser(@Param("name") String name);
 
     // @Cacheable(key = "#p0.username")

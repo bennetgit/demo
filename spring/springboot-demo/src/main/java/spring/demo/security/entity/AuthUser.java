@@ -27,13 +27,21 @@ public class AuthUser implements UserDetails {
     private Collection<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
 
     AuthUser(Long id, String username, String password, boolean enable, List<MenuDto> menus,
-             Collection<GrantedAuthority> grantedAuthorityList) {
+            Collection<GrantedAuthority> grantedAuthorityList) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.enable = enable;
         this.grantedAuthorityList = grantedAuthorityList;
         this.menus = menus;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
@@ -80,7 +88,7 @@ public class AuthUser implements UserDetails {
     }
 
     public static final AuthUser of(Long id, String username, String password, boolean enable, List<MenuDto> menus,
-                                    Authority... grantedAuthorityList) {
+            Authority... grantedAuthorityList) {
         return new AuthUser(id, username, password, enable, menus, Arrays.asList(grantedAuthorityList));
     }
 }

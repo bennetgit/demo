@@ -98,7 +98,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/users/status")
+    @PutMapping("/status")
     public ResponseInfo udpateUserStatus(@RequestBody UserRequest request) {
 
         try {

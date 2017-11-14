@@ -144,12 +144,6 @@ mainApp.controller("systemUserListCtl", function ($scope, $uibModal, mineHttp, m
                 displayName: '性别',
                 cellTemplate: "<span class='mine-table-span'>{{row.entity.sexType}}</span>"
             },
-//            {
-//                field: 'approveRole',
-//                displayName: '审批角色',
-//                cellTemplate: "<span class='mine-table-span'>{{row.entity.approveRoleMessage}}</span>"
-//            },
-//            {field: 'email', displayName: '电子邮箱'},
             {field: 'mobile', displayName: '联系电话'},
             {field: 'createdOn', displayName: '创建时间'},
             {field: 'statusMessage', displayName: '状态'},
