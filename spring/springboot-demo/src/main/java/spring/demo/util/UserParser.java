@@ -100,7 +100,7 @@ public class UserParser {
         UserDto result = UserDto.of(user.getId(), user.getUsername(), user.getMobile(), user.getSex(),
                 LocalDateTime.fromDateFields(user.getCreatedOn()));
         result.setAdmin(user.getAdmin());
-
+        result.setStatus(user.getStatus());
         return result;
     }
 }

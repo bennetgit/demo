@@ -14,6 +14,8 @@ import spring.demo.security.service.MyAccessDecisionManager;
 import spring.demo.security.service.MyAuthenticationProvider;
 import spring.demo.security.service.MySessionRegistry;
 import spring.demo.security.service.MyUserDetailsService;
+import spring.demo.security.success.MyLoginSuccessHandler;
+import spring.demo.security.success.MyLogoutSuccessHandler;
 
 /**
  * Created by facheng on 17.03.17.
@@ -35,8 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin()// 登录
                 // .loginPage("/account/login.html").usernameParameter("username").passwordParameter("password")
-                .defaultSuccessUrl("/index.html")// 先defaultSuccessUrl后successHandler，不然successHandler不会执行
-                // .successHandler(myLoginSuccessHandler())
+                .defaultSuccessUrl("/index")// 先defaultSuccessUrl后successHandler，不然successHandler不会执行
+                .successHandler(myLoginSuccessHandler())
                 .withObjectPostProcessor(new ObjectPostProcessor<UsernamePasswordAuthenticationFilter>() {// 高级设置-拦截器
                     public <O extends UsernamePasswordAuthenticationFilter> O postProcess(O fsi) {
                         return fsi;
@@ -45,8 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 }).permitAll();
 
         http.logout()// 登出
-                .logoutUrl("/demo/logout").logoutSuccessUrl("/demo/login");
-        // .logoutSuccessHandler(myLogoutSuccessHandler()).deleteCookies("remeber-me").permitAll();
+                .logoutUrl("/demo/logout").logoutSuccessUrl("/demo/login")
+                .logoutSuccessHandler(myLogoutSuccessHandler()).deleteCookies("remember-me").permitAll();
 
         http.rememberMe()// 记住我
                 .rememberMeCookieName("remember-me").userDetailsService(userDetailService());
@@ -68,6 +70,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(myAuthenticationProvider());
+    }
+
+    @Bean
+    MyLoginSuccessHandler myLoginSuccessHandler() {
+        return new MyLoginSuccessHandler();
+    }
+
+    @Bean
+    MyLogoutSuccessHandler myLogoutSuccessHandler() {
+        return new MyLogoutSuccessHandler();
     }
 
     /**

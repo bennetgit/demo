@@ -32,4 +32,6 @@ public interface IUserService {
     Pair<UserDto, List<TreeNode<Long>>> getUserAndRoleTree(Long userId);
 
     void updateUserRole(Long userId, List<Long> roleIds);
+
+    void updateStatus(Boolean enabled, List<Long> userIds);
 }

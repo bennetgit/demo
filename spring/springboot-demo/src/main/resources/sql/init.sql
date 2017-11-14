@@ -8,6 +8,7 @@ create table if not exists _user(
   created_on timestamp without time zone,
   updated_on timestamp without time zone,
   is_admin boolean not null default false,
+  status integer default 0,
   constraint user_pk primary key(id)
 )with (
 oids=false
@@ -83,7 +84,7 @@ cache 1;
 
 
 ----username: admin    password: a
-insert into _user values(nextval('seq_user'), 10, null, 'admin', '0cc175b9c0f1b6a831c399e269772661', now(),now(),true);
+insert into _user values(nextval('seq_user'), 10, null, 'admin', '0cc175b9c0f1b6a831c399e269772661', now(),now(),true, 1);
 
 insert into _role values(nextval('seq_role'),'管理员',now(),now());
 insert into user_role values(1,1);

@@ -44,7 +44,7 @@ public class UserController {
 
     @PostMapping(value = "/list")
     public ResponseInfo<PageResult<UserDto>> list(@PagerQueryParam PageQuery pageQuery,
-                                                  @RequestBody UserRequest userQuery) {
+            @RequestBody UserRequest userQuery) {
         return success(userService.getUserListByPage(pageQuery, UserDto.from(userQuery)));
     }
 
@@ -91,6 +91,18 @@ public class UserController {
 
         try {
             userService.updateUserRole(id, request.getRoleIds());
+            return success();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            return fail();
+        }
+    }
+
+    @PutMapping("/users/status")
+    public ResponseInfo udpateUserStatus(@RequestBody UserRequest request) {
+
+        try {
+            userService.updateStatus(request.getEnabled(), request.getUserIds());
             return success();
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);

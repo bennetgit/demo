@@ -144,12 +144,6 @@ mainApp.controller("systemUserListCtl", function ($scope, $uibModal, mineHttp, m
                 displayName: '性别',
                 cellTemplate: "<span class='mine-table-span'>{{row.entity.sexType}}</span>"
             },
-            {
-                field: 'isAdmin',
-                displayName: '是否为超级管理员',
-                cellTemplate: "<span class='mine-table-span'>{{row.entity.admin}}</span>"
-            },
-
 //            {
 //                field: 'approveRole',
 //                displayName: '审批角色',
@@ -158,7 +152,7 @@ mainApp.controller("systemUserListCtl", function ($scope, $uibModal, mineHttp, m
 //            {field: 'email', displayName: '电子邮箱'},
             {field: 'mobile', displayName: '联系电话'},
             {field: 'createdOn', displayName: '创建时间'},
-//            {field: 'status', displayName: '状态'},
+            {field: 'statusMessage', displayName: '状态'},
             {
                 field: 'id',
                 displayName: '操作',
@@ -224,11 +218,11 @@ mainApp.controller("systemUserListCtl", function ($scope, $uibModal, mineHttp, m
         for (var index in selectedItems) {
             $scope.userSelect.userIds.push(selectedItems[index].id);
         }
-//        mineHttp.send("PUT", "admin/user/list/status", {data: $scope.userSelect}, function (result) {
-//            if (verifyData(result)) {
-//                $scope.query();
-//            }
-//        });
+        mineHttp.send("PUT", "users/status", {data: $scope.userSelect}, function (result) {
+            if (verifyData(result)) {
+                $scope.query();
+            }
+        });
     }
 });
 

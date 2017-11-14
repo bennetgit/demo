@@ -26,6 +26,7 @@ import org.springframework.util.CollectionUtils;
 import spring.demo.dto.PageQuery;
 import spring.demo.dto.TreeNode;
 import spring.demo.dto.UserDto;
+import spring.demo.enums.UserStatus;
 import spring.demo.exception.UserOperateException;
 import spring.demo.jdbctemplate.IUserDao;
 import spring.demo.persistence.primary.domain.Role;
@@ -157,6 +158,28 @@ public class UserServiceImpl implements IUserService {
 
         List<Role> roles = roleRepository.findRoleByIds(roleIds);
         user.setRoles(roles);
+    }
+
+    @Override
+    @Transactional
+    public void updateStatus(Boolean enabled, List<Long> userIds) {
+
+        if (CollectionUtils.isEmpty(userIds)) {
+            throw new UserOperateException("user id is empty");
+        }
+
+        if (enabled == null) {
+            return;
+        }
+
+        List<User> users = userRepository.findAll(userIds);
+
+        if (CollectionUtils.isEmpty(users)) {
+            throw new UserOperateException("user is empty");
+        }
+
+        users.stream().forEach(u -> u.setStatus(enabled ? UserStatus.ACTIVE : UserStatus.INACTIVE));
+
     }
 
     private TreeNode<Long> convertRoleToTreeNode(Role role, boolean isChecked) {

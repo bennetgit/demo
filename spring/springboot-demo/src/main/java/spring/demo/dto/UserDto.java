@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import spring.demo.dto.request.UserRequest;
 import spring.demo.enums.SexType;
+import spring.demo.enums.UserStatus;
 import spring.demo.util.JsonDateTimeSerializer;
 import spring.demo.util.JsonEnumDeserializer;
 import spring.demo.util.JsonEnumSerializer;
@@ -52,6 +54,8 @@ public class UserDto implements Serializable {
     private List<MenuDto> menus = new ArrayList<>();
 
     private List<RoleDto> roles = new ArrayList<>();
+
+    private UserStatus status;
 
     public UserDto() {
     }
@@ -157,6 +161,18 @@ public class UserDto implements Serializable {
 
     public void setAdmin(Boolean admin) {
         isAdmin = admin;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
+
+    public String getStatusMessage() {
+        return status == null ? StringUtils.EMPTY : status.getMessage();
     }
 
     public static final UserDto of(Long id, String userName, String mobile, SexType sexType, LocalDateTime createdOn) {

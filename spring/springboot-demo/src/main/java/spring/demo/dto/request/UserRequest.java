@@ -25,6 +25,10 @@ public class UserRequest extends BaseRequest {
 
     private Boolean isAdmin = false;
 
+    private Boolean enabled;
+
+    private List<Long> userIds = new ArrayList<>();
+
     public Boolean getIsAdmin() {
         return isAdmin;
     }
@@ -79,5 +83,21 @@ public class UserRequest extends BaseRequest {
 
     public void setRoleIds(List<Long> roleIds) {
         this.roleIds = roleIds;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public List<Long> getUserIds() {
+        return userIds;
+    }
+
+    public void setUserIds(List<Long> userIds) {
+        this.userIds = userIds;
     }
 }

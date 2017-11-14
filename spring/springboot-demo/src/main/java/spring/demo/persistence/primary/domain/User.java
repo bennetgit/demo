@@ -24,6 +24,7 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
 import spring.demo.enums.SexType;
+import spring.demo.enums.UserStatus;
 
 /**
  * Created by facheng on 16.03.17.
@@ -53,7 +54,7 @@ public class User implements Serializable {
 
     @Column
     @Type(type = "spring.demo.enums.DBEnumType", parameters = {
-            @Parameter(name = "enumClass", value = "spring.demo.enums.SexType")})
+            @Parameter(name = "enumClass", value = "spring.demo.enums.SexType") })
     private SexType sex;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -67,6 +68,11 @@ public class User implements Serializable {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOn;
+
+    @Column
+    @Type(type = "spring.demo.enums.DBEnumType", parameters = {
+            @Parameter(name = "enumClass", value = "spring.demo.enums.UserStatus") })
+    private UserStatus status = UserStatus.INACTIVE;
 
     public User() {
     }
@@ -142,5 +148,13 @@ public class User implements Serializable {
 
     public void setAdmin(Boolean admin) {
         isAdmin = admin;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 }
