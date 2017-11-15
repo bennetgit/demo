@@ -1,5 +1,7 @@
 package spring.demo.dto.request;
 
+import spring.demo.enums.ModuleType;
+
 public class PrivilegeRequest extends BaseRequest {
 
     private String name;
@@ -7,6 +9,16 @@ public class PrivilegeRequest extends BaseRequest {
     private String url;
 
     private Long id;
+
+    private ModuleType module;
+
+    public ModuleType getModule() {
+        return module;
+    }
+
+    public void setModule(ModuleType module) {
+        this.module = module;
+    }
 
     public String getName() {
         return name;

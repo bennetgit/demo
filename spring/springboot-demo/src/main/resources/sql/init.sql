@@ -88,6 +88,7 @@ CREATE TABLE _privilege (
   id         BIGINT       NOT NULL,
   name       VARCHAR(128),
   url        VARCHAR(128) NOT NULL,
+  module      INTEGER      NOT NULL,
   created_by BIGINT       NOT NULL,
   updated_by BIGINT       NOT NULL,
   created_on TIMESTAMP WITHOUT TIME ZONE,

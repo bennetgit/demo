@@ -19,9 +19,8 @@ public final class PrivilegeParser {
     }
 
     public static final PrivilegeDto fromDomain(Privilege privilege) {
-
         return PrivilegeDto.of(privilege.getId(), privilege.getName(), privilege.getUrl(), privilege.creatorInfo(),
-                privilege.updatorInfo());
+                privilege.updatedInfo(), privilege.getModule());
 
     }
 

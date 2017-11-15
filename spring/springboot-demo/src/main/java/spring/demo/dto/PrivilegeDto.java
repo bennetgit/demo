@@ -3,6 +3,7 @@ package spring.demo.dto;
 import java.io.Serializable;
 
 import spring.demo.dto.request.PrivilegeRequest;
+import spring.demo.enums.ModuleType;
 
 /**
  * Created by facheng on 17-11-15.
@@ -20,32 +21,37 @@ public class PrivilegeDto implements Serializable {
 
     private String updatedBy;
 
+    private ModuleType module;
+
     public PrivilegeDto() {
     }
 
-    PrivilegeDto(Long id, String name, String url, String createdBy, String updatedBy) {
+    PrivilegeDto(Long id, String name, String url, String createdBy, String updatedBy, ModuleType module) {
         this.id = id;
         this.name = name;
         this.url = url;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
+        this.module = module;
     }
 
-    public PrivilegeDto(Long id, String name, String url) {
+    public PrivilegeDto(Long id, String name, String url, ModuleType module) {
         this.id = id;
         this.name = name;
         this.url = url;
+        this.module = module;
     }
 
-    public static final PrivilegeDto of(Long id, String name, String url, String createdBy, String updatedBy) {
-        return new PrivilegeDto(id, name, url, createdBy, updatedBy);
+    public static final PrivilegeDto of(Long id, String name, String url, String createdBy, String updatedBy,
+            ModuleType module) {
+        return new PrivilegeDto(id, name, url, createdBy, updatedBy, module);
     }
 
     public static final PrivilegeDto from(PrivilegeRequest request) {
         if (request == null) {
             return null;
         }
-        return new PrivilegeDto(request.getId(), request.getName(), request.getUrl());
+        return new PrivilegeDto(request.getId(), request.getName(), request.getUrl(), request.getModule());
     }
 
     public Long getId() {
@@ -86,6 +92,14 @@ public class PrivilegeDto implements Serializable {
 
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public ModuleType getModule() {
+        return module;
+    }
+
+    public void setModule(ModuleType module) {
+        this.module = module;
     }
 
     @Override

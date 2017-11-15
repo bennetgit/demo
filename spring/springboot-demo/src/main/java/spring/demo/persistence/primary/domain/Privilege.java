@@ -3,9 +3,24 @@ package spring.demo.persistence.primary.domain;
 import java.time.Instant;
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+
+import spring.demo.enums.ModuleType;
 
 /**
  * Created by facheng on 17-11-15.
@@ -31,10 +46,13 @@ public class Privilege {
     private User createdBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "udpated_by")
+    @JoinColumn(name = "updated_by")
     private User updatedBy;
 
-    @ManyToOne
+    @Column
+    @Type(type = "spring.demo.enums.DBEnumType", parameters = {
+            @Parameter(name = "enumClass", value = "spring.demo.enums.ModuleType") })
+    private ModuleType module;
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
@@ -96,11 +114,19 @@ public class Privilege {
         this.updatedBy = updatedBy;
     }
 
+    public ModuleType getModule() {
+        return module;
+    }
+
+    public void setModule(ModuleType module) {
+        this.module = module;
+    }
+
     public String creatorInfo() {
         return getCreatedBy() == null ? StringUtils.EMPTY : getCreatedBy().getUsername();
     }
 
-    public String updatorInfo() {
+    public String updatedInfo() {
         return getUpdatedBy() == null ? StringUtils.EMPTY : getUpdatedBy().getUsername();
     }
 }
