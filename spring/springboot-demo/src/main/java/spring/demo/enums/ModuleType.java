@@ -20,4 +20,7 @@ public enum ModuleType implements DBEnum {
         return dbConstant;
     }
 
+    public String getMessage() {
+        return message;
+    }
 }

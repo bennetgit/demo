@@ -18,7 +18,7 @@ public abstract class BaseController {
         }
 
         Object principal = authentication.getPrincipal();
-        if (principal == null || (principal instanceof AuthUser)) {
+        if (principal == null || !(principal instanceof AuthUser)) {
             return null;
         }
         return ((AuthUser) principal).getId();

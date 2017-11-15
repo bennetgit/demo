@@ -88,9 +88,9 @@ CREATE TABLE _privilege (
   id         BIGINT       NOT NULL,
   name       VARCHAR(128),
   url        VARCHAR(128) NOT NULL,
-  module      INTEGER      NOT NULL,
+  module     INTEGER      NOT NULL,
   created_by BIGINT       NOT NULL,
-  updated_by BIGINT       NOT NULL,
+  updated_by BIGINT,
   created_on TIMESTAMP WITHOUT TIME ZONE,
   updated_on TIMESTAMP WITHOUT TIME ZONE,
   PRIMARY KEY (id)
@@ -118,11 +118,12 @@ VALUES (nextval('seq_user'), 10, NULL, 'admin', '0cc175b9c0f1b6a831c399e26977266
 INSERT INTO _role VALUES (nextval('seq_role'), '管理员', now(), now());
 INSERT INTO user_role VALUES (1, 1);
 
-INSERT INTO _menu VALUES (nextval('seq_menu'), '系统管理', 1, 'sys', 0, now(), now());
-INSERT INTO _menu VALUES (nextval('seq_menu'), '角色管理', 1, 'role.list', 1, now(), now());
+INSERT INTO _menu VALUES (nextval('seq_menu'), '系统管理', NULL, 'sys', 0, now(), now());
+INSERT INTO _menu VALUES (nextval('seq_menu'), '角色管理', 1, 'role.list', 0, now(), now());
 
-INSERT INTO _menu VALUES (nextval('seq_menu'), '用户管理', 1, 'user.list', 0, now(), now());
-INSERT INTO _menu VALUES (nextval('seq_menu'), '菜单管理', 1, 'menu.list', 1, now(), now());
+INSERT INTO _menu VALUES (nextval('seq_menu'), '用户管理', 1, 'user.list', 1, now(), now());
+INSERT INTO _menu VALUES (nextval('seq_menu'), '菜单管理', 1, 'menu.list', 2, now(), now());
+INSERT INTO _menu VALUES (nextval('seq_menu'), '权限管理', 1, 'privilege.list', 3, now(), now());
 
 INSERT INTO role_menu VALUES (1, 6), (1, 2), (1, 3), (1, 4), (1, 5), (1, 1);
 

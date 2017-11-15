@@ -3384,3 +3384,7 @@ Caused by: java.net.SocketException: Network is down
 2017.11.14 at 21:57:45 CST ERROR com.manage.kernel.spring.message.MessageSupplier 100 getText - Cannot find message with code: AbstractAccessDecisionManager.accessDenied
 2017.11.14 at 22:07:58 CST ERROR com.manage.kernel.spring.message.MessageSupplier 100 getText - Cannot find message with code: AbstractAccessDecisionManager.accessDenied
 2017.11.14 at 22:08:02 CST ERROR com.manage.kernel.spring.message.MessageSupplier 100 getText - Cannot find message with code: AbstractUserDetailsAuthenticationProvider.onlySupports
+2017.11.15 at 23:20:27 CST ERROR com.manage.kernel.spring.message.MessageSupplier 100 getText - Cannot find message with code: AbstractAccessDecisionManager.accessDenied
+2017.11.15 at 23:20:30 CST ERROR com.manage.kernel.spring.message.MessageSupplier 100 getText - Cannot find message with code: AbstractUserDetailsAuthenticationProvider.onlySupports
+2017.11.16 at 00:04:59 CST ERROR com.manage.kernel.spring.message.MessageSupplier 100 getText - Cannot find message with code: AbstractAccessDecisionManager.accessDenied
+2017.11.16 at 00:05:01 CST ERROR com.manage.kernel.spring.message.MessageSupplier 100 getText - Cannot find message with code: AbstractUserDetailsAuthenticationProvider.onlySupports

@@ -25,6 +25,7 @@ import spring.demo.persistence.primary.jpa.IUserRepository;
 import spring.demo.service.IPrivilegeService;
 import spring.demo.util.PageResult;
 import spring.demo.util.PrivilegeParser;
+import spring.demo.util.StringUtil;
 
 /**
  * Created by facheng on 17-11-15.
@@ -48,7 +49,7 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
             List<Predicate> predicates = new ArrayList<>();
 
             if (StringUtils.isNotEmpty(dto.getName())) {
-                predicates.add(cb.like(root.get("name"), dto.getName()));
+                predicates.add(cb.like(root.get("name"), StringUtil.wildcard(dto.getName())));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));

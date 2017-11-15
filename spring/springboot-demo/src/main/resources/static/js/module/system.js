@@ -433,3 +433,112 @@ mainApp.controller("systemRolePrivilegeController", function ($scope, $uibModalI
         $uibModalInstance.dismiss('cancel');
     };
 });
+
+
+//-------------- privilege ------------------------------------------------------------------
+mainApp.controller("systemPrivilegeListCtl", function ($scope, $uibModal, mineHttp, mineGrid, mineUtil) {
+    $scope.myData = [];
+    mineGrid.gridPageInit("gridOptions", $scope, {
+        data: 'myData',
+        showSelectionCheckbox: true,
+        multiSelect: true,
+        selectWithCheckboxOnly: true,
+        requestMethod: "POST",
+        requestUrl: fullPath("privileges/list"),
+        columnDefs: [
+            {field: 'name', displayName: '权限名'},
+            {field: 'url', displayName: '权限路径url'},
+            {field: 'moduleMessage', displayName: '所属模块'},
+            {field: 'createdOn', displayName: '创建时间'},
+            {field: 'createdBy', displayName: '创建者'},
+            {
+                field: 'id',
+                displayName: '操作',
+                width: 200,
+                sortable: false,
+                cellTemplate: "<div><mine-action icon='fa fa-edit' action='edit(row.entity)' name='编辑'></mine-action>" +
+                "<mine-action icon='fa fa-sticky-note-o' action='detail(row.entity)' name='查看'></mine-action>"
+            }
+
+        ]
+    });
+    // init load datas
+    $scope.gridPageQuery();
+    $scope.gridPageQueryCallback = function (data) {
+        return {data: data.content.rows, total: data.content.total};
+    };
+    $scope.query = function () {
+        $scope.gridPageQuery({}, $scope.privilegeQuery);
+    };
+    $scope.add = function () {
+        var modalInstance = mineUtil.modal("module/system/privilege/privilegeAdd.html", "systemPrivilegeAddController", {});
+        modalInstance.result.then(function () {
+        }, function () {
+            $scope.query();
+        });
+    };
+    $scope.edit = function (privilege) {
+        var modalInstance = mineUtil.modal("module/system/privilege/privilegeEdit.html", "systemPrivilegeEditController", privilege);
+        modalInstance.result.then(function () {
+        }, function () {
+            $scope.query();
+        });
+    };
+    $scope.detail = function (privilege) {
+        var modalInstance = mineUtil.modal("module/system/privilege/privilegeDetail.html", "systemPrivilegeDetailController", privilege);
+        modalInstance.result.then(function () {
+        }, function () {
+        });
+    };
+});
+mainApp.controller("systemPrivilegeAddController", function ($scope, $uibModalInstance, mineHttp) {
+
+    mineHttp.constant("privilegeModule", function (data) {
+        $scope.modules = data.content;
+    });
+
+    $scope.ok = function () {
+        mineHttp.send("POST", "privileges", {data: $scope.privilege}, function (result) {
+            $scope.messageStatus = verifyData(result);
+            $scope.message = result.message;
+            if ($scope.messageStatus) {
+                $scope.privilege = null;
+            }
+        });
+    };
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});
+
+mainApp.controller("systemPrivilegeEditController", function ($scope, $uibModalInstance, mineHttp, data) {
+    mineHttp.constant("privilegeModule", function (data) {
+        $scope.modules = data.content;
+    });
+
+    mineHttp.send("GET", "privileges/" + data.id, {}, function (result) {
+        if (!verifyData(result)) {
+            $scope.messageStatus = false;
+            $scope.message = result.message;
+        }
+        $scope.privilege = result.content;
+    });
+    $scope.ok = function () {
+        mineHttp.send("PUT", "privileges/" + data.id, {data: $scope.privilege}, function (result) {
+            $scope.messageStatus = verifyData(result);
+            $scope.message = result.message;
+        });
+    };
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});
+mainApp.controller("systemPrivilegeDetailController", function ($scope, $uibModalInstance, mineHttp, data) {
+    mineHttp.send("GET", "privileges/" + data.id, {}, function (result) {
+        $scope.message = result.message;
+        $scope.privilege = result.content;
+    });
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});

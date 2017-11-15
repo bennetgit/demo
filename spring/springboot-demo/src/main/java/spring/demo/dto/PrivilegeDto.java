@@ -2,8 +2,15 @@ package spring.demo.dto;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import org.joda.time.LocalDateTime;
 import spring.demo.dto.request.PrivilegeRequest;
 import spring.demo.enums.ModuleType;
+import spring.demo.util.JsonDateTimeSerializer;
+import spring.demo.util.JsonEnumSerializer;
 
 /**
  * Created by facheng on 17-11-15.
@@ -21,7 +28,14 @@ public class PrivilegeDto implements Serializable {
 
     private String updatedBy;
 
+    @JsonSerialize(using = JsonEnumSerializer.class)
     private ModuleType module;
+
+    @JsonSerialize(using = JsonDateTimeSerializer.class)
+    private LocalDateTime createdOn;
+
+    @JsonSerialize(using = JsonDateTimeSerializer.class)
+    private LocalDateTime updatedOn;
 
     public PrivilegeDto() {
     }
@@ -100,6 +114,26 @@ public class PrivilegeDto implements Serializable {
 
     public void setModule(ModuleType module) {
         this.module = module;
+    }
+
+    public String getModuleMessage() {
+        return module == null ? StringUtils.EMPTY : module.getMessage();
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
     }
 
     @Override
