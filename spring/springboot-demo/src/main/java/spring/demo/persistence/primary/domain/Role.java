@@ -5,20 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 /**
  * Created by feng on 17/10/28.
@@ -47,13 +34,17 @@ public class Role {
     @JoinTable(name = "role_menu", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "menu_id"))
     private List<Menu> menus = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "role_privilege", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "privilege_id"))
+    private List<Privilege> privileges = new ArrayList<>();
+
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn = Date.from(Instant.now());
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedOn;
+    private Date updatedOn = Date.from(Instant.now());
 
     public Long getId() {
         return id;
@@ -105,5 +96,13 @@ public class Role {
 
     public void setMenus(List<Menu> menus) {
         this.menus = menus;
+    }
+
+    public List<Privilege> getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(List<Privilege> privileges) {
+        this.privileges = privileges;
     }
 }

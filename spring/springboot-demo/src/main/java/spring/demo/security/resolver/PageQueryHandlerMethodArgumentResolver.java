@@ -1,4 +1,4 @@
-package spring.demo.config.resolver;
+package spring.demo.security.resolver;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;

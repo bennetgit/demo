@@ -1,4 +1,4 @@
-package spring.demo.filter;
+package spring.demo.security.filter;
 
 import java.io.IOException;
 

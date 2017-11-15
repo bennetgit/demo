@@ -12,14 +12,14 @@
     <!--load properties-->
     <!--<context:property-placeholder location="classpath:META-INF/spring/application.properties" file-encoding="UTF-8"/>-->
 
-    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
-    </bean>
+    <!--<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">-->
+        <!--<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>-->
+    <!--</bean>-->
 
-    <!-- annotaion -->
-    <mvc:annotation-driven validator="validator">
-        <mvc:argument-resolvers>
-            <bean class="spring.demo.config.resolver.PageQueryHandlerMethodArgumentResolver"/>
-        </mvc:argument-resolvers>
-    </mvc:annotation-driven>
+    <!--&lt;!&ndash; annotaion &ndash;&gt;-->
+    <!--<mvc:annotation-driven validator="validator">-->
+        <!--<mvc:argument-resolvers>-->
+            <!--<bean class="spring.demo.security.resolver.PageQueryHandlerMethodArgumentResolver"/>-->
+        <!--</mvc:argument-resolvers>-->
+    <!--</mvc:annotation-driven>-->
 </beans>

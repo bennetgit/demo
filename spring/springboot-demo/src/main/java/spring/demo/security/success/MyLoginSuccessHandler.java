@@ -35,7 +35,7 @@ public class MyLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler
 
         AuthUser authUser = (AuthUser) authentication.getPrincipal();
 
-        logAsync.addLoginLog(authUser.getId(), WebHelper.getAgent(request), WebHelper.getIpAddr(request),
+        logAsync.addLoginLog(authUser.getId(), WebHelper.getAgent(request), WebHelper.getIpAddress(request),
                 Date.from(Instant.now()));
 
         setAlwaysUseDefaultTargetUrl(true);

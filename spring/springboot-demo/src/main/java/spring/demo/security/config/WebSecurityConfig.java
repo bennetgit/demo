@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -21,7 +21,6 @@ import spring.demo.security.success.MyLogoutSuccessHandler;
  * Created by facheng on 17.03.17.
  */
 @Configuration
-@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -53,8 +52,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.rememberMe()// 记住我
                 .rememberMeCookieName("remember-me").userDetailsService(userDetailService());
 
-        // http.sessionManagement()// Session管理器
-        // .sessionFixation().changeSessionId().sessionAuthenticationErrorUrl("/account/log3in.html")
+        http.sessionManagement()// Session管理器
+                .sessionFixation()//
+                .changeSessionId()//
+                .invalidSessionUrl("/login")//
+                .maximumSessions(1)//
+                .sessionRegistry(mySessionRegistry())//
+                .expiredUrl("/login");
+
+        // .sessionFixation().changeSessionId().sessionAuthenticationErrorUrl("/account/log3in.html");
         // .invalidSessionUrl("/account/log1in.html")// Session失效
         // .maximumSessions(1)// 只能同时一个人在线
         // .sessionRegistry(mySessionRegistry())// 启用这个让maximumSessions生效
@@ -65,6 +71,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.headers()// 允许同源iframe访问
                 .frameOptions().sameOrigin();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        // Web层面的拦截，用来跳过的资源
+        web.ignoring().antMatchers("/**/favicon.ico")//
+                .antMatchers("/css/**")//
+                .antMatchers("/lib/**")//
+                .antMatchers("/js/**");
     }
 
     @Override
@@ -104,4 +119,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     MyAccessDecisionManager myAccessDecisionManager() {
         return new MyAccessDecisionManager();
     }
+
 }

@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS _user (
   status     INTEGER               DEFAULT 0,
   CONSTRAINT user_pk PRIMARY KEY (id)
 ) WITH (
-OIDS =FALSE
+OIDS = FALSE
 );
 
 DROP SEQUENCE IF EXISTS seq_user;
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS user_role (
   user_id BIGINT NOT NULL,
   role_id BIGINT NOT NULL
 ) WITH (
-OIDS =FALSE
+OIDS = FALSE
 );
 
 DROP TABLE IF EXISTS _role;
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS _role (
   updated_on  TIMESTAMP WITHOUT TIME ZONE,
   CONSTRAINT role_pk PRIMARY KEY (id)
 ) WITH (
-OIDS =FALSE
+OIDS = FALSE
 );
 
 DROP SEQUENCE IF EXISTS seq_role;
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS role_menu (
   role_id BIGINT NOT NULL,
   menu_id BIGINT NOT NULL
 ) WITH (
-OIDS =FALSE
+OIDS = FALSE
 );
 
 DROP TABLE IF EXISTS _menu;
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS _menu (
   updated_on TIMESTAMP WITHOUT TIME ZONE,
   CONSTRAINT menu_pk PRIMARY KEY (id)
 ) WITH (
-OIDS =FALSE
+OIDS = FALSE
 );
 
 DROP SEQUENCE IF EXISTS seq_menu;
@@ -82,6 +82,33 @@ MINVALUE 1
 MAXVALUE 9223372036854775807
 CACHE 1;
 
+
+DROP TABLE IF EXISTS _privilege;
+CREATE TABLE _privilege (
+  id         BIGINT       NOT NULL,
+  name       VARCHAR(128),
+  url        VARCHAR(128) NOT NULL,
+  created_by BIGINT       NOT NULL,
+  updated_by BIGINT       NOT NULL,
+  created_on TIMESTAMP WITHOUT TIME ZONE,
+  updated_on TIMESTAMP WITHOUT TIME ZONE,
+  PRIMARY KEY (id)
+);
+
+DROP SEQUENCE IF EXISTS seq_privilege;
+CREATE SEQUENCE seq_privilege
+INCREMENT 1
+START 1
+MINVALUE 1
+MAXVALUE 9223372036854775807
+CACHE 1;
+;
+
+DROP TABLE IF EXISTS role_privilege;
+CREATE TABLE role_privilege (
+  role_id      BIGINT NOT NULL,
+  privilege_id BIGINT NOT NULL
+);
 
 ----username: admin    password: a
 INSERT INTO _user
@@ -116,4 +143,3 @@ MINVALUE 1
 MAXVALUE 9223372036854775807
 CACHE 1;
 ;
-
