@@ -19,4 +19,13 @@ public class Constants {
 
         public static final String FAIL = "fail";
     }
+
+    public static class CacheConfig {
+
+        public static final String CACHE_NAME_PRIVILEGE = "CACHE_NAME_PRIVILEGE";
+
+        public static final String CACHE_KEY_SUFFIX = "{id}";
+
+        public static final String CACHE_KEY_PREFIX = "privilege:" + CACHE_KEY_SUFFIX;
+    }
 }

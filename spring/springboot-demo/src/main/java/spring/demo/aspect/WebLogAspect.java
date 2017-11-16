@@ -1,5 +1,9 @@
 package spring.demo.aspect;
 
+import java.util.Arrays;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -10,9 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 
 /**
  * Created by facheng on 16.03.17.
@@ -25,7 +26,7 @@ public class WebLogAspect {
 
     // @Pointcut("@annotation(spring.demo.annotation.WebLog) || execution(public
     // * spring.demo.controller..*.*(..))")
-    //@within和@target针对类的注解,@annotation是针对方法的注解
+    // @within和@target针对类的注解,@annotation是针对方法的注解
     @Pointcut("@within(spring.demo.annotation.WebLog)")
     public void webLog() {
     }

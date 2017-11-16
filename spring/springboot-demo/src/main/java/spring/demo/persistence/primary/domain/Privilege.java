@@ -1,8 +1,11 @@
 package spring.demo.persistence.primary.domain;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -53,6 +58,10 @@ public class Privilege {
     @Type(type = "spring.demo.enums.DBEnumType", parameters = {
             @Parameter(name = "enumClass", value = "spring.demo.enums.ModuleType") })
     private ModuleType module;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "role_privilege", joinColumns = @JoinColumn(name = "privilege_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
@@ -120,6 +129,14 @@ public class Privilege {
 
     public void setModule(ModuleType module) {
         this.module = module;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public String creatorInfo() {

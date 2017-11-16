@@ -11,6 +11,7 @@ import javax.persistence.criteria.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,7 @@ import spring.demo.util.StringUtil;
 /**
  * Created by facheng on 17-11-15.
  */
+
 @Service
 public class PrivilegeServiceImpl implements IPrivilegeService {
 
@@ -109,6 +111,8 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
 
     @Override
     @Transactional
+    @CacheEvict(key = "#p0")
+    // #p0 --> SpEL表达式 #p0即是第一个参数
     public void deletePrivilege(Long id) {
         LOGGER.info("start delete privilege {}", id);
 

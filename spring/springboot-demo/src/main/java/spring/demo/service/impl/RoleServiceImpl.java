@@ -17,6 +17,8 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.google.common.collect.Lists;
 
+import spring.demo.constant.Constants;
 import spring.demo.dto.PageQuery;
 import spring.demo.dto.RoleDto;
 import spring.demo.dto.TreeNode;
@@ -40,6 +43,8 @@ import spring.demo.util.StringUtil;
 /**
  * Created by wangfacheng on 2017-11-13.
  */
+
+@CacheConfig(cacheNames = Constants.CacheConfig.CACHE_NAME_PRIVILEGE, keyGenerator = "privilegeKeyGenerator")
 @Service
 public class RoleServiceImpl implements IRoleService {
 
@@ -140,6 +145,7 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
+    @Cacheable(key = "#p0.url")
     @Transactional
     public void updatePrivilege(Long id, List<Long> menuIds) {
 
