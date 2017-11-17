@@ -3,6 +3,8 @@ package spring.demo.controller;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +36,8 @@ import static spring.demo.dto.response.ResponseInfo.success;
 @RestController
 @RequestMapping("/roles")
 public class RoleController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class);
 
     @Resource
     private IRoleService roleService;
@@ -99,9 +103,10 @@ public class RoleController {
     public ResponseInfo updatePrivilege(@PathVariable Long id, @RequestBody RoleRequest request) {
 
         try {
-            roleService.updatePrivilege(id, request.getMenuIds());
+            roleService.updatePrivilege(RoleDto.from(request));
             return success();
         } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
             return fail(request);
         }
     }

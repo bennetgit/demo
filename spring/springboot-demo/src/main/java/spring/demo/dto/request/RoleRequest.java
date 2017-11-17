@@ -17,6 +17,8 @@ public class RoleRequest extends BaseRequest {
 
     private List<Long> menuIds = Lists.newArrayList();
 
+    private List<Long> privilegeIds = Lists.newArrayList();
+
     public Long getId() {
         return id;
     }
@@ -47,5 +49,13 @@ public class RoleRequest extends BaseRequest {
 
     public void setMenuIds(List<Long> menuIds) {
         this.menuIds = menuIds;
+    }
+
+    public List<Long> getPrivilegeIds() {
+        return privilegeIds;
+    }
+
+    public void setPrivilegeIds(List<Long> privilegeIds) {
+        this.privilegeIds = privilegeIds;
     }
 }

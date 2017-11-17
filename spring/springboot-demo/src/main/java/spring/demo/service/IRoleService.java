@@ -28,5 +28,5 @@ public interface IRoleService {
 
     Pair<List<TreeNode>, List<TreeNode>> getRolePrivilege(Long id);
 
-    void updatePrivilege(Long id, List<Long> menuIds);
+    void updatePrivilege(RoleDto roleDto);
 }

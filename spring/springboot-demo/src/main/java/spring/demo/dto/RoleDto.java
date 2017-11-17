@@ -30,6 +30,8 @@ public class RoleDto implements Serializable {
 
     private List<Long> menuIds = new ArrayList<>();
 
+    private List<Long> privilegeIds = new ArrayList<>();
+
     public RoleDto() {
     }
 
@@ -87,6 +89,14 @@ public class RoleDto implements Serializable {
         this.menuIds = menuIds;
     }
 
+    public List<Long> getPrivilegeIds() {
+        return privilegeIds;
+    }
+
+    public void setPrivilegeIds(List<Long> privilegeIds) {
+        this.privilegeIds = privilegeIds;
+    }
+
     public static final RoleDto from(RoleRequest request) {
         if (request == null) {
             return null;
@@ -94,6 +104,7 @@ public class RoleDto implements Serializable {
 
         RoleDto roleDto = new RoleDto(request.getId(), request.getName(), request.getDescription());
         roleDto.setMenuIds(request.getMenuIds());
+        roleDto.setPrivilegeIds(request.getPrivilegeIds());
         return roleDto;
     }
 }

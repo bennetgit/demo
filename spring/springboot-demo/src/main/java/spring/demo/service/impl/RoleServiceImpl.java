@@ -6,7 +6,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -142,62 +141,67 @@ public class RoleServiceImpl implements IRoleService {
         Map<Long, Menu> roleMenuMap = role.getMenus().stream()
                 .collect(Collectors.toMap(Menu::getId, Function.<Menu> identity()));
 
-        Set<String> rolePrivilegeSet = role.getPrivileges().stream().map(p -> p.getUrl()).collect(Collectors.toSet());
+        Set<Long> rolePrivilegeSet = role.getPrivileges().stream().map(p -> p.getId()).collect(Collectors.toSet());
 
         List<TreeNode> roleMenus = new ArrayList<>();
         List<Menu> menus = menuRepository.findAll();
         if (!CollectionUtils.isEmpty(menus)) {
-            roleMenus.addAll(menus.stream()
-                    .map(m -> convertMenu(m.getName(), m.getParentId(), m.getId(), roleMenuMap.containsKey(m.getId())))
+            roleMenus.addAll(menus.stream().map(
+                    m -> convertPrivilege(m.getName(), m.getParentId(), m.getId(), roleMenuMap.containsKey(m.getId())))
                     .collect(Collectors.toList()));
         }
 
-        List<TreeNode> rolePrivileges = new ArrayList<>();
         List<Privilege> privileges = privilegeRepository.findAll();
 
-        return new ImmutablePair<>(roleMenus, Lists.newArrayList());
+        return new ImmutablePair<>(roleMenus, convertPrivileges(privileges, rolePrivilegeSet));
     }
 
     @Override
-    @Cacheable(key = "#p0.url")
+    // @Cacheable(key = "#p0.url")
     @Transactional
-    public void updatePrivilege(Long id, List<Long> menuIds) {
+    public void updatePrivilege(RoleDto roleDto) {
 
+        Long id;
         Role role;
-        if (id == null || (role = roleRepository.findOne(id)) == null) {
-            throw new RoleOperateException("cannot find role " + id);
+        if (roleDto == null || (id = roleDto.getId()) == null || (role = roleRepository.findOne(id)) == null) {
+            throw new RoleOperateException("cannot find role ");
         }
 
-        List<Menu> menus = menuRepository.findMenuWithIds(menuIds);
-        role.setMenus(menus);
+        List<Long> menuIds = roleDto.getMenuIds();
+
+        if (!CollectionUtils.isEmpty(menuIds)) {
+            List<Menu> menus = menuRepository.findMenuWithIds(menuIds);
+            role.setMenus(menus);
+        }
+
+        if (!CollectionUtils.isEmpty(roleDto.getPrivilegeIds())) {
+            List<Privilege> privileges = privilegeRepository.findAll(roleDto.getPrivilegeIds());
+            role.setPrivileges(privileges);
+        }
 
     }
 
-    private List<TreeNode> convertPrivileges(List<Privilege> privileges, Set<String> rolePrivileges) {
+    private List<TreeNode> convertPrivileges(List<Privilege> privileges, Set<Long> rolePrivileges) {
 
-        if (CollectionUtils.isEmpty(privileges)){
+        if (CollectionUtils.isEmpty(privileges)) {
             return Lists.newArrayList();
         }
 
+        Map<ModuleType, TreeNode> parentPrivilegeMap = Arrays.asList(ModuleType.values()).stream()
+                .collect(Collectors.toMap(Function.<ModuleType> identity(),
+                        module -> convertPrivilege(module.getMessage(), null, module.name(), false)));
 
-        EnumMap<ModuleType, TreeNode> parentPrivilegeMap = new EnumMap<>(ModuleType.class);
+        List<TreeNode> results = new ArrayList<>();
+        results.addAll(parentPrivilegeMap.values());
 
-        parentPrivilegeMap =  Arrays.asList(ModuleType.values()).stream().collect(Collectors.toMap(Function.identity(), moduleType -> fg(moduleType)));
-
-
-        privileges.stream().map(p->convertPrivileges())
+        List<TreeNode> privilegeTreeNodes = privileges.stream().map(p -> convertPrivilege(p.getName(),
+                parentPrivilegeMap.get(p.getModule()).getId(), p.getId(), rolePrivileges.contains(p.getId())))
+                .collect(Collectors.toList());
+        results.addAll(privilegeTreeNodes);
+        return results;
     }
 
-    private void fg(ModuleType m){
-
-    }
-
-    private TreeNode convertMenu(String name, Object pid, Object id, boolean isChecked) {
-        TreeNode treeNode = new TreeNode<>();
-        treeNode.setName(name);
-        treeNode.setChecked(isChecked);
-        treeNode.setPid(pid);
-        treeNode.setId(id);
-        return treeNode;
+    private TreeNode convertPrivilege(String name, Object pid, Object id, boolean isChecked) {
+        return TreeNode.of(id, pid, name, isChecked);
     }
 }
