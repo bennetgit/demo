@@ -2,8 +2,7 @@ package spring.demo.aspect.strategy;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import spring.demo.cache.CacheParam;
@@ -13,17 +12,25 @@ import spring.demo.service.ICacheService;
  * Created by facheng on 17-11-16.
  */
 @Component
-public class PrivilegeCacheStrategy implements ICacheStrategy {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(PrivilegeCacheStrategy.class);
+public class PrivilegeCacheStrategy extends AbstractCacheStrategy {
 
     @Resource
+    @Qualifier("privilegeCacheServiceImpl")
     private ICacheService cacheService;
 
     @Override
-    public void execute(CacheParam cacheParam) {
-        LOGGER.info("execute PrivilegeCacheStrategy {}", cacheParam);
+    protected Object update(CacheParam cacheParam) {
+        // cacheService.update();
+        return super.update(cacheParam);
+    }
 
-        cacheService.get("hello world");
+    @Override
+    protected Object delete(CacheParam cacheParam) {
+        return super.delete(cacheParam);
+    }
+
+    @Override
+    protected Object create(CacheParam cacheParam) {
+        return super.create(cacheParam);
     }
 }

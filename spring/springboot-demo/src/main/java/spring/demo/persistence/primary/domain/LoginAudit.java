@@ -1,5 +1,7 @@
 package spring.demo.persistence.primary.domain;
 
+import spring.demo.persistence.common.BaseDomain;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +23,7 @@ import java.util.Date;
 @Entity
 @Table(name = "login_audit")
 @SequenceGenerator(name = "seq_login_audit", sequenceName = "seq_login_audit")
-public class LoginAudit {
+public class LoginAudit extends BaseDomain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_login_audit")

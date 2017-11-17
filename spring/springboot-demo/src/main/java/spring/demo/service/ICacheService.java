@@ -5,4 +5,10 @@ package spring.demo.service;
  */
 public interface ICacheService<K, V> {
     V get(K key);
+
+    V add(K key, V value);
+
+    void delete(K key);
+
+    V update(K key, V value);
 }

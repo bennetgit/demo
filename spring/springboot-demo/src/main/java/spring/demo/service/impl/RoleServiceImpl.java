@@ -20,7 +20,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +49,6 @@ import spring.demo.util.StringUtil;
  * Created by wangfacheng on 2017-11-13.
  */
 
-@CacheConfig(cacheNames = Constants.CacheConfig.CACHE_NAME_PRIVILEGE, keyGenerator = "privilegeKeyGenerator")
 @Service
 public class RoleServiceImpl implements IRoleService {
 
@@ -157,7 +156,6 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    // @Cacheable(key = "#p0.url")
     @Transactional
     public void updatePrivilege(RoleDto roleDto) {
 
@@ -178,6 +176,8 @@ public class RoleServiceImpl implements IRoleService {
             List<Privilege> privileges = privilegeRepository.findAll(roleDto.getPrivilegeIds());
             role.setPrivileges(privileges);
         }
+
+        roleRepository.save(role);
 
     }
 

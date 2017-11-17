@@ -7,6 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import spring.demo.aspect.strategy.ICacheStrategy;
+import spring.demo.cache.CacheOperateType;
 
 /**
  * Created by facheng on 17-11-17.
@@ -18,4 +19,6 @@ import spring.demo.aspect.strategy.ICacheStrategy;
 public @interface MyCache {
 
     Class<ICacheStrategy> cacheStrategy();
+
+    CacheOperateType operateType();
 }

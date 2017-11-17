@@ -13,6 +13,7 @@ import org.hibernate.annotations.Type;
 
 import spring.demo.enums.SexType;
 import spring.demo.enums.UserStatus;
+import spring.demo.persistence.common.BaseDomain;
 
 /**
  * Created by facheng on 16.03.17.
@@ -21,9 +22,8 @@ import spring.demo.enums.UserStatus;
 @Entity
 @Table(name = "_user")
 @SequenceGenerator(name = "seq_user", sequenceName = "seq_user")
-public class User implements Serializable {
+public class User extends BaseDomain {
 
-    private static final long serialVersionUID = 2832544526842891863L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user")
     private Long id;

@@ -1,5 +1,7 @@
 package spring.demo.persistence.primary.domain;
 
+import spring.demo.persistence.common.BaseDomain;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +16,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "_role")
 @SequenceGenerator(name = "seq_role", sequenceName = "seq_role")
-public class Role {
+public class Role extends BaseDomain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_role")

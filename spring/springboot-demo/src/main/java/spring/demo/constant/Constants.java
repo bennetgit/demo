@@ -24,10 +24,20 @@ public class Constants {
 
     public static class CacheConfig {
 
-        public static final String CACHE_NAME_PRIVILEGE = "CACHE_NAME_PRIVILEGE";
+        public static final String KEY_GENERATOR_SUFFIX = "CacheKeyGenerator";
 
-        public static final String CACHE_KEY_SUFFIX = "{id}";
+        public static final String CACHE_KEY_GENERATOR = "cacheKeyGenerator";
 
-        public static final String CACHE_KEY_PREFIX = "privilege:" + CACHE_KEY_SUFFIX;
+        public static final String PRIVILEGE_CACHE_KEY_GENERATOR = "privilegeCacheKeyGenerator";
+
+        public static final String CACHE_NAME_PRIVILEGE = "cache_demo";
+
+        public static final String CACHE_NAME = "cache_demo";
+
+        public static final String CACHE_KEY_SUFFIX = "{}";
+
+        public static final String PRIVILEGE_CACHE_KEY = "privilege:" + CACHE_KEY_SUFFIX;
+
+        public static final String ROLE_CACHE_KEY = "role:" + CACHE_KEY_SUFFIX + ":" + PRIVILEGE_CACHE_KEY;
     }
 }

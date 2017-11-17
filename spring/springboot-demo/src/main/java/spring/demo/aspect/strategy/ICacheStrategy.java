@@ -7,5 +7,5 @@ import spring.demo.cache.CacheParam;
  */
 public interface ICacheStrategy {
 
-    void execute(CacheParam cacheParam);
+    Object execute(CacheParam cacheParam);
 }

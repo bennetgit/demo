@@ -26,6 +26,7 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
 import spring.demo.enums.ModuleType;
+import spring.demo.persistence.common.BaseDomain;
 
 /**
  * Created by facheng on 17-11-15.
@@ -34,7 +35,7 @@ import spring.demo.enums.ModuleType;
 @Entity
 @Table(name = "_privilege")
 @SequenceGenerator(name = "seq_privilege", sequenceName = "seq_privilege")
-public class Privilege {
+public class Privilege extends BaseDomain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_privilege")

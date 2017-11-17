@@ -36,13 +36,13 @@ public class MyCacheHandler {
         }
 
         ICacheStrategy cacheStrategy = (ICacheStrategy) SpringContextHolder
-                .getBean(MyCacheUtils.getBeanNameByClass(clazz));
+                .getBean(MyCacheUtils.getLowerCaseByClass(clazz));
 
         if (cacheStrategy == null) {
             return;
         }
 
-        cacheStrategy.execute(CacheParam.of(joinPoint));
+        cacheStrategy.execute(CacheParam.of(joinPoint, myCache.operateType()));
 
     }
 

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import spring.demo.persistence.common.BaseDomain;
 import spring.demo.util.StringUtil;
 
 /**
@@ -16,7 +17,7 @@ import spring.demo.util.StringUtil;
 @Entity
 @Table(name = "_menu")
 @SequenceGenerator(name = "seq_menu", sequenceName = "seq_menu")
-public class Menu {
+public class Menu extends BaseDomain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_menu")

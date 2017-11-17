@@ -1,5 +1,7 @@
 package spring.demo.util;
 
+import spring.demo.constant.Constants;
+
 /**
  * Created by facheng on 17-11-17.
  */
@@ -8,8 +10,24 @@ public final class MyCacheUtils {
     private MyCacheUtils() {
     }
 
-    public static String getBeanNameByClass(Class cacheEngine) {
-        String className = cacheEngine.getSimpleName();
+    public static final String formatKey(String key, String... part) {
+        if (key == null || part == null) {
+            return key;
+        }
+
+        int partSize = part.length;
+        int index = 0;
+        String tempKey = key;
+        while (tempKey.indexOf(Constants.CacheConfig.CACHE_KEY_SUFFIX) != -1 && index < partSize) {
+            tempKey = tempKey.replace(Constants.CacheConfig.CACHE_KEY_SUFFIX, part[index]);
+        }
+
+        return tempKey;
+
+    }
+
+    public static String getLowerCaseByClass(Class cacheKey) {
+        String className = cacheKey.getSimpleName();
         return className.substring(0, 1).toLowerCase() + className.substring(1);
     }
 }

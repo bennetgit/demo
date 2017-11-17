@@ -56,6 +56,10 @@ public class PrivilegeDto implements Serializable {
         this.module = module;
     }
 
+    public static final PrivilegeDto of(Long id, String name, String url) {
+        return new PrivilegeDto(id, name, url, null, null, null);
+    }
+
     public static final PrivilegeDto of(Long id, String name, String url, String createdBy, String updatedBy,
             ModuleType module) {
         return new PrivilegeDto(id, name, url, createdBy, updatedBy, module);
