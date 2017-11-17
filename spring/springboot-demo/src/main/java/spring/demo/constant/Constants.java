@@ -14,6 +14,8 @@ public class Constants {
 
     public static final String DEFAULT_RABBIT_QUEUE_NAME = "spring.demo.rabbitmq";
 
+    public static final String BREAK_LINE = "\n";
+
     public static class ResponseMsg {
         public static final String SUCCESS = "success";
 

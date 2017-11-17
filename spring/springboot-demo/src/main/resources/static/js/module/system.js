@@ -415,14 +415,14 @@ mainApp.controller("systemRolePrivilegeController", function ($scope, $uibModalI
         $scope.rolePrivilege = {};
         $scope.rolePrivilege.id = data.id;
         $scope.rolePrivilege.menuIds = new Array();
-        $scope.rolePrivilege.permitCodes = new Array();
+        $scope.rolePrivilege.permitUrls = new Array();
         var menuNodes = menuTree.getCheckedNodes(true);
         for (var index in menuNodes) {
             $scope.rolePrivilege.menuIds.push(menuNodes[index].id);
         }
         var permitNodes = permitTree.getCheckedNodes(true);
         for (var index in permitNodes) {
-            $scope.rolePrivilege.permitCodes.push(permitNodes[index].id);
+            $scope.rolePrivilege.permitUrls.push(permitNodes[index].id);
         }
         mineHttp.send("PUT", "roles/" + data.id + "/privilege", {data: $scope.rolePrivilege}, function (result) {
             $scope.messageStatus = verifyData(result);

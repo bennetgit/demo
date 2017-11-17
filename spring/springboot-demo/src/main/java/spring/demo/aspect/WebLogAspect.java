@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -14,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import spring.demo.constant.Constants;
 
 /**
  * Created by facheng on 16.03.17.
@@ -35,12 +38,15 @@ public class WebLogAspect {
     public void deBefore(JoinPoint joinPoint) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        LOGGER.info("URL : {}", request.getRequestURI().toString());
-        LOGGER.info("HTTP_METHOD : {}", request.getMethod());
-        LOGGER.info("IP : {}", request.getRemoteAddr());
-        LOGGER.info("CLASS_METHOD : {}",
-                joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-        LOGGER.info("ARGS : {}", Arrays.toString(joinPoint.getArgs()));
+
+        StringBuffer sb = new StringBuffer(StringUtils.EMPTY);
+
+        sb.append("URL : ").append(request.getRequestURI().toString()).append(Constants.BREAK_LINE)
+                .append("HTTP_METHOD : ").append(request.getMethod()).append(Constants.BREAK_LINE).append("IP :")
+                .append(request.getRemoteAddr()).append("CLASS_METHOD : ").append(Constants.BREAK_LINE)
+                .append(joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName())
+                .append(Constants.BREAK_LINE).append("ARGS :").append(Arrays.toString(joinPoint.getArgs()));
+        LOGGER.info(sb.toString());
 
     }
 

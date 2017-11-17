@@ -58,5 +58,13 @@ public class TreeNode<T> implements Serializable {
         isParent = parent;
     }
 
+    public static final <T> TreeNode of(T id, T pid, String name, boolean isChecked) {
+        TreeNode treeNode = new TreeNode();
+        treeNode.setId(id);
+        treeNode.setName(name);
+        treeNode.setPid(pid);
+        treeNode.setChecked(isChecked);
+        return treeNode;
+    }
 
 }

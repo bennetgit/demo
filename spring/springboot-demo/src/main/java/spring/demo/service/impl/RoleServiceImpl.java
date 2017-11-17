@@ -4,9 +4,12 @@ import static spring.demo.util.RoleParser.fromDomains;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -30,10 +33,13 @@ import spring.demo.constant.Constants;
 import spring.demo.dto.PageQuery;
 import spring.demo.dto.RoleDto;
 import spring.demo.dto.TreeNode;
+import spring.demo.enums.ModuleType;
 import spring.demo.exception.RoleOperateException;
 import spring.demo.persistence.primary.domain.Menu;
+import spring.demo.persistence.primary.domain.Privilege;
 import spring.demo.persistence.primary.domain.Role;
 import spring.demo.persistence.primary.jpa.IMenuRepository;
+import spring.demo.persistence.primary.jpa.IPrivilegeRepository;
 import spring.demo.persistence.primary.jpa.IRoleRepository;
 import spring.demo.service.IRoleService;
 import spring.demo.util.PageResult;
@@ -55,6 +61,9 @@ public class RoleServiceImpl implements IRoleService {
 
     @Resource
     private IMenuRepository menuRepository;
+
+    @Resource
+    private IPrivilegeRepository privilegeRepository;
 
     @Override
     @Transactional
@@ -133,13 +142,18 @@ public class RoleServiceImpl implements IRoleService {
         Map<Long, Menu> roleMenuMap = role.getMenus().stream()
                 .collect(Collectors.toMap(Menu::getId, Function.<Menu> identity()));
 
+        Set<String> rolePrivilegeSet = role.getPrivileges().stream().map(p -> p.getUrl()).collect(Collectors.toSet());
+
         List<TreeNode> roleMenus = new ArrayList<>();
         List<Menu> menus = menuRepository.findAll();
         if (!CollectionUtils.isEmpty(menus)) {
-            roleMenus
-                    .addAll(menus.stream().map(m -> convertMenu(m, m.getParentId(), roleMenuMap.containsKey(m.getId())))
-                            .collect(Collectors.toList()));
+            roleMenus.addAll(menus.stream()
+                    .map(m -> convertMenu(m.getName(), m.getParentId(), m.getId(), roleMenuMap.containsKey(m.getId())))
+                    .collect(Collectors.toList()));
         }
+
+        List<TreeNode> rolePrivileges = new ArrayList<>();
+        List<Privilege> privileges = privilegeRepository.findAll();
 
         return new ImmutablePair<>(roleMenus, Lists.newArrayList());
     }
@@ -159,12 +173,31 @@ public class RoleServiceImpl implements IRoleService {
 
     }
 
-    private TreeNode convertMenu(Menu menu, Long pid, boolean isChecked) {
+    private List<TreeNode> convertPrivileges(List<Privilege> privileges, Set<String> rolePrivileges) {
+
+        if (CollectionUtils.isEmpty(privileges)){
+            return Lists.newArrayList();
+        }
+
+
+        EnumMap<ModuleType, TreeNode> parentPrivilegeMap = new EnumMap<>(ModuleType.class);
+
+        parentPrivilegeMap =  Arrays.asList(ModuleType.values()).stream().collect(Collectors.toMap(Function.identity(), moduleType -> fg(moduleType)));
+
+
+        privileges.stream().map(p->convertPrivileges())
+    }
+
+    private void fg(ModuleType m){
+
+    }
+
+    private TreeNode convertMenu(String name, Object pid, Object id, boolean isChecked) {
         TreeNode treeNode = new TreeNode<>();
-        treeNode.setName(menu.getName());
+        treeNode.setName(name);
         treeNode.setChecked(isChecked);
         treeNode.setPid(pid);
-        treeNode.setId(menu.getId());
+        treeNode.setId(id);
         return treeNode;
     }
 }
