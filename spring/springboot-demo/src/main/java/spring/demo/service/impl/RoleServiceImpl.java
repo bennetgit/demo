@@ -41,6 +41,7 @@ import spring.demo.service.IRoleService;
 import spring.demo.service.common.CachedService;
 import spring.demo.util.PageResult;
 import spring.demo.util.RoleParser;
+import spring.demo.util.SpringContextHolder;
 import spring.demo.util.StringUtil;
 
 /**
@@ -48,7 +49,7 @@ import spring.demo.util.StringUtil;
  */
 
 @Service
-public class RoleServiceImpl implements IRoleService, CachedService<RoleDto, Set<String>> {
+public class RoleServiceImpl implements IRoleService {
 
     private Logger LOGGER = LogManager.getLogger(RoleServiceImpl.class);
 
@@ -60,6 +61,10 @@ public class RoleServiceImpl implements IRoleService, CachedService<RoleDto, Set
 
     @Resource
     private IPrivilegeRepository privilegeRepository;
+
+    private IRoleService getRoleService() {
+        return SpringContextHolder.getBean("roleServiceImpl", IRoleService.class);
+    }
 
     @Override
     @Transactional
@@ -89,7 +94,7 @@ public class RoleServiceImpl implements IRoleService, CachedService<RoleDto, Set
         if (roleDto == null) {
             throw new RoleOperateException("role dto cannot be empty");
         }
-        saveOrUpdateWithCache(roleDto);
+        getRoleService().saveOrUpdateWithCache(roleDto);
 
     }
 
@@ -114,7 +119,7 @@ public class RoleServiceImpl implements IRoleService, CachedService<RoleDto, Set
 
     @Override
     public void deleteRole(Long id) {
-        deleteWithCache(RoleDto.getInstance().withId(id));
+        getRoleService().deleteWithCache(RoleDto.getInstance().withId(id));
     }
 
     @Override
@@ -146,7 +151,7 @@ public class RoleServiceImpl implements IRoleService, CachedService<RoleDto, Set
 
     @Override
     public void updatePrivilege(RoleDto roleDto) {
-        saveOrUpdateWithCache(roleDto);
+        getRoleService().saveOrUpdateWithCache(roleDto);
     }
 
     private void update(RoleDto roleDto) {

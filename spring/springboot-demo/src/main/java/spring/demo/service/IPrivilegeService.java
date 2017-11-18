@@ -2,12 +2,13 @@ package spring.demo.service;
 
 import spring.demo.dto.PageQuery;
 import spring.demo.dto.PrivilegeDto;
+import spring.demo.service.common.CachedService;
 import spring.demo.util.PageResult;
 
 /**
  * Created by facheng on 17-11-15.
  */
-public interface IPrivilegeService {
+public interface IPrivilegeService extends CachedService<PrivilegeDto, PrivilegeDto> {
 
     PageResult<PrivilegeDto> lists(PageQuery pageQuery, PrivilegeDto dto);
 

@@ -58,7 +58,8 @@ public class RoleCacheServiceImpl extends AbstractCacheServiceImpl<String, Set<S
     @Override
     public boolean hasPermit(Long roleId, String privilegeUrl) {
 
-        return get(String.valueOf(roleId)) == null ? false : get(String.valueOf(roleId)).contains(privilegeUrl);
+        return get(MyCacheUtils.getRoleCacheKey(roleId)) == null ? false
+                : get(MyCacheUtils.getRoleCacheKey(roleId)).contains(privilegeUrl);
 
     }
 }

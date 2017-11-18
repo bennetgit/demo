@@ -23,9 +23,9 @@ import spring.demo.persistence.primary.domain.User;
 import spring.demo.persistence.primary.jpa.IPrivilegeRepository;
 import spring.demo.persistence.primary.jpa.IUserRepository;
 import spring.demo.service.IPrivilegeService;
-import spring.demo.service.common.CachedService;
 import spring.demo.util.PageResult;
 import spring.demo.util.PrivilegeParser;
+import spring.demo.util.SpringContextHolder;
 import spring.demo.util.StringUtil;
 
 /**
@@ -33,7 +33,7 @@ import spring.demo.util.StringUtil;
  */
 
 @Service
-public class PrivilegeServiceImpl implements IPrivilegeService, CachedService<PrivilegeDto, PrivilegeDto> {
+public class PrivilegeServiceImpl implements IPrivilegeService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PrivilegeServiceImpl.class);
 
@@ -42,6 +42,10 @@ public class PrivilegeServiceImpl implements IPrivilegeService, CachedService<Pr
 
     @Resource
     private IUserRepository userRepository;
+
+    private IPrivilegeService getPrivilegeService() {
+        return SpringContextHolder.getBean("privilegeServiceImpl", IPrivilegeService.class);
+    }
 
     @Override
     public PageResult<PrivilegeDto> lists(PageQuery pageQuery, PrivilegeDto dto) {
@@ -66,7 +70,7 @@ public class PrivilegeServiceImpl implements IPrivilegeService, CachedService<Pr
     public void addPrivilege(PrivilegeDto privilegeDto, Long currentUserId) {
         LOGGER.info("start add privilege {}", privilegeDto);
 
-        saveOrUpdateWithCache(privilegeDto.withCurrentId(currentUserId));
+        getPrivilegeService().saveOrUpdateWithCache(privilegeDto.withCurrentId(currentUserId));
     }
 
     @Override
@@ -86,7 +90,7 @@ public class PrivilegeServiceImpl implements IPrivilegeService, CachedService<Pr
             throw new PrivilegeOperateException("privilege operate error");
         }
 
-        saveOrUpdateWithCache(privilegeDto.withId(id).withCurrentId(currentUserId));
+        getPrivilegeService().saveOrUpdateWithCache(privilegeDto.withId(id).withCurrentId(currentUserId));
     }
 
     private void update(PrivilegeDto privilegeDto) {
@@ -113,7 +117,7 @@ public class PrivilegeServiceImpl implements IPrivilegeService, CachedService<Pr
     @Override
     public void deletePrivilege(Long id) {
         LOGGER.info("start delete privilege {}", id);
-        deleteWithCache(PrivilegeDto.getInstance().withId(id));
+        getPrivilegeService().deleteWithCache(PrivilegeDto.getInstance().withId(id));
     }
 
     @Override

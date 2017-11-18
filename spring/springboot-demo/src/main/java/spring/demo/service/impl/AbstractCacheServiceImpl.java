@@ -27,7 +27,7 @@ public abstract class AbstractCacheServiceImpl<K, V> implements ICacheService<K,
     @Override
     public V get(K key) {
         LOGGER.info("get value from cache {} key {}", getCacheName(), key);
-        return (V) cache.get(key);
+        return cache.get(key) == null ? null : (V) cache.get(key).get();
     }
 
     @Override
@@ -61,6 +61,5 @@ public abstract class AbstractCacheServiceImpl<K, V> implements ICacheService<K,
 
     }
 
-    protected void initCache() {
-    }
+    protected abstract void initCache();
 }
