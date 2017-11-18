@@ -2,6 +2,7 @@ package spring.demo.cache;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,16 +35,13 @@ public class CacheKeyGenerator implements KeyGenerator {
             throw new UnSupportCacheException();
         }
 
-        Arrays.asList(params).stream().forEach(param -> {
+        Optional cached = Arrays.asList(params).stream().filter(param -> param instanceof Cached).findAny();
 
-            if (param instanceof Cached) {
-                ((MyKeyGenerator) SpringContextHolder.getBean(MyCacheUtils.getLowerCaseByClass(param.getClass())
-                        + Constants.CacheConfig.KEY_GENERATOR_SUFFIX)).generate((Cached) param);
-                return;
+        if (!cached.isPresent()) {
+            throw new UnSupportCacheException();
+        }
 
-            }
-        });
+        return ((Cached) cached.get()).cacheKey();
 
-        return null;
     }
 }

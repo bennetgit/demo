@@ -54,6 +54,9 @@ public class UserParser {
             return userDto;
         }
 
+        List<Long> roleIds = user.getRoles().stream().map(Role::getId).collect(Collectors.toList());
+        userDto.withRoleIds(roleIds);
+
         Map<Long, MenuDto> tempTreeMenuMap = new HashMap<>();
 
         MenuDto tempMenu;

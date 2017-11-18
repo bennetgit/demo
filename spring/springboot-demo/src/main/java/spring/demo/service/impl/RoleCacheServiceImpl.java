@@ -1,24 +1,29 @@
 package spring.demo.service.impl;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+
 import spring.demo.constant.Constants;
+import spring.demo.persistence.primary.domain.Privilege;
 import spring.demo.persistence.primary.domain.Role;
 import spring.demo.persistence.primary.jpa.IPrivilegeRepository;
 import spring.demo.persistence.primary.jpa.IRoleRepository;
+import spring.demo.service.IRoleCacheService;
 import spring.demo.util.MyCacheUtils;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created by facheng on 17-11-17.
  */
 
 @Service("roleCacheServiceImpl")
-public class RoleCacheServiceImpl extends AbstractCacheServiceImpl {
+public class RoleCacheServiceImpl extends AbstractCacheServiceImpl<String, Set<String>> implements IRoleCacheService {
 
     @Resource
     private IRoleRepository roleRepository;
@@ -44,8 +49,16 @@ public class RoleCacheServiceImpl extends AbstractCacheServiceImpl {
     }
 
     private void addToCache(Role role) {
-        privilegeRepository.findPrivilegeWithRoleId(role.getId()).stream()
-                .forEach(privilege -> add(MyCacheUtils.formatKey(Constants.CacheConfig.ROLE_CACHE_KEY,
-                        String.valueOf(role.getId()), privilege.getUrl()), role));
+
+        Set<String> privilegeUrls = privilegeRepository.findPrivilegeWithRoleId(role.getId()).stream()
+                .map(Privilege::getUrl).collect(Collectors.toSet());
+        add(MyCacheUtils.getRoleCacheKey(role.getId()), privilegeUrls);
+    }
+
+    @Override
+    public boolean hasPermit(Long roleId, String privilegeUrl) {
+
+        return get(String.valueOf(roleId)) == null ? false : get(String.valueOf(roleId)).contains(privilegeUrl);
+
     }
 }

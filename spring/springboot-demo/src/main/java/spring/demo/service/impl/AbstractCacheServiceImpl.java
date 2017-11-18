@@ -13,7 +13,7 @@ import spring.demo.service.ICacheService;
 /**
  * Created by feng on 17/11/17.
  */
-public abstract class AbstractCacheServiceImpl implements ICacheService, InitializingBean {
+public abstract class AbstractCacheServiceImpl<K, V> implements ICacheService<K, V>, InitializingBean {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractCacheServiceImpl.class);
 
@@ -25,26 +25,26 @@ public abstract class AbstractCacheServiceImpl implements ICacheService, Initial
     protected abstract String getCacheName();
 
     @Override
-    public Object get(Object key) {
+    public V get(K key) {
         LOGGER.info("get value from cache {} key {}", getCacheName(), key);
-        return cache.get(key);
+        return (V) cache.get(key);
     }
 
     @Override
-    public Object add(Object key, Object value) {
+    public V add(K key, V value) {
         LOGGER.info("add value from cache {} key {} value {}", getCacheName(), key, value);
         cache.put(key, value);
         return value;
     }
 
     @Override
-    public void delete(Object key) {
+    public void delete(K key) {
         LOGGER.info("delete value from cache {} key {}", getCacheName(), key);
         cache.evict(key);
     }
 
     @Override
-    public Object update(Object key, Object value) {
+    public V update(K key, V value) {
         LOGGER.info("update value from cache {} key {} value {}", getCacheName(), key, value);
         cache.put(key, value);
         return value;

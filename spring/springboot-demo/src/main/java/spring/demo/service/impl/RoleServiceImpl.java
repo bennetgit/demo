@@ -19,8 +19,6 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +26,6 @@ import org.springframework.util.CollectionUtils;
 
 import com.google.common.collect.Lists;
 
-import spring.demo.constant.Constants;
 import spring.demo.dto.PageQuery;
 import spring.demo.dto.RoleDto;
 import spring.demo.dto.TreeNode;
@@ -41,6 +38,7 @@ import spring.demo.persistence.primary.jpa.IMenuRepository;
 import spring.demo.persistence.primary.jpa.IPrivilegeRepository;
 import spring.demo.persistence.primary.jpa.IRoleRepository;
 import spring.demo.service.IRoleService;
+import spring.demo.service.common.CachedService;
 import spring.demo.util.PageResult;
 import spring.demo.util.RoleParser;
 import spring.demo.util.StringUtil;
@@ -50,7 +48,7 @@ import spring.demo.util.StringUtil;
  */
 
 @Service
-public class RoleServiceImpl implements IRoleService {
+public class RoleServiceImpl implements IRoleService, CachedService<RoleDto, Set<String>> {
 
     private Logger LOGGER = LogManager.getLogger(RoleServiceImpl.class);
 
@@ -87,15 +85,12 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    @Transactional
     public void addRole(RoleDto roleDto) {
         if (roleDto == null) {
             throw new RoleOperateException("role dto cannot be empty");
         }
+        saveOrUpdateWithCache(roleDto);
 
-        Role role = RoleParser.fromDto(roleDto);
-
-        roleRepository.save(role);
     }
 
     @Override
@@ -118,14 +113,8 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    @Transactional
     public void deleteRole(Long id) {
-        Role role;
-        if (id == null || (role = roleRepository.findOne(id)) == null) {
-            throw new RoleOperateException("cannot find role " + id);
-        }
-
-        roleRepository.delete(role);
+        deleteWithCache(RoleDto.getInstance().withId(id));
     }
 
     @Override
@@ -156,9 +145,11 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    @Transactional
     public void updatePrivilege(RoleDto roleDto) {
+        saveOrUpdateWithCache(roleDto);
+    }
 
+    private void update(RoleDto roleDto) {
         Long id;
         Role role;
         if (roleDto == null || (id = roleDto.getId()) == null || (role = roleRepository.findOne(id)) == null) {
@@ -178,7 +169,6 @@ public class RoleServiceImpl implements IRoleService {
         }
 
         roleRepository.save(role);
-
     }
 
     private List<TreeNode> convertPrivileges(List<Privilege> privileges, Set<Long> rolePrivileges) {
@@ -203,5 +193,37 @@ public class RoleServiceImpl implements IRoleService {
 
     private TreeNode convertPrivilege(String name, Object pid, Object id, boolean isChecked) {
         return TreeNode.of(id, pid, name, isChecked);
+    }
+
+    @Override
+    @Transactional
+    public Set<String> saveOrUpdateWithCache(RoleDto dto) {
+        if (dto == null) {
+            throw new RoleOperateException("role dto is null");
+        }
+
+        if (dto.getId() == null) {
+            Role role = RoleParser.fromDto(dto);
+            roleRepository.save(role);
+        } else {
+            update(dto);
+        }
+
+        return privilegeRepository.findPrivilegeRrlsWithRoleId(dto.getId());
+    }
+
+    @Override
+    @Transactional
+    public void deleteWithCache(RoleDto dto) {
+        Long id;
+        if (dto == null || (id = dto.getId()) == null) {
+            throw new RoleOperateException("role dto cannot be empty");
+        }
+        Role role;
+        if (id == null || (role = roleRepository.findOne(id)) == null) {
+            throw new RoleOperateException("cannot find role " + id);
+        }
+
+        roleRepository.delete(role);
     }
 }

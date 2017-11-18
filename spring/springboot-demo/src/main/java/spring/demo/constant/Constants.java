@@ -4,8 +4,6 @@ public class Constants {
 
     public static final String FULL_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
-    public static final int DEFAULT_THREAD_POOL_SIZE = 5;
-    public static final int DEFAULT_MAXIMUM_POOL_SIZE = 10;
     public static final int DEFAULT_KEEP_ALIVE_TIME = 100;
 
     public static final String DEFAULT_CHAR_SET = "UTF-8";
@@ -16,6 +14,8 @@ public class Constants {
 
     public static final String BREAK_LINE = "\n";
 
+    public static final int DEFAULT_AOP_ORDER_AFTER_CACHE = 1;
+
     public static class ResponseMsg {
         public static final String SUCCESS = "success";
 
@@ -24,13 +24,11 @@ public class Constants {
 
     public static class CacheConfig {
 
+        public static final int CACHE_ORDER = 0;
+
         public static final String KEY_GENERATOR_SUFFIX = "CacheKeyGenerator";
 
         public static final String CACHE_KEY_GENERATOR = "cacheKeyGenerator";
-
-        public static final String PRIVILEGE_CACHE_KEY_GENERATOR = "privilegeCacheKeyGenerator";
-
-        public static final String CACHE_NAME_PRIVILEGE = "cache_demo";
 
         public static final String CACHE_NAME = "cache_demo";
 
@@ -38,6 +36,10 @@ public class Constants {
 
         public static final String PRIVILEGE_CACHE_KEY = "privilege:" + CACHE_KEY_SUFFIX;
 
-        public static final String ROLE_CACHE_KEY = "role:" + CACHE_KEY_SUFFIX + ":" + PRIVILEGE_CACHE_KEY;
+        public static final String ROLE_CACHE_KEY = "role:" + CACHE_KEY_SUFFIX;
+    }
+
+    public static class TransactionConfig {
+        public static final int ORDER = Integer.MIN_VALUE;
     }
 }

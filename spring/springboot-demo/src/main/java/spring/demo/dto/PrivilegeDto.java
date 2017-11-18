@@ -1,21 +1,21 @@
 package spring.demo.dto;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import org.joda.time.LocalDateTime;
+import spring.demo.dto.common.BaseDto;
 import spring.demo.dto.request.PrivilegeRequest;
 import spring.demo.enums.ModuleType;
 import spring.demo.util.JsonDateTimeSerializer;
 import spring.demo.util.JsonEnumSerializer;
+import spring.demo.util.MyCacheUtils;
 
 /**
  * Created by facheng on 17-11-15.
  */
-public class PrivilegeDto implements Serializable {
+public class PrivilegeDto extends BaseDto<String> {
     private static final long serialVersionUID = -92880268882930291L;
 
     private Long id;
@@ -36,6 +36,8 @@ public class PrivilegeDto implements Serializable {
 
     @JsonSerialize(using = JsonDateTimeSerializer.class)
     private LocalDateTime updatedOn;
+
+    private Long currentUserId;
 
     public PrivilegeDto() {
     }
@@ -70,6 +72,20 @@ public class PrivilegeDto implements Serializable {
             return null;
         }
         return new PrivilegeDto(request.getId(), request.getName(), request.getUrl(), request.getModule());
+    }
+
+    public static final PrivilegeDto getInstance() {
+        return new PrivilegeDto();
+    }
+
+    public final PrivilegeDto withId(Long id) {
+        this.setId(id);
+        return this;
+    }
+
+    public final PrivilegeDto withCurrentId(Long currentId) {
+        this.setCurrentUserId(currentId);
+        return this;
     }
 
     public Long getId() {
@@ -140,8 +156,21 @@ public class PrivilegeDto implements Serializable {
         this.updatedOn = updatedOn;
     }
 
+    public Long getCurrentUserId() {
+        return currentUserId;
+    }
+
+    public void setCurrentUserId(Long currentUserId) {
+        this.currentUserId = currentUserId;
+    }
+
     @Override
     public String toString() {
         return "PrivilegeDto{" + "id=" + id + ", name='" + name + '\'' + ", url='" + url + '\'' + '}';
+    }
+
+    @Override
+    public String cacheKey() {
+        return MyCacheUtils.getPrivelgeCacheKey(url);
     }
 }

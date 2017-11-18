@@ -11,14 +11,16 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import spring.demo.constant.Constants;
 import spring.demo.util.SpringContextHolder;
 
 @SpringBootApplication
 // @EnableWebSocket
 @EnableScheduling
 @EnableWebSecurity
-@EnableCaching
+@EnableCaching(order = Constants.CacheConfig.CACHE_ORDER)
 @EnableRabbit
+@EnableTransactionManagement(order = Constants.TransactionConfig.ORDER)
 @ImportResource({ "classpath:META-INF/spring/applicationContext*.xml" })
 @Configuration
 public class Application {

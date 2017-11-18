@@ -15,13 +15,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Created by facheng on 16.03.17.
  */
 @Configuration
-@EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactorySecond", //
         transactionManagerRef = "transactionManagerSecond", //
         basePackages = "spring.demo.persistence.second.jpa")

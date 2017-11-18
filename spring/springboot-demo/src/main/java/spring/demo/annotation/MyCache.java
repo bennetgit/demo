@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 
 import spring.demo.aspect.strategy.ICacheStrategy;
 import spring.demo.cache.CacheOperateType;
+import spring.demo.cache.Cached;
 
 /**
  * Created by facheng on 17-11-17.
@@ -18,7 +19,9 @@ import spring.demo.cache.CacheOperateType;
 @Documented
 public @interface MyCache {
 
-    Class<ICacheStrategy> cacheStrategy();
+    Class<? extends ICacheStrategy> cacheStrategy();
 
-    CacheOperateType operateType();
+    CacheOperateType operateType() default CacheOperateType.UN_KNOW;
+
+    Class<? extends Cached> cachedType() default Cached.class;
 }

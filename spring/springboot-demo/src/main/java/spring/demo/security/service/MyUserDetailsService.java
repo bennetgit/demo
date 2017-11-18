@@ -36,14 +36,14 @@ public class MyUserDetailsService implements UserDetailsService {
 
         Authority authority = new Authority();
         List<MenuDto> menus;
-        if (userDto.getAdmin()) {
-            authority.setAuthority("ROLE_ADMIN");
+        boolean isSuperUser = userDto.getAdmin() != null && userDto.getAdmin();
+        if (isSuperUser) {
             menus = menuService.findAll();
         } else {
-            authority.setAuthority("ROLE_USER");
             menus = userDto.getMenus();
         }
 
-        return AuthUser.of(userDto.getId(), userDto.getUsername(), userDto.getPassword(), true, menus, authority);
+        return AuthUser.of(userDto.getId(), userDto.getUsername(), userDto.getPassword(), true, menus, authority)
+                .withRoleIds(userDto.getRoleIds()).withSuperUser(isSuperUser);
     }
 }

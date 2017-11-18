@@ -10,6 +10,14 @@ public final class MyCacheUtils {
     private MyCacheUtils() {
     }
 
+    public static final String getRoleCacheKey(Long roleId) {
+        return formatKey(Constants.CacheConfig.ROLE_CACHE_KEY, String.valueOf(roleId));
+    }
+
+    public static final String getPrivelgeCacheKey(String privilegeUrl) {
+        return formatKey(Constants.CacheConfig.PRIVILEGE_CACHE_KEY, privilegeUrl);
+    }
+
     public static final String formatKey(String key, String... part) {
         if (key == null || part == null) {
             return key;

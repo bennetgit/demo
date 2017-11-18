@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import spring.demo.dto.MenuDto;
 
 /**
@@ -22,7 +23,11 @@ public class AuthUser implements UserDetails {
 
     private boolean enable;
 
+    private List<Long> roleIds = new ArrayList<>();
+
     private List<MenuDto> menus = new ArrayList<>();
+
+    private boolean superUser;
 
     private Collection<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
 
@@ -87,8 +92,34 @@ public class AuthUser implements UserDetails {
         this.menus = menus;
     }
 
+    public List<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
+    }
+
     public static final AuthUser of(Long id, String username, String password, boolean enable, List<MenuDto> menus,
             Authority... grantedAuthorityList) {
         return new AuthUser(id, username, password, enable, menus, Arrays.asList(grantedAuthorityList));
+    }
+
+    public final AuthUser withRoleIds(List<Long> roleIds) {
+        this.roleIds.addAll(roleIds);
+        return this;
+    }
+
+    public boolean isSuperUser() {
+        return superUser;
+    }
+
+    public void setSuperUser(boolean superUser) {
+        this.superUser = superUser;
+    }
+
+    public final AuthUser withSuperUser(boolean isSuperUser) {
+        this.superUser = isSuperUser;
+        return this;
     }
 }

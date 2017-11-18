@@ -57,6 +57,8 @@ public class UserDto implements Serializable {
 
     private UserStatus status;
 
+    private List<Long> roleIds = new ArrayList<>();
+
     public UserDto() {
     }
 
@@ -175,6 +177,14 @@ public class UserDto implements Serializable {
         return status == null ? StringUtils.EMPTY : status.getMessage();
     }
 
+    public List<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
+    }
+
     public static final UserDto of(Long id, String userName, String mobile, SexType sexType, LocalDateTime createdOn) {
 
         UserDto userDto = new UserDto();
@@ -200,6 +210,11 @@ public class UserDto implements Serializable {
         userDto.setPassword(request.getPassword());
         userDto.setAdmin(request.getIsAdmin());
         return userDto;
+    }
+
+    public final UserDto withRoleIds(List<Long> roleIds) {
+        this.roleIds.addAll(roleIds);
+        return this;
     }
 
     @Override

@@ -11,14 +11,10 @@ import javax.persistence.criteria.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import spring.demo.constant.Constants;
 import spring.demo.dto.PageQuery;
 import spring.demo.dto.PrivilegeDto;
 import spring.demo.exception.PrivilegeOperateException;
@@ -27,6 +23,7 @@ import spring.demo.persistence.primary.domain.User;
 import spring.demo.persistence.primary.jpa.IPrivilegeRepository;
 import spring.demo.persistence.primary.jpa.IUserRepository;
 import spring.demo.service.IPrivilegeService;
+import spring.demo.service.common.CachedService;
 import spring.demo.util.PageResult;
 import spring.demo.util.PrivilegeParser;
 import spring.demo.util.StringUtil;
@@ -36,7 +33,7 @@ import spring.demo.util.StringUtil;
  */
 
 @Service
-public class PrivilegeServiceImpl implements IPrivilegeService {
+public class PrivilegeServiceImpl implements IPrivilegeService, CachedService<PrivilegeDto, PrivilegeDto> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PrivilegeServiceImpl.class);
 
@@ -69,15 +66,7 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
     public void addPrivilege(PrivilegeDto privilegeDto, Long currentUserId) {
         LOGGER.info("start add privilege {}", privilegeDto);
 
-        User currentUser;
-        if (privilegeDto == null || (currentUser = userRepository.findById(currentUserId)) == null) {
-            throw new PrivilegeOperateException("");
-        }
-
-        Privilege privilege = PrivilegeParser.fromDto(privilegeDto);
-        privilege.setCreatedBy(currentUser);
-
-        privilegeRepository.save(privilege);
+        saveOrUpdateWithCache(privilegeDto.withCurrentId(currentUserId));
     }
 
     @Override
@@ -93,16 +82,25 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
     @Override
     @Transactional
     public void updatePrivilege(Long id, PrivilegeDto privilegeDto, Long currentUserId) {
-        LOGGER.info("start update id {} privilege {}", id, privilegeDto);
-
-        User currentUser;
-        Privilege privilege;
-        if (privilegeDto == null || (currentUser = userRepository.findById(currentUserId)) == null) {
+        if (privilegeDto == null) {
             throw new PrivilegeOperateException("privilege operate error");
         }
 
-        if (id == null || (privilege = privilegeRepository.findOne(id)) == null) {
-            throw new PrivilegeOperateException("cannot find privilege " + id);
+        saveOrUpdateWithCache(privilegeDto.withId(id).withCurrentId(currentUserId));
+    }
+
+    private void update(PrivilegeDto privilegeDto) {
+        LOGGER.info("start update  privilege {}", privilegeDto);
+
+        User currentUser;
+        Privilege privilege;
+        if (privilegeDto == null || privilegeDto.getCurrentUserId() == null
+                || (currentUser = userRepository.findById(privilegeDto.getCurrentUserId())) == null) {
+            throw new PrivilegeOperateException("privilege operate error");
+        }
+
+        if (privilegeDto.getId() == null || (privilege = privilegeRepository.findOne(privilegeDto.getId())) == null) {
+            throw new PrivilegeOperateException("cannot find privilege " + privilegeDto);
         }
 
         privilege.setUpdatedBy(currentUser);
@@ -110,20 +108,42 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
         privilege.setUrl(privilegeDto.getUrl());
         privilege.setName(privilegeDto.getName());
         privilegeRepository.save(privilege);
+    }
 
+    @Override
+    public void deletePrivilege(Long id) {
+        LOGGER.info("start delete privilege {}", id);
+        deleteWithCache(PrivilegeDto.getInstance().withId(id));
     }
 
     @Override
     @Transactional
-    public void deletePrivilege(Long id) {
-        LOGGER.info("start delete privilege {}", id);
+    public PrivilegeDto saveOrUpdateWithCache(PrivilegeDto dto) {
+
+        if (dto == null) {
+            throw new PrivilegeOperateException();
+        }
+
+        if (dto.getId() == null) {
+
+            privilegeRepository.save(PrivilegeParser.fromDto(dto));
+        } else {
+            update(dto);
+        }
+
+        return dto;
+    }
+
+    @Override
+    @Transactional
+    public void deleteWithCache(PrivilegeDto dto) {
+        LOGGER.info("start delete privilege {}", dto);
 
         Privilege privilege;
-        if (id == null || (privilege = privilegeRepository.findOne(id)) == null) {
-            throw new PrivilegeOperateException("cannot find privilege " + id);
+        if (dto == null || dto.getId() == null || (privilege = privilegeRepository.findOne(dto.getId())) == null) {
+            throw new PrivilegeOperateException("cannot find privilege  " + dto);
         }
 
         privilegeRepository.delete(privilege);
-
     }
 }
