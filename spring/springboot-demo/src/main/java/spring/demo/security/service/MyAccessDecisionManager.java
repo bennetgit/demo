@@ -36,15 +36,15 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)
             throws AccessDeniedException, InsufficientAuthenticationException {
 
-        LOGGER.info("request address {}", RequestUtils.getRequestAddress());
-
         if (authentication == null || !(authentication.getPrincipal() instanceof AuthUser)) {
             throw new AccessDeniedException("can not access, " + object);
         }
 
         AuthUser authUser = (AuthUser) authentication.getPrincipal();
-        if (!hasPermit(RequestUtils.getRequestAddress(), authUser)) {
 
+        LOGGER.info("{} request address {}", authUser, RequestUtils.getRequestAddress());
+        if (!hasPermit(RequestUtils.getRequestAddress(), authUser)) {
+            LOGGER.info("{} has no permit {}", authUser, RequestUtils.getRequestAddress());
             throw new AccessDeniedException("can not access, " + object);
         }
 
@@ -52,7 +52,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 
     private boolean hasPermit(String targetUrl, AuthUser authUser) {
 
-        if (authUser == null || authUser.isEnabled()) {
+        if (authUser == null || !authUser.isEnabled()) {
             return false;
         }
 

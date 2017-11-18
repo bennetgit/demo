@@ -122,4 +122,9 @@ public class AuthUser implements UserDetails {
         this.superUser = isSuperUser;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "AuthUser{" + "username='" + username + '\'' + ", id=" + id + '}';
+    }
 }

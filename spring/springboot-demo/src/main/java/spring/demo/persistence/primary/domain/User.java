@@ -60,7 +60,7 @@ public class User extends BaseDomain {
     @Column
     @Type(type = "spring.demo.enums.DBEnumType", parameters = {
             @Parameter(name = "enumClass", value = "spring.demo.enums.UserStatus") })
-    private UserStatus status = UserStatus.INACTIVE;
+    private UserStatus status = UserStatus.ACTIVE;
 
     public User() {
     }
