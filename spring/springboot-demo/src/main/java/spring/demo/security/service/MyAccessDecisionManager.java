@@ -42,15 +42,16 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 
         AuthUser authUser = (AuthUser) authentication.getPrincipal();
 
-        LOGGER.info("{} request address {}", authUser, RequestUtils.getRequestAddress());
-        if (!hasPermit(RequestUtils.getRequestAddress(), authUser)) {
+        LOGGER.info("{} request method {} address {}", authUser, RequestUtils.getRequestMethod(),
+                RequestUtils.getRequestAddress());
+        if (!hasPermit(RequestUtils.getRequestAddress(), RequestUtils.getRequestMethod(), authUser)) {
             LOGGER.info("{} has no permit {}", authUser, RequestUtils.getRequestAddress());
             throw new AccessDeniedException("can not access, " + object);
         }
 
     }
 
-    private boolean hasPermit(String targetUrl, AuthUser authUser) {
+    private boolean hasPermit(String targetUrl, String requestType, AuthUser authUser) {
 
         if (authUser == null || !authUser.isEnabled()) {
             return false;
@@ -60,7 +61,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
             return true;
         }
 
-        if (!privilegeCacheService.needGrant(targetUrl)) {
+        if (!privilegeCacheService.needGrant(targetUrl, requestType)) {
             return true;
         }
 

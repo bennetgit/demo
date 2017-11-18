@@ -38,7 +38,6 @@ import spring.demo.persistence.primary.jpa.IMenuRepository;
 import spring.demo.persistence.primary.jpa.IPrivilegeRepository;
 import spring.demo.persistence.primary.jpa.IRoleRepository;
 import spring.demo.service.IRoleService;
-import spring.demo.service.common.CachedService;
 import spring.demo.util.PageResult;
 import spring.demo.util.RoleParser;
 import spring.demo.util.SpringContextHolder;

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spring.demo.dto.common.BaseDto;
 import spring.demo.dto.request.PrivilegeRequest;
 import spring.demo.enums.ModuleType;
+import spring.demo.enums.RequestMethod;
 import spring.demo.util.JsonDateTimeSerializer;
 import spring.demo.util.JsonEnumSerializer;
 import spring.demo.util.MyCacheUtils;
@@ -38,6 +39,8 @@ public class PrivilegeDto extends BaseDto<String> {
     private LocalDateTime updatedOn;
 
     private Long currentUserId;
+
+    private RequestMethod requestMethod;
 
     public PrivilegeDto() {
     }
@@ -71,7 +74,8 @@ public class PrivilegeDto extends BaseDto<String> {
         if (request == null) {
             return null;
         }
-        return new PrivilegeDto(request.getId(), request.getName(), request.getUrl(), request.getModule());
+        return new PrivilegeDto(request.getId(), request.getName(), request.getUrl(), request.getModule())
+                .withRequestType(request.getRequestMethod());
     }
 
     public static final PrivilegeDto getInstance() {
@@ -85,6 +89,11 @@ public class PrivilegeDto extends BaseDto<String> {
 
     public final PrivilegeDto withCurrentId(Long currentId) {
         this.setCurrentUserId(currentId);
+        return this;
+    }
+
+    public final PrivilegeDto withRequestType(RequestMethod requestMethod) {
+        this.setRequestMethod(requestMethod);
         return this;
     }
 
@@ -164,6 +173,14 @@ public class PrivilegeDto extends BaseDto<String> {
         this.currentUserId = currentUserId;
     }
 
+    public RequestMethod getRequestMethod() {
+        return requestMethod;
+    }
+
+    public void setRequestMethod(RequestMethod requestMethod) {
+        this.requestMethod = requestMethod;
+    }
+
     @Override
     public String toString() {
         return "PrivilegeDto{" + "id=" + id + ", name='" + name + '\'' + ", url='" + url + '\'' + '}';
@@ -171,6 +188,7 @@ public class PrivilegeDto extends BaseDto<String> {
 
     @Override
     public String cacheKey() {
-        return MyCacheUtils.getPrivelgeCacheKey(url);
+        return MyCacheUtils.getPrivilegeCacheKey(url,
+                StringUtils.defaultString(String.valueOf(requestMethod), StringUtils.EMPTY));
     }
 }

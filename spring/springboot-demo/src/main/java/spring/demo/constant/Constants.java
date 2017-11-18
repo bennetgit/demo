@@ -14,6 +14,8 @@ public class Constants {
 
     public static final String BREAK_LINE = "\n";
 
+    public static final String SEPARATOR = ",";
+
     public static final int DEFAULT_AOP_ORDER_AFTER_CACHE = 1;
 
     public static class ResponseMsg {

@@ -5,5 +5,5 @@ package spring.demo.service;
  */
 public interface IPrivilegeCacheService {
 
-    boolean needGrant(String privilegeUrl);
+    boolean needGrant(String privilegeUrl, String requestType);
 }

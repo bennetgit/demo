@@ -26,6 +26,7 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
 import spring.demo.enums.ModuleType;
+import spring.demo.enums.RequestMethod;
 import spring.demo.persistence.common.BaseDomain;
 
 /**
@@ -54,6 +55,11 @@ public class Privilege extends BaseDomain {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by")
     private User updatedBy;
+
+    @Column
+    @Type(type = "spring.demo.enums.DBEnumType", parameters = {
+            @Parameter(name = "enumClass", value = "spring.demo.enums.RequestMethod") })
+    private RequestMethod requestMethod;
 
     @Column
     @Type(type = "spring.demo.enums.DBEnumType", parameters = {
@@ -138,6 +144,18 @@ public class Privilege extends BaseDomain {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public RequestMethod getRequestMethod() {
+        return requestMethod;
+    }
+
+    public void setRequestMethod(RequestMethod requestMethod) {
+        this.requestMethod = requestMethod;
+    }
+
+    public String requestTypeInfo() {
+        return requestMethod == null ? StringUtils.EMPTY : requestMethod.name();
     }
 
     public String creatorInfo() {

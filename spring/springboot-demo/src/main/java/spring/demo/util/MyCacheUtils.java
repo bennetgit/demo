@@ -14,8 +14,8 @@ public final class MyCacheUtils {
         return formatKey(Constants.CacheConfig.ROLE_CACHE_KEY, String.valueOf(roleId));
     }
 
-    public static final String getPrivelgeCacheKey(String privilegeUrl) {
-        return formatKey(Constants.CacheConfig.PRIVILEGE_CACHE_KEY, privilegeUrl);
+    public static final String getPrivilegeCacheKey(String url, String requestMethodName) {
+        return formatKey(Constants.CacheConfig.PRIVILEGE_CACHE_KEY, url + Constants.SEPARATOR + requestMethodName);
     }
 
     public static final String formatKey(String key, String... part) {

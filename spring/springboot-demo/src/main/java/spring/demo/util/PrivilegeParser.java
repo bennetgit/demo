@@ -28,6 +28,7 @@ public final class PrivilegeParser {
                 privilege.creatorInfo(), privilege.updatedInfo(), privilege.getModule());
         dto.setCreatedOn(LocalDateTime.fromDateFields(privilege.getCreatedOn()));
         dto.setUpdatedOn(LocalDateTime.fromDateFields(privilege.getUpdatedOn()));
+        dto.setRequestMethod(privilege.getRequestMethod());
         return dto;
 
     }
@@ -50,6 +51,7 @@ public final class PrivilegeParser {
         privilege.setName(privilegeDto.getName());
         privilege.setUrl(privilegeDto.getUrl());
         privilege.setModule(privilegeDto.getModule());
+        privilege.setRequestMethod(privilegeDto.getRequestMethod());
         return privilege;
     }
 }

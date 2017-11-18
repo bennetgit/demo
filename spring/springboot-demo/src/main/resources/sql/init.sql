@@ -85,14 +85,15 @@ CACHE 1;
 
 DROP TABLE IF EXISTS _privilege;
 CREATE TABLE _privilege (
-  id         BIGINT       NOT NULL,
-  name       VARCHAR(128),
-  url        VARCHAR(128) NOT NULL,
-  module     INTEGER      NOT NULL,
-  created_by BIGINT       NOT NULL,
-  updated_by BIGINT,
-  created_on TIMESTAMP WITHOUT TIME ZONE,
-  updated_on TIMESTAMP WITHOUT TIME ZONE,
+  id             BIGINT       NOT NULL,
+  name           VARCHAR(128),
+  url            VARCHAR(128) NOT NULL,
+  module         INTEGER      NOT NULL,
+  request_method INTEGER      NOT NULL,
+  created_by     BIGINT       NOT NULL,
+  updated_by     BIGINT,
+  created_on     TIMESTAMP WITHOUT TIME ZONE,
+  updated_on     TIMESTAMP WITHOUT TIME ZONE,
   PRIMARY KEY (id)
 );
 

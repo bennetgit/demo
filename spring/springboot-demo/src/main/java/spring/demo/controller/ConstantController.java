@@ -1,19 +1,16 @@
 package spring.demo.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import spring.demo.dto.response.ResponseInfo;
 import spring.demo.enums.ModuleType;
+import spring.demo.enums.RequestMethod;
 
 /**
  * Created by feng on 17/11/15.
@@ -30,5 +27,10 @@ public class ConstantController {
                 .collect(Collectors.toMap(ModuleType::getMessage, ModuleType::getConstant));
 
         return ResponseInfo.success(resultMap);
+    }
+
+    @GetMapping("/requestMethods")
+    public ResponseInfo getRequestMethods() {
+        return ResponseInfo.success(RequestMethod.values());
     }
 }

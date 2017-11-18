@@ -3,6 +3,7 @@ package spring.demo.dto.request;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import spring.demo.enums.ModuleType;
+import spring.demo.enums.RequestMethod;
 import spring.demo.util.JsonEnumDeserializer;
 
 public class PrivilegeRequest extends BaseRequest {
@@ -15,6 +16,8 @@ public class PrivilegeRequest extends BaseRequest {
 
     @JsonDeserialize(using = JsonEnumDeserializer.class)
     private ModuleType module;
+
+    private RequestMethod requestMethod;
 
     public ModuleType getModule() {
         return module;
@@ -46,5 +49,13 @@ public class PrivilegeRequest extends BaseRequest {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public RequestMethod getRequestMethod() {
+        return requestMethod;
+    }
+
+    public void setRequestMethod(RequestMethod requestMethod) {
+        this.requestMethod = requestMethod;
     }
 }

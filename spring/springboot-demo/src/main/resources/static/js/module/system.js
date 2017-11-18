@@ -451,6 +451,7 @@ mainApp.controller("systemPrivilegeListCtl", function ($scope, $uibModal, mineHt
         columnDefs: [
             {field: 'name', displayName: '权限名'},
             {field: 'url', displayName: '权限路径url'},
+            {field: 'requestMethod', displayName: '请求方法'},
             {field: 'moduleMessage', displayName: '所属模块'},
             {field: 'createdOn', displayName: '创建时间'},
             {field: 'createdBy', displayName: '创建者'},
@@ -500,6 +501,10 @@ mainApp.controller("systemPrivilegeAddController", function ($scope, $uibModalIn
         $scope.modules = data.content;
     });
 
+    mineHttp.constant("requestMethods", function (data) {
+        $scope.requestMethods = data.content;
+    });
+
     $scope.ok = function () {
         mineHttp.send("POST", "privileges", {data: $scope.privilege}, function (result) {
             $scope.messageStatus = verifyData(result);
@@ -517,6 +522,10 @@ mainApp.controller("systemPrivilegeAddController", function ($scope, $uibModalIn
 mainApp.controller("systemPrivilegeEditController", function ($scope, $uibModalInstance, mineHttp, data) {
     mineHttp.constant("privilegeModule", function (data) {
         $scope.modules = data.content;
+    });
+
+    mineHttp.constant("requestMethods", function (data) {
+        $scope.requestMethods = data.content;
     });
 
     mineHttp.send("GET", "privileges/" + data.id, {}, function (result) {

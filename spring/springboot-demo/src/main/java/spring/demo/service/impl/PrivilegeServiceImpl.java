@@ -8,7 +8,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.criteria.Predicate;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -54,7 +53,7 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
 
             List<Predicate> predicates = new ArrayList<>();
 
-            if (StringUtils.isNotEmpty(dto.getName())) {
+            if (org.apache.commons.lang3.StringUtils.isNotEmpty(dto.getName())) {
                 predicates.add(cb.like(root.get("name"), StringUtil.wildcard(dto.getName())));
             }
 
@@ -130,7 +129,10 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
 
         if (dto.getId() == null) {
 
-            privilegeRepository.save(PrivilegeParser.fromDto(dto));
+            User currentUser = userRepository.getOne(dto.getCurrentUserId());
+            Privilege privilege = PrivilegeParser.fromDto(dto);
+            privilege.setCreatedBy(currentUser);
+            privilegeRepository.save(privilege);
         } else {
             update(dto);
         }

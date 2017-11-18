@@ -33,6 +33,18 @@
                                 error="长度50位以内"></mine-validator>
             </div>
 
+            <div class="form-group" ng-class="{false:'has-error'}[privilegeForm.requestMethod.$valid]">
+                <mine-label class="col-sm-2" name="请求方法" required></mine-label>
+                <div class="col-sm-5">
+                    <select ng-model="privilege.requestMethod" name="requestMethod"
+                            class="form-control input-sm mine-input-abeam" style="width:200px;" required>
+                        <option ng-repeat="requestMethod in requestMethods" ng-value="requestMethod">
+                            {{requestMethod}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
             <div class="form-group" ng-class="{false:'has-error'}[privilegeForm.module.$valid]">
                 <mine-label class="col-sm-2" name="所属模块" required></mine-label>
                 <div class="col-sm-5">
