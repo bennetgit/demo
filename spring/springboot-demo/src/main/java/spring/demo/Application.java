@@ -8,20 +8,23 @@ import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import spring.demo.constant.Constants;
+import spring.demo.constant.Constants.CacheConfig;
+import spring.demo.constant.Constants.TransactionConfig;
 import spring.demo.util.SpringContextHolder;
 
 @SpringBootApplication
 // @EnableWebSocket
 @EnableScheduling
 @EnableWebSecurity
-@EnableCaching(order = Constants.CacheConfig.CACHE_ORDER, mode = AdviceMode.ASPECTJ)
+@EnableAsync(mode = AdviceMode.ASPECTJ)
+@EnableCaching(order = CacheConfig.CACHE_ORDER, mode = AdviceMode.ASPECTJ)
 @EnableRabbit
-@EnableTransactionManagement(order = Constants.TransactionConfig.ORDER, mode = AdviceMode.ASPECTJ)
+@EnableTransactionManagement(order = TransactionConfig.ORDER, mode = AdviceMode.ASPECTJ)
 @ImportResource({ "classpath:META-INF/spring/applicationContext*.xml" })
 @Configuration
 public class Application {

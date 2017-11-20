@@ -132,7 +132,7 @@ DROP TABLE IF EXISTS login_audit;
 CREATE TABLE login_audit (
   id         BIGINT NOT NULL,
   user_id    BIGINT,
-  user_agent VARCHAR(128),
+  user_agent VARCHAR(512),
   ip_address VARCHAR(128),
   login_time TIMESTAMP WITHOUT TIME ZONE DEFAULT NULL,
   PRIMARY KEY (id)

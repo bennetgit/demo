@@ -13,7 +13,6 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
  */
 
 @Configuration
-@EnableAsync
 public class AsyncConfig {
 
     @Value("${thread.core.pool.size}")

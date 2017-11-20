@@ -45,7 +45,6 @@ import spring.demo.persistence.primary.jpa.IRoleRepository;
 import spring.demo.service.IRoleService;
 import spring.demo.util.PageResult;
 import spring.demo.util.RoleParser;
-import spring.demo.util.SpringContextHolder;
 import spring.demo.util.StringUtil;
 
 /**
@@ -66,10 +65,6 @@ public class RoleServiceImpl implements IRoleService {
 
     @Resource
     private IPrivilegeRepository privilegeRepository;
-
-    private IRoleService getRoleService() {
-        return SpringContextHolder.getBean("roleServiceImpl", IRoleService.class);
-    }
 
     @Override
     @Transactional
@@ -99,7 +94,7 @@ public class RoleServiceImpl implements IRoleService {
         if (roleDto == null) {
             throw new RoleOperateException("role dto cannot be empty");
         }
-        getRoleService().saveOrUpdateWithCache(roleDto);
+        saveOrUpdateWithCache(roleDto);
 
     }
 
@@ -124,7 +119,7 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public void deleteRole(Long id) {
-        getRoleService().deleteWithCache(RoleDto.getInstance().withId(id));
+        deleteWithCache(RoleDto.getInstance().withId(id));
     }
 
     @Override
@@ -156,7 +151,7 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public void updatePrivilege(RoleDto roleDto) {
-        getRoleService().saveOrUpdateWithCache(roleDto);
+        saveOrUpdateWithCache(roleDto);
     }
 
     private void update(RoleDto roleDto) {
@@ -168,15 +163,19 @@ public class RoleServiceImpl implements IRoleService {
 
         List<Long> menuIds = roleDto.getMenuIds();
 
+        List<Menu> menus = new ArrayList<>();
+        List<Privilege> privileges = new ArrayList<>();
         if (!CollectionUtils.isEmpty(menuIds)) {
-            List<Menu> menus = menuRepository.findMenuWithIds(menuIds);
-            role.setMenus(menus);
+            menus = menuRepository.findMenuWithIds(menuIds);
         }
 
+        role.setMenus(menus);
         if (!CollectionUtils.isEmpty(roleDto.getPrivilegeIds())) {
-            List<Privilege> privileges = privilegeRepository.findAll(roleDto.getPrivilegeIds());
-            role.setPrivileges(privileges);
+            privileges = privilegeRepository.findAll(roleDto.getPrivilegeIds());
+
         }
+
+        role.setPrivileges(privileges);
 
         roleRepository.save(role);
     }

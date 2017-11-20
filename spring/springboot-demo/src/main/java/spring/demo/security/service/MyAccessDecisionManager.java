@@ -37,20 +37,18 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
             throws AccessDeniedException, InsufficientAuthenticationException {
 
         if (authentication == null || !(authentication.getPrincipal() instanceof AuthUser)) {
+            LOGGER.info("authentication {}", authentication);
             throw new AccessDeniedException("can not access, " + object);
         }
 
         AuthUser authUser = (AuthUser) authentication.getPrincipal();
 
-        LOGGER.info("{} request method {} address {}", authUser, RequestUtils.getRequestMethod(),
-                RequestUtils.getRequestAddress());
         if (!hasPermit(RequestUtils.getRequestAddress(), RequestUtils.getRequestMethod(), authUser)) {
             LOGGER.info("{} has no permit {}", authUser, RequestUtils.getRequestAddress());
             throw new AccessDeniedException("can not access, " + object);
         }
 
     }
-
     private boolean hasPermit(String targetUrl, String requestType, AuthUser authUser) {
 
         if (authUser == null || !authUser.isEnabled()) {

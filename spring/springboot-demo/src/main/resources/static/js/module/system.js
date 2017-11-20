@@ -306,7 +306,6 @@ mainApp.controller("systemRoleListCtl", function ($scope, $uibModal, mineHttp, m
             {field: 'name', displayName: '角色名'},
             {field: 'description', displayName: '描述'},
             {field: 'createdOn', displayName: '创建时间'},
-            {field: 'createdBy', displayName: '创建者'},
             {
                 field: 'id',
                 displayName: '操作',
