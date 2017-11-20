@@ -37,6 +37,10 @@ public class WebLogAspect {
     @Before("webLog()")
     public void deBefore(JoinPoint joinPoint) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attributes == null) {
+            return;
+        }
+            
         HttpServletRequest request = attributes.getRequest();
 
         StringBuffer sb = new StringBuffer(StringUtils.EMPTY);

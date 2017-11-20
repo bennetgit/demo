@@ -4,6 +4,7 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
@@ -20,7 +21,7 @@ import spring.demo.util.SpringContextHolder;
 @EnableWebSecurity
 @EnableCaching(order = Constants.CacheConfig.CACHE_ORDER)
 @EnableRabbit
-@EnableTransactionManagement(order = Constants.TransactionConfig.ORDER)
+@EnableTransactionManagement(order = Constants.TransactionConfig.ORDER, mode = AdviceMode.ASPECTJ)
 @ImportResource({ "classpath:META-INF/spring/applicationContext*.xml" })
 @Configuration
 public class Application {
