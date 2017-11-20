@@ -21,6 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
@@ -200,7 +201,7 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Set<String> saveOrUpdateWithCache(RoleDto dto) {
         if (dto == null) {
             throw new RoleOperateException("role dto is null");
@@ -213,11 +214,11 @@ public class RoleServiceImpl implements IRoleService {
             update(dto);
         }
 
-        return privilegeRepository.findPrivilegeRrlsWithRoleId(dto.getId());
+        return privilegeRepository.findPrivilegeUrlsWithRoleId(dto.getId());
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void deleteWithCache(RoleDto dto) {
         Long id;
         if (dto == null || (id = dto.getId()) == null) {

@@ -22,6 +22,6 @@ public interface IPrivilegeRepository extends MyJpaRepository<Privilege> {
     List<Privilege> findPrivilegeWithRoleId(@Param("roleId") Long roleId);
 
     @Query("select p.url from Privilege p inner join p.roles pr where pr.id = :roleId")
-    Set<String> findPrivilegeRrlsWithRoleId(@Param("roleId") Long roleId);
+    Set<String> findPrivilegeUrlsWithRoleId(@Param("roleId") Long roleId);
 
 }
