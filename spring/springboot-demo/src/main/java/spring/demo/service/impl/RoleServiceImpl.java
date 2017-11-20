@@ -19,6 +19,9 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -27,6 +30,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.google.common.collect.Lists;
 
+import spring.demo.constant.Constants;
 import spring.demo.dto.PageQuery;
 import spring.demo.dto.RoleDto;
 import spring.demo.dto.TreeNode;
@@ -48,6 +52,7 @@ import spring.demo.util.StringUtil;
  * Created by wangfacheng on 2017-11-13.
  */
 
+@CacheConfig(cacheNames = Constants.CacheConfig.CACHE_NAME, keyGenerator = Constants.CacheConfig.CACHE_KEY_GENERATOR)
 @Service
 public class RoleServiceImpl implements IRoleService {
 
@@ -201,6 +206,7 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
+    @CachePut(condition = "#p0 instanceof T(spring.demo.cache.Cached)")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Set<String> saveOrUpdateWithCache(RoleDto dto) {
         if (dto == null) {
@@ -218,6 +224,7 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
+    @CacheEvict(condition = "#p0 instanceof T(spring.demo.cache.Cached)")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void deleteWithCache(RoleDto dto) {
         Long id;

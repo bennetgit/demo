@@ -10,11 +10,15 @@ import javax.persistence.criteria.Predicate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import spring.demo.constant.Constants;
 import spring.demo.dto.PageQuery;
 import spring.demo.dto.PrivilegeDto;
 import spring.demo.exception.PrivilegeOperateException;
@@ -25,13 +29,12 @@ import spring.demo.persistence.primary.jpa.IUserRepository;
 import spring.demo.service.IPrivilegeService;
 import spring.demo.util.PageResult;
 import spring.demo.util.PrivilegeParser;
-import spring.demo.util.SpringContextHolder;
 import spring.demo.util.StringUtil;
 
 /**
  * Created by facheng on 17-11-15.
  */
-
+@CacheConfig(cacheNames = Constants.CacheConfig.CACHE_NAME, keyGenerator = Constants.CacheConfig.CACHE_KEY_GENERATOR)
 @Service
 public class PrivilegeServiceImpl implements IPrivilegeService {
 
@@ -43,9 +46,10 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
     @Resource
     private IUserRepository userRepository;
 
-    private IPrivilegeService getPrivilegeService() {
-        return SpringContextHolder.getBean("privilegeServiceImpl", IPrivilegeService.class);
-    }
+    // private IPrivilegeService getPrivilegeService() {
+    // return SpringContextHolder.getBean("privilegeServiceImpl",
+    // IPrivilegeService.class);
+    // }
 
     @Override
     public PageResult<PrivilegeDto> lists(PageQuery pageQuery, PrivilegeDto dto) {
@@ -70,7 +74,7 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
     public void addPrivilege(PrivilegeDto privilegeDto, Long currentUserId) {
         LOGGER.info("start add privilege {}", privilegeDto);
 
-        getPrivilegeService().saveOrUpdateWithCache(privilegeDto.withCurrentId(currentUserId));
+        saveOrUpdateWithCache(privilegeDto.withCurrentId(currentUserId));
     }
 
     @Override
@@ -90,7 +94,7 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
             throw new PrivilegeOperateException("privilege operate error");
         }
 
-        getPrivilegeService().saveOrUpdateWithCache(privilegeDto.withId(id).withCurrentId(currentUserId));
+        saveOrUpdateWithCache(privilegeDto.withId(id).withCurrentId(currentUserId));
     }
 
     private void update(PrivilegeDto privilegeDto) {
@@ -117,10 +121,11 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
     @Override
     public void deletePrivilege(Long id) {
         LOGGER.info("start delete privilege {}", id);
-        getPrivilegeService().deleteWithCache(PrivilegeDto.getInstance().withId(id));
+        deleteWithCache(PrivilegeDto.getInstance().withId(id));
     }
 
     @Override
+    @CachePut(condition = "#p0 instanceof T(spring.demo.cache.Cached)")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public PrivilegeDto saveOrUpdateWithCache(PrivilegeDto dto) {
 
@@ -142,6 +147,7 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
     }
 
     @Override
+    @CacheEvict(condition = "#p0 instanceof T(spring.demo.cache.Cached)")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void deleteWithCache(PrivilegeDto dto) {
         LOGGER.info("start delete privilege {}", dto);
