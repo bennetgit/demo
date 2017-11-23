@@ -14,6 +14,10 @@ public final class Messages {
     private Messages() {
     }
 
+    public static final String get(String key, String... part) {
+        return messageSourceAccessor.get(key, part);
+    }
+
     public static final void setLocale(Locale locale) {
         LocaleContextHolder.setLocale(locale);
     }
