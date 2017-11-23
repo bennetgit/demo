@@ -27,7 +27,7 @@ public final class MyCacheUtils {
         int index = 0;
         String tempKey = key;
         while (tempKey.indexOf(Constants.CacheConfig.CACHE_KEY_SUFFIX) != -1 && index < partSize) {
-            tempKey = tempKey.replace(Constants.CacheConfig.CACHE_KEY_SUFFIX, part[index]);
+            tempKey = tempKey.replaceFirst(Constants.CacheConfig.CACHE_KEY_SUFFIX, part[index]);
         }
 
         return tempKey;
