@@ -6,14 +6,14 @@ import java.util.Set;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import spring.demo.persistence.common.MyJpaRepository;
+import spring.demo.persistence.common.MyJpaWithPageRepository;
 import spring.demo.persistence.primary.domain.Privilege;
 
 /**
  * Created by feng on 17/11/14.
  */
 
-public interface IPrivilegeRepository extends MyJpaRepository<Privilege> {
+public interface IPrivilegeRepository extends MyJpaWithPageRepository<Privilege> {
 
     @Query("select p from Privilege p")
     List<Privilege> findAll();

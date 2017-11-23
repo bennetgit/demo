@@ -146,3 +146,35 @@ MINVALUE 1
 MAXVALUE 9223372036854775807
 CACHE 1;
 ;
+
+
+CREATE TABLE resource_bundle (
+  id int8 NOT NULL,
+  country varchar(255) NULL,
+  "key" varchar(255) NOT NULL,
+  locale varchar(255) NOT NULL,
+  tooltip bool NULL,
+  value text NOT NULL,
+  variant varchar(255) NULL,
+  created_on timestamp NULL,
+  updated_on timestamp NULL,
+  CONSTRAINT resource_bundle_key_local_ukey UNIQUE ("key",locale),
+  CONSTRAINT resource_bundle_key_locale_key UNIQUE ("key",locale),
+  CONSTRAINT resource_bundle_pkey PRIMARY KEY (id)
+)
+WITH (
+OIDS=FALSE
+);
+
+
+DROP SEQUENCE IF EXISTS seq_resource_bundle;
+CREATE SEQUENCE seq_resource_bundle
+INCREMENT 1
+START 1
+MINVALUE 1
+MAXVALUE 9223372036854775807
+CACHE 1;
+;
+
+
+

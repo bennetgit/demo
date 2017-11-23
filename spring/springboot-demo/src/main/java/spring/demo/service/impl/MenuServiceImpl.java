@@ -1,7 +1,5 @@
 package spring.demo.service.impl;
 
-import java.sql.Date;
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -108,8 +106,6 @@ public class MenuServiceImpl implements IMenuService {
         menu.setUrl(menuDto.getUrl());
         menu.setName(menuDto.getName());
         menu.setSequence(menuDto.getSequence());
-        menu.setUpdatedOn(Date.from(Instant.now()));
-
     }
 
     @Override

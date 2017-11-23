@@ -4,9 +4,7 @@ import static spring.demo.util.UserParser.fromDomain;
 import static spring.demo.util.UserParser.fromDto;
 import static spring.demo.util.UserParser.toSimpleUserDto;
 
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -125,7 +123,6 @@ public class UserServiceImpl implements IUserService {
         }
 
         user.setUsername(userDto.getUsername());
-        user.setUpdatedOn(Date.from(Instant.now()));
         user.setMobile(userDto.getMobile());
         user.setSex(userDto.getSexType());
         user.setAdmin(userDto.getAdmin());

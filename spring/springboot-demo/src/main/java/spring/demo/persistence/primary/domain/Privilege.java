@@ -1,8 +1,6 @@
 package spring.demo.persistence.primary.domain;
 
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,8 +16,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Parameter;
@@ -27,7 +23,7 @@ import org.hibernate.annotations.Type;
 
 import spring.demo.enums.ModuleType;
 import spring.demo.enums.RequestMethod;
-import spring.demo.persistence.common.BaseDomain;
+import spring.demo.persistence.common.TimeComponent;
 
 /**
  * Created by facheng on 17-11-15.
@@ -36,7 +32,7 @@ import spring.demo.persistence.common.BaseDomain;
 @Entity
 @Table(name = "_privilege")
 @SequenceGenerator(name = "seq_privilege", sequenceName = "seq_privilege")
-public class Privilege extends BaseDomain {
+public class Privilege extends TimeComponent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_privilege")
@@ -70,14 +66,6 @@ public class Privilege extends BaseDomain {
     @JoinTable(name = "role_privilege", joinColumns = @JoinColumn(name = "privilege_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
 
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdOn = Date.from(Instant.now());
-
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedOn = Date.from(Instant.now());
-
     public Long getId() {
         return id;
     }
@@ -96,22 +84,6 @@ public class Privilege extends BaseDomain {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public Date getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(Date updatedOn) {
-        this.updatedOn = updatedOn;
     }
 
     public User getCreatedBy() {

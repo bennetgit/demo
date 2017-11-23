@@ -1,6 +1,7 @@
 package spring.demo.persistence.primary.domain;
 
-import spring.demo.persistence.common.BaseDomain;
+import java.time.Instant;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +15,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.time.Instant;
-import java.util.Date;
 
 /**
  * Created by feng on 17/11/14.
@@ -23,7 +22,7 @@ import java.util.Date;
 @Entity
 @Table(name = "login_audit")
 @SequenceGenerator(name = "seq_login_audit", sequenceName = "seq_login_audit")
-public class LoginAudit extends BaseDomain {
+public class LoginAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_login_audit")

@@ -1,13 +1,22 @@
 package spring.demo.persistence.primary.domain;
 
-import spring.demo.persistence.common.BaseDomain;
-
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import spring.demo.persistence.common.TimeComponent;
 
 /**
  * Created by feng on 17/10/28.
@@ -16,7 +25,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "_role")
 @SequenceGenerator(name = "seq_role", sequenceName = "seq_role")
-public class Role extends BaseDomain {
+public class Role extends TimeComponent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_role")
@@ -40,14 +49,6 @@ public class Role extends BaseDomain {
     @JoinTable(name = "role_privilege", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "privilege_id"))
     private List<Privilege> privileges = new ArrayList<>();
 
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdOn = Date.from(Instant.now());
-
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedOn = Date.from(Instant.now());
-
     public Long getId() {
         return id;
     }
@@ -66,22 +67,6 @@ public class Role extends BaseDomain {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public Date getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(Date updatedOn) {
-        this.updatedOn = updatedOn;
     }
 
     public List<User> getUsers() {

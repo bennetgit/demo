@@ -1,13 +1,23 @@
 package spring.demo.persistence.primary.domain;
 
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-import spring.demo.persistence.common.BaseDomain;
+import spring.demo.persistence.common.TimeComponent;
 import spring.demo.util.StringUtil;
 
 /**
@@ -17,7 +27,7 @@ import spring.demo.util.StringUtil;
 @Entity
 @Table(name = "_menu")
 @SequenceGenerator(name = "seq_menu", sequenceName = "seq_menu")
-public class Menu extends BaseDomain {
+public class Menu extends TimeComponent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_menu")
@@ -45,14 +55,6 @@ public class Menu extends BaseDomain {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "role_menu", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
-
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdOn = Date.from(Instant.now());
-
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedOn = Date.from(Instant.now());
 
     public Long getId() {
         return id;
@@ -88,22 +90,6 @@ public class Menu extends BaseDomain {
 
     public void setSequence(Integer sequence) {
         this.sequence = sequence;
-    }
-
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public Date getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(Date updatedOn) {
-        this.updatedOn = updatedOn;
     }
 
     public List<Menu> getChildren() {

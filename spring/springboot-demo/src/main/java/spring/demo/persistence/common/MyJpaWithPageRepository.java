@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * Created by feng on 17/11/18.
  */
 
-public interface MyJpaRepository<T> extends JpaRepository<T, Long>, JpaSpecificationExecutor<T> {
+public interface MyJpaWithPageRepository<T> extends JpaRepository<T, Long>, JpaSpecificationExecutor<T> {
 
 }

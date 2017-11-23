@@ -1,19 +1,27 @@
 package spring.demo.persistence.primary.domain;
 
-import java.io.Serializable;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
 import spring.demo.enums.SexType;
 import spring.demo.enums.UserStatus;
-import spring.demo.persistence.common.BaseDomain;
+import spring.demo.persistence.common.TimeComponent;
 
 /**
  * Created by facheng on 16.03.17.
@@ -22,7 +30,7 @@ import spring.demo.persistence.common.BaseDomain;
 @Entity
 @Table(name = "_user")
 @SequenceGenerator(name = "seq_user", sequenceName = "seq_user")
-public class User extends BaseDomain {
+public class User extends TimeComponent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user")
@@ -48,14 +56,6 @@ public class User extends BaseDomain {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
-
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdOn = Date.from(Instant.now());
-
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedOn = Date.from(Instant.now());
 
     @Column
     @Type(type = "spring.demo.enums.DBEnumType", parameters = {
@@ -112,22 +112,6 @@ public class User extends BaseDomain {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
-    }
-
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public Date getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(Date updatedOn) {
-        this.updatedOn = updatedOn;
     }
 
     public Boolean getAdmin() {

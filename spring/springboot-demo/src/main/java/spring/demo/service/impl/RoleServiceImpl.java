@@ -2,10 +2,8 @@ package spring.demo.service.impl;
 
 import static spring.demo.util.RoleParser.fromDomains;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -114,7 +112,6 @@ public class RoleServiceImpl implements IRoleService {
 
         role.setDescription(roleDto.getDescription());
         role.setName(roleDto.getName());
-        role.setUpdatedOn(Date.from(Instant.now()));
     }
 
     @Override

@@ -1,7 +1,5 @@
 package spring.demo.service.impl;
 
-import java.sql.Date;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,7 +110,6 @@ public class PrivilegeServiceImpl implements IPrivilegeService {
         }
 
         privilege.setUpdatedBy(currentUser);
-        privilege.setUpdatedOn(Date.from(Instant.now()));
         privilege.setUrl(privilegeDto.getUrl());
         privilege.setName(privilegeDto.getName());
         privilegeRepository.save(privilege);
