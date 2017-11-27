@@ -12,14 +12,14 @@
     <!--load properties-->
     <!--<context:property-placeholder location="classpath:META-INF/spring/application.properties" file-encoding="UTF-8"/>-->
 
-    <!--<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">-->
-        <!--<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>-->
-    <!--</bean>-->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="useCodeAsDefaultMessage" value="true"/>
+        <property name="basenames">
+            <list>
+                <value>classpath:META-INF/messages/messages</value>
+            </list>
+        </property>
+    </bean>
 
-    <!--&lt;!&ndash; annotaion &ndash;&gt;-->
-    <!--<mvc:annotation-driven validator="validator">-->
-        <!--<mvc:argument-resolvers>-->
-            <!--<bean class="spring.demo.security.resolver.PageQueryHandlerMethodArgumentResolver"/>-->
-        <!--</mvc:argument-resolvers>-->
-    <!--</mvc:annotation-driven>-->
 </beans>

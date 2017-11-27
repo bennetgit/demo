@@ -147,15 +147,12 @@ MAXVALUE 9223372036854775807
 CACHE 1;
 ;
 
-
+DROP TABLE IF EXISTS resource_bundle;
 CREATE TABLE resource_bundle (
   id int8 NOT NULL,
-  country varchar(255) NULL,
   "key" varchar(255) NOT NULL,
   locale varchar(255) NOT NULL,
-  tooltip bool NULL,
   value text NOT NULL,
-  variant varchar(255) NULL,
   created_on timestamp NULL,
   updated_on timestamp NULL,
   CONSTRAINT resource_bundle_key_local_ukey UNIQUE ("key",locale),
