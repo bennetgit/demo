@@ -26,7 +26,6 @@ import spring.demo.util.SpringContextHolder;
 @EnableRabbit
 @EnableTransactionManagement(order = TransactionConfig.ORDER, mode = AdviceMode.ASPECTJ)
 @ImportResource({ "classpath:META-INF/spring/applicationContext*.xml" })
-@Configuration
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

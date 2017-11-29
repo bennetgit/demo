@@ -2,6 +2,7 @@ package spring.demo.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -35,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable();
 
         http.formLogin()// 登录
-                // .loginPage("/account/login.html").usernameParameter("username").passwordParameter("password")
+                .loginPage("/login").usernameParameter("username").passwordParameter("password")
                 .defaultSuccessUrl("/index")// 先defaultSuccessUrl后successHandler，不然successHandler不会执行
                 .successHandler(myLoginSuccessHandler())
                 .withObjectPostProcessor(new ObjectPostProcessor<UsernamePasswordAuthenticationFilter>() {// 高级设置-拦截器
@@ -46,8 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 }).permitAll();
 
         http.logout()// 登出
-                .logoutUrl("/demo/logout").logoutSuccessUrl("/demo/login")
-                .logoutSuccessHandler(myLogoutSuccessHandler()).deleteCookies("remember-me").permitAll();
+                .logoutUrl("/logout").logoutSuccessUrl("/login").logoutSuccessHandler(myLogoutSuccessHandler())
+                .deleteCookies("remember-me").permitAll();
 
         http.rememberMe()// 记住我
                 .rememberMeCookieName("remember-me").userDetailsService(userDetailService());
@@ -79,6 +80,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/**/favicon.ico")//
                 .antMatchers("/css/**")//
                 .antMatchers("/lib/**")//
+                .antMatchers(HttpMethod.GET, "/login/**")//
+                .antMatchers("/icons/**")//
                 .antMatchers("/js/**");
     }
 

@@ -49,6 +49,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
         }
 
     }
+
     private boolean hasPermit(String targetUrl, String requestType, AuthUser authUser) {
 
         if (authUser == null || !authUser.isEnabled()) {

@@ -1,6 +1,7 @@
 body {
     font-family: sans-serif;
-    background-color: #17374d;
+    background-size: 100%;
+    background-image: url("../icons/login_my.jpg")
 }
 
 .content-foot {
@@ -35,13 +36,19 @@ body {
     font-size: 12px;
 }
 
+.hyaline {
+    filter: alpha(Opacity=60);
+    -moz-opacity: 0.6;
+    opacity: 0.6;
+    /*background-color: #000;*/
+}
+
 .login {
     height: 260px;
     color: white;
-    background-color: #132e41;
-    border: 1px solid #1d445f;
-    border-bottom-color: #0e212e;
-    border-right-color: #0e212e;
+    border: 1px solid #FFFFFF;
+    /*border-bottom-color: #FFFFFF;*/
+    /*border-right-color: #0e212e;*/
     border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
@@ -49,13 +56,15 @@ body {
     -o-border-radius: 8px;
 
 }
-.login-top{
+
+.login-top {
     padding-left: 12px;
     padding-top: 7px;
     padding-bottom: 8px;
     border-bottom: 1px solid #1d445f;
     margin-bottom: 20px;
 }
+
 .logo {
     position: absolute;
     top: 125px;
@@ -68,6 +77,10 @@ body {
 
 .form-horizontal .controls {
     margin-left: 60px;
+}
+
+.form-horizontal input {
+    background: none;
 }
 
 .message-error {

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
 import spring.demo.dto.response.ResponseInfo;
@@ -26,7 +27,11 @@ public class IndexController {
     @GetMapping("index/init")
     @ResponseBody
     public ResponseInfo initMenuList() {
-        AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!(principal instanceof AuthUser)) {
+            return ResponseInfo.fail(principal);
+        }
+        AuthUser authUser = (AuthUser) principal;
         if (authUser == null) {
             return ResponseInfo.fail();
         }
@@ -37,6 +42,7 @@ public class IndexController {
     @GetMapping("logout")
     public String logout() {
         SecurityContextHolder.clearContext();
+        RequestContextHolder.resetRequestAttributes();
         return "redirect:login";
     }
 
