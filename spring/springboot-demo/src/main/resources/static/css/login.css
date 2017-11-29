@@ -80,6 +80,7 @@ body {
 }
 
 .form-horizontal input {
+    border:1px solid #fff;
     background: none;
 }
 
