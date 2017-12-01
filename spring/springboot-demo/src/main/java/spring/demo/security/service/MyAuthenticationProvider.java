@@ -10,6 +10,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
+import spring.demo.config.messagesource.Messages;
+import spring.demo.constant.Constants;
 import spring.demo.security.entity.AuthUser;
 import spring.demo.util.helper.HttpHelper;
 import spring.demo.util.helper.PasswordHelper;
@@ -31,7 +33,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         HttpSession session = HttpHelper.getHttpServletRequest().getSession();
 
         if (authUser == null || !StringUtils.equals(authUser.getPassword(), PasswordHelper.password(password))) {
-            session.setAttribute("login_error", "error");
+            session.setAttribute(Constants.LOGIN_ERROR_ATT, Messages.get("login.error.username.or.password.wrong"));
             throw new BadCredentialsException("user authenticate error");
         }
         return new UsernamePasswordAuthenticationToken(authUser, password, authUser.getAuthorities());

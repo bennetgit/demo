@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import spring.demo.config.async.LogAsync;
+import spring.demo.constant.Constants;
 import spring.demo.security.entity.AuthUser;
 import spring.demo.util.helper.WebHelper;
 
@@ -40,6 +41,7 @@ public class MyLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler
 
         setAlwaysUseDefaultTargetUrl(true);
         setDefaultTargetUrl("/index");
+        request.getSession().removeAttribute(Constants.LOGIN_ERROR_ATT);
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }

@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by facheng on 17-11-30.
+ *
+ * 全局Exception处理
  */
 
 @ControllerAdvice
