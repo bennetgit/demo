@@ -123,7 +123,7 @@ div {
 
 .bg-dark {
     color: #a6a8b1;
-    background-color: #597398;
+    background-color: #000000;
 }
 
 .aside-app-div a {
@@ -139,7 +139,7 @@ div {
 .aside-app-div .first-menu-a {
     padding-left: 30px;
     padding-right: 20px;
-    border-bottom: 1px solid #6682a9;
+    border-bottom: 1px solid #000000;
 }
 
 .aside-app-div .second-menu-a {
@@ -147,7 +147,8 @@ div {
     padding-top: 8px;
     padding-bottom: 8px;
     color: white;
-    border-bottom: 1px solid #3b4c63;
+    border-bottom: 1px solid #000000;
+    background-color: #000000;
 }
 .aside-nav{
    height:50px;

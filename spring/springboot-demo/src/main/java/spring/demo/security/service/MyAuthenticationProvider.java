@@ -36,6 +36,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
             session.setAttribute(Constants.LOGIN_ERROR_ATT, Messages.get("login.error.username.or.password.wrong"));
             throw new BadCredentialsException("user authenticate error");
         }
+
         return new UsernamePasswordAuthenticationToken(authUser, password, authUser.getAuthorities());
 
     }

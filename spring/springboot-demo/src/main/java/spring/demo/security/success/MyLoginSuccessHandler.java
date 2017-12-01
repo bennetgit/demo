@@ -42,6 +42,7 @@ public class MyLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler
         setAlwaysUseDefaultTargetUrl(true);
         setDefaultTargetUrl("/index");
         request.getSession().removeAttribute(Constants.LOGIN_ERROR_ATT);
+        request.getSession().setAttribute(Constants.LOGIN_USERNAME, authUser.getUsername());
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }

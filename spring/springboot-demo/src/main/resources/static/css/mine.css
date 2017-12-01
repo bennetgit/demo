@@ -241,3 +241,23 @@
     font-weight: bold;
     color: red;
 }
+
+.mine-user-setting{
+    float:right;
+    margin-top:2%;
+}
+
+/*.mine-user-setting li a {*/
+    /*text-align: center;*/
+    /*height: 80%;*/
+/*}*/
+
+.mine-user-setting li a span {
+    color: #c2c5c9;
+    margin-top: 8px;
+    /*display: block;*/
+}
+
+.mine-user-setting li a i {
+    color: #000000;
+}

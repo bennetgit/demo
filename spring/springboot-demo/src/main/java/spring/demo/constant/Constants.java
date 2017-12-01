@@ -18,6 +18,8 @@ public class Constants {
 
     public static final String LOGIN_ERROR_ATT = "login_error";
 
+    public static final String LOGIN_USERNAME = "username";
+
     public static final int DEFAULT_AOP_ORDER_AFTER_CACHE = 1;
 
     public static class ResponseMsg {

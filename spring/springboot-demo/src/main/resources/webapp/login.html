@@ -17,7 +17,6 @@
                 }
                 $http.get("login", {params: $scope.user}).then(function successCallback(response) {
                     if (response.data.status == "1000") {
-                        location.href = "admin/index";
                     } else {
                         $scope.message = response.data.message;
                     }
@@ -28,12 +27,12 @@
 </head>
 <body>
 <div class="content">
-    <div class="login hyaline">
+    <div class="login">
         <!--<div class="login-top">-->
             <!--<img height="40" th:src="@{/icons/logo_login.png}">-->
         <!--</div>-->
         <div style="margin-left: 90px;margin-top: 60px" ng-app="loginApp" ng-controller="loginCtl">
-            <span th:if="${session.login_error != null}" style="color: red" th:text="${session.login_error}">用户名或密码错误</span>
+            <span th:if="${session.login_error != null}" style="color: red" th:text="${session.login_error}">error</span>
             <br/>
             <form class="form-horizontal" name="loginForm" th:action="@{/login}" th:method="POST">
                 <div class="input-group col col-sm-9">
@@ -52,7 +51,6 @@
                     <button class="btn btn-sm" ng-click="login(loginForm.$valid)" style="background-color: #0f0f0f;width:100%" ng-disabled="loginForm.$invalid">登录
                     </button>
                 </div>
-                <div class="message-error" ng-show="message != null">{{message}}</div>
             </form>
         </div>
     </div>

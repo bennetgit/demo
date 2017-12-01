@@ -17,13 +17,13 @@ function verifyData(data) {
     return false;
 }
 
-mainApp.controller("leftController", function ($http, $scope, $location, $sessionStorage, $state, mineMessage, mineHttp) {
+mainApp.controller("leftController", function ($http, $scope,$rootScope, $location, $sessionStorage, $state, mineMessage, mineHttp) {
     $scope.loadMenu = function () {
         mineHttp.send("GET", "index/init", {}, function (data) {
             if (verifyData(data)) {
                 $scope.buildMenu(data.content.menus);
                 $scope.menuListener();
-                $scope.user=data.content;
+                $rootScope.user=data.content;
             } else {
                 $scope.message = data.message;
             }
@@ -44,7 +44,7 @@ mainApp.controller("leftController", function ($http, $scope, $location, $sessio
             }
             html += "<li mark='menuOne'><a href='javascript:void(0);' class='first-menu-a'><span class='pull-right'>" +
                 "<i class='fa fa-angle-right'></i></span>" +
-                "<i class='fa fa-circle-o' style='font-size: 12px;color:orange;'></i>&nbsp;&nbsp;&nbsp;&nbsp;" + menu.name + "</span></a>"
+                "<i class='fa fa-reorder' style='font-size: 12px;color:#FFFFFF;'></i>&nbsp;&nbsp;&nbsp;&nbsp;" + menu.name + "</span></a>"
                 + sub + "</li>";
         }
         $(pNode).append(html);
@@ -116,7 +116,7 @@ mainApp.controller("leftController", function ($http, $scope, $location, $sessio
         })
     };
 });
-mainApp.controller("headerController", function($http, $scope){
+mainApp.controller("headerController", function($http, $scope, mineHttp){
     $scope.logout = function(){
         location.href = fullPath("logout")
     }
