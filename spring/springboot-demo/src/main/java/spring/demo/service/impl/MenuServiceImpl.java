@@ -39,7 +39,7 @@ public class MenuServiceImpl implements IMenuService {
         if (CollectionUtils.isEmpty(menus)) {
             return Lists.newArrayList();
         }
-
+        menus.sort((m1, m2) -> m1.getSequence() - m2.getSequence());
         return MenuParser.toTreeMenus(menus);
     }
 

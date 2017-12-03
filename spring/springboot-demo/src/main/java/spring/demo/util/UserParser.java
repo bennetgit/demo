@@ -82,7 +82,8 @@ public class UserParser {
             }
         }
 
-        menus.addAll(tempTreeMenuMap.values());
+        menus.addAll(tempTreeMenuMap.values().stream().sorted((m1, m2) -> m1.getSequence() - m2.getSequence())
+                .collect(Collectors.toList()));
 
         return userDto;
     }
