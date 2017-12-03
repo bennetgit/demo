@@ -29,6 +29,10 @@ public class UserRequest extends BaseRequest {
 
     private List<Long> userIds = new ArrayList<>();
 
+    private String oldPassword;
+
+    private String newPassword;
+
     public Boolean getIsAdmin() {
         return isAdmin;
     }
@@ -99,5 +103,21 @@ public class UserRequest extends BaseRequest {
 
     public void setUserIds(List<Long> userIds) {
         this.userIds = userIds;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 }

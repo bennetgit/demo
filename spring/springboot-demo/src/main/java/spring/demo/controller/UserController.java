@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,13 +27,15 @@ import spring.demo.dto.TreeNode;
 import spring.demo.dto.UserDto;
 import spring.demo.dto.request.UserRequest;
 import spring.demo.dto.response.ResponseInfo;
+import spring.demo.security.entity.AuthUser;
 import spring.demo.service.IRoleService;
 import spring.demo.service.IUserService;
 import spring.demo.util.PageResult;
+import spring.demo.util.helper.PasswordHelper;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
+public class UserController extends BaseController {
 
     private static final Logger LOGGER = LogManager.getLogger(UserController.class);
 
@@ -109,4 +112,37 @@ public class UserController {
             return fail();
         }
     }
+
+    @GetMapping("/current")
+    public ResponseInfo getCurrentUser() {
+        return ResponseInfo.success(userService.getUserById(getCurrentUserId()));
+    }
+
+    @PutMapping("/update/password")
+    public ResponseInfo updatePassword(@RequestBody UserRequest request) {
+        if (StringUtils.isEmpty(request.getOldPassword())) {
+            return ResponseInfo.fail();
+        }
+
+        try {
+            userService.updatePassword(getCurrentUserId(), request.getNewPassword());
+            return ResponseInfo.success();
+        } catch (Exception e) {
+            return ResponseInfo.fail();
+        }
+    }
+
+    @PostMapping("/current/pw/check")
+    public ResponseInfo currentUserPwCheck(@RequestBody UserRequest request) {
+
+        boolean checked = true;
+        AuthUser currentUser = getCurrentAuthUser();
+
+        if (currentUser == null || StringUtils.isEmpty(request.getOldPassword())
+                || !StringUtils.equals(currentUser.getPassword(), PasswordHelper.password(request.getOldPassword()))) {
+            checked = false;
+        }
+        return ResponseInfo.success(checked);
+    }
+
 }

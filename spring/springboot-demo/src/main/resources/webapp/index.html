@@ -13,12 +13,13 @@
     <link rel="stylesheet" th:href="@{/css/app.css}"/>
     <link rel="stylesheet" th:href="@{/css/mine.css}"/>
     <link rel="stylesheet" th:href="@{/css/overwrite.css}"/>
+    <link rel="stylesheet" th:href="@{/lib/responsive/responsive-nav.css}"/>
 </head>
 <body>
 <input id="appContextPath" type="hidden" th:value="@{/}"/>
 <div class="app app-header-fixed" ng-app="mainApp">
     <div ng-controller="headerController" ng-include="'layout/header.html'" class="app-header"></div>
-    <div ng-controller="leftController" ng-include="'layout/left.html'" class="app-aside bg-dark"></div>
+    <div id="nav" ng-controller="leftController" ng-include="'layout/left.html'" class="app-aside bg-dark"></div>
     <div ng-controller="contentController" class="app-content">
         <div ui-view></div>
     </div>
@@ -48,5 +49,6 @@
 <script th:src="@{/lib/umeditor/umeditor.config.js}"></script>
 <script th:src="@{/lib/umeditor/umeditor.js}"></script>
 <script th:src="@{/lib/umeditor/lang/zh-cn/zh-cn.js}"></script>
+<script th:src="@{/lib/responsive/responsive-nav.min.js}"></script>
 </body>
 </html>

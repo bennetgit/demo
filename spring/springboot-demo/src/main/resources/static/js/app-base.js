@@ -23,7 +23,7 @@ mainApp.controller("leftController", function ($http, $scope,$rootScope, $locati
             if (verifyData(data)) {
                 $scope.buildMenu(data.content.menus);
                 $scope.menuListener();
-                $rootScope.user=data.content;
+                $scope.user=data.content;
             } else {
                 $scope.message = data.message;
             }
@@ -116,10 +116,15 @@ mainApp.controller("leftController", function ($http, $scope,$rootScope, $locati
         })
     };
 });
-mainApp.controller("headerController", function($http, $scope, mineHttp){
+mainApp.controller("headerController", function($scope, $state, mineHttp){
     $scope.logout = function(){
         location.href = fullPath("logout")
-    }
+    };
+
+    mineHttp.send("GET", "users/current", {}, function(result){
+        $scope.user=result.content;
+    });
+
 });
 
 mainApp.controller("contentController", function ($scope, mineMessage, $sessionStorage, $location) {

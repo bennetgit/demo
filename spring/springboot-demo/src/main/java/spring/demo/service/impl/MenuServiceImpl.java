@@ -51,6 +51,7 @@ public class MenuServiceImpl implements IMenuService {
             return Lists.newArrayList();
         }
 
+        menus.sort((m1, m2) -> m1.getSequence() - m2.getSequence());
         return menus.stream().map(this::convert).collect(Collectors.toList());
     }
 

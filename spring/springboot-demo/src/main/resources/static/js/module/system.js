@@ -220,6 +220,43 @@ mainApp.controller("systemUserListCtl", function ($scope, $uibModal, mineHttp, m
     }
 });
 
+mainApp.controller("systemUserSettingProfileCtl", function ($scope, mineHttp) {
+
+    mineHttp.send("GET","users/current",{}, function(result){
+        $scope.user = result.content;
+    });
+
+});
+
+mainApp.controller("systemUserSettingUpdateCtl", function ($scope, mineHttp) {
+
+    $scope.clearError=function(){
+        $('#error_td_old').empty();
+    };
+
+    $scope.submit = function () {
+
+        mineHttp.send("POST", "users/current/pw/check", {data: $scope.user}, function (result) {
+            if (!result.content) {
+                $('#error_td_old').empty().html(
+                    "<span class='help-inline' style='color:#a94442;'>" +
+                    "<i class='fa fa-exclamation-circle'/>" +
+                    "<span class='message'>密码错误</span>" +
+                    "</span>"
+                );
+            } else {
+                mineHttp.send("PUT", "users/update/password", {data: $scope.user}, function (result) {
+                    $scope.messageStatus = verifyData(result);
+                    $scope.message = result.message;
+                });
+            }
+        });
+
+
+    };
+
+});
+
 mainApp.controller("systemUserAddController", function ($scope, $uibModalInstance, mineHttp) {
 
 //    mineHttp.constant("approveRole", function (data) {

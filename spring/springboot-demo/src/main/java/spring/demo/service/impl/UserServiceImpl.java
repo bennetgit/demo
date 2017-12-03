@@ -34,6 +34,7 @@ import spring.demo.persistence.primary.jpa.IUserRepository;
 import spring.demo.service.IUserService;
 import spring.demo.util.PageResult;
 import spring.demo.util.StringUtil;
+import spring.demo.util.helper.PasswordHelper;
 
 /**
  * Created by facheng on 16.03.17.
@@ -95,6 +96,7 @@ public class UserServiceImpl implements IUserService {
             if (!Objects.isNull(userQuery.getCreatedOnEnd())) {
                 list.add(cb.lessThanOrEqualTo(root.get(UserDto.P_CREATED_ON), userQuery.getCreatedOnEnd()));
             }
+
             return cb.and(list.toArray(new Predicate[0]));
         }, pageQuery.sortPageDefault(UserDto.P_ID));
 
@@ -177,6 +179,18 @@ public class UserServiceImpl implements IUserService {
 
         users.stream().forEach(u -> u.setStatus(enabled ? UserStatus.ACTIVE : UserStatus.INACTIVE));
 
+    }
+
+    @Override
+    @Transactional
+    public void updatePassword(Long currentUserId, String newPassword) {
+
+        User currentUser = userRepository.getOne(currentUserId);
+        if (currentUser == null) {
+            throw new UserOperateException("cannot find user" + currentUserId);
+        }
+
+        currentUser.setPassword(PasswordHelper.password(newPassword));
     }
 
     private TreeNode<Long> convertRoleToTreeNode(Role role, boolean isChecked) {

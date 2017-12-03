@@ -261,3 +261,7 @@
 .mine-user-setting li a i {
     color: #000000;
 }
+
+.mine-input{
+    width: 200px;
+}

@@ -34,4 +34,6 @@ public interface IUserService {
     void updateUserRole(Long userId, List<Long> roleIds);
 
     void updateStatus(Boolean enabled, List<Long> userIds);
+
+    void updatePassword(Long currentUserId, String newPassword);
 }

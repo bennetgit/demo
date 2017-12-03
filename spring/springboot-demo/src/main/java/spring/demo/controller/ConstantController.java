@@ -36,4 +36,5 @@ public class ConstantController {
     public ResponseInfo getRequestMethods() {
         return ResponseInfo.success(RequestMethod.values());
     }
+
 }

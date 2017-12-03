@@ -10,6 +10,7 @@ import org.joda.time.LocalDateTime;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import spring.demo.config.messagesource.Messages;
 import spring.demo.dto.request.UserRequest;
 import spring.demo.enums.SexType;
 import spring.demo.enums.UserStatus;
@@ -215,6 +216,14 @@ public class UserDto implements Serializable {
     public final UserDto withRoleIds(List<Long> roleIds) {
         this.roleIds.addAll(roleIds);
         return this;
+    }
+
+    public String getSexTypeMessage() {
+        if (sexType == null) {
+            return StringUtils.EMPTY;
+        }
+
+        return Messages.get(sexType.getMessageKey());
     }
 
     @Override

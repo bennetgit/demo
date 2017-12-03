@@ -11,7 +11,10 @@ import spring.demo.security.entity.AuthUser;
 public abstract class BaseController {
 
     protected Long getCurrentUserId() {
+        return getCurrentAuthUser().getId();
+    }
 
+    protected AuthUser getCurrentAuthUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {
             return null;
@@ -21,6 +24,6 @@ public abstract class BaseController {
         if (principal == null || !(principal instanceof AuthUser)) {
             return null;
         }
-        return ((AuthUser) principal).getId();
+        return (AuthUser) principal;
     }
 }

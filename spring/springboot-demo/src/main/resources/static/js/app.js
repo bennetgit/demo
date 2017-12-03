@@ -12,6 +12,10 @@ function routeConfig($stateProvider, $urlRouterProvider) {
         .state("user", {url: "/user", templateUrl: './module/system/user/user.html'})
         .state("user.list", {url: "/list", templateUrl: './module/system/user/userList.html', controller: "systemUserListCtl"})
 
+        .state("user.profile", {url: "/profile", templateUrl: './module/system/user/userProfile.html', controller: "systemUserSettingProfileCtl"})
+        .state("user.modify", {url: "/update", templateUrl: './module/system/user/userModifyPassword.html', controller: "systemUserSettingUpdateCtl"})
+
+
         .state("role", {url: "/role", templateUrl: './module/system/role/role.html'})
         .state("role.list", {url: "/list", templateUrl: './module/system/role/roleList.html', controller: "systemRoleListCtl"})
 

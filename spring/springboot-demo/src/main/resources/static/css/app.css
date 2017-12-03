@@ -148,7 +148,7 @@ div {
     padding-bottom: 8px;
     color: white;
     border-bottom: 1px solid #000000;
-    background-color: #000000;
+    /*background-color: #000000;*/
 }
 .aside-nav{
    height:50px;
@@ -176,7 +176,7 @@ div {
 }
 
 .menu-second-ul{
-    background-color: #425671;
+    background-color: #000;
 }
 
 .menu-selected {
