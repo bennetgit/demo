@@ -1,0 +1,195 @@
+1.==============================
+ng-valid: 验证通过
+ng-invalid: 验证失败
+ng-valid-[key]: 由$setValidity添加的所有验证通过的值
+ng-invalid-[key]: 由$setValidity添加的所有验证失败的值
+ng-pristine: 控件为初始状态
+ng-dirty: 控件输入值已变更
+ng-touched: 控件已失去焦点
+ng-untouched: 控件未失去焦点
+ng-pending: 任何为满足$asyncValidators的情况
+
+=====================================
+
+
+==============2=====================
+
+// directive('first', [ function(){
+//     return {
+//         scope: false, //默认值为 false 共享父作用域 值为true时共享父级作用域并创建指令自己的
+//
+//         controller: function($scope, $element, $attrs, $transclude) {}, //作用域  值为{}时创建全新的隔离作用域, 值为string时为控制器名称
+//         restrict: 'AE', // E = Element, A = Attribute, C = Class, M = Comment
+//         template: 'first name:{{name}}',//值为string、function 用于显示dom元素
+//         templateUrl: 'xxx.html' //值为string function 以id为xxx.html为 调用文件显示
+//         prioruty: 0 //指明指令的优先级，若在dom上有多个指令优先级高的先执行
+//         replace: flase // 默认值为false 当为true是直接替换指令所在的标签
+//         terminal: true //值为true时优先级低于此指令的其它指令无效
+//         link:function // 值为函数 用来定义指令行为从传入的参数中获取元素并进行处理
+//
+//     };
+=====================================
+
+
+
+===========================================
+===========================================
+
+====================Scope 概述=======================
+AngularJS 应用组成如下：
+View(视图), 即 HTML。
+Model(模型), 当前视图中可用的数据。
+Controller(控制器), 即 JavaScript 函数，可以添加或修改属性。
+scope 是模型。
+scope 是一个 JavaScript 对象，带有属性和方法，这些属性和方法可以在视图和控制器中使用。
+===========================================
+
+===================Scope 作用范围========================
+了解你当前使用的 scope 是非常重要的。
+在以上两个实例中，只有一个作用域 scope，所以处理起来比较简单，但在大型项目中， HTML DOM 中有多个作用域，这时你就需要知道你使用的 scope 对应的作用域是哪一个。
+===========================================
+
+
+======================根作用域=====================
+所有的应用都有一个 $rootScope，它可以作用在 ng-app 指令包含的所有 HTML 元素中。
+$rootScope 可作用于整个应用中。是各个 controller 中 scope 的桥梁。用 rootscope 定义的值，可以在各个 controller 中使用。
+===========================================
+
+
+===================filter========================
+1、uppercase，lowercase 大小写转换
+{{ "lower cap string" | uppercase }}   // 结果：LOWER CAP STRING
+{{ "TANK is GOOD" | lowercase }}      // 结果：tank is good
+2、date 格式化
+{{1490161945000 | date:"yyyy-MM-dd HH:mm:ss"}} // 2017-03-22 13:52:25
+3、number 格式化（保留小数）
+{{149016.1945000 | number:2}}
+4、currency货币格式化
+{{ 250 | currency }}            // 结果：$250.00
+{{ 250 | currency:"RMB ￥ " }}  // 结果：RMB ￥ 250.00
+5、filter查找
+输入过滤器可以通过一个管道字符（|）和一个过滤器添加到指令中，该过滤器后跟一个冒号和一个模型名称。
+filter 过滤器从数组中选择一个子集
+ // 查找name为iphone的行
+{{ [{"age": 20,"id": 10,"name": "iphone"},
+{"age": 12,"id": 11,"name": "sunm xing"},
+{"age": 44,"id": 12,"name": "test abc"}
+] | filter:{'name':'iphone'} }}        
+6、limitTo 截取
+{{"1234567890" | limitTo :6}} // 从前面开始截取6位
+{{"1234567890" | limitTo:-4}} // 从后面开始截取4位
+7、orderBy 排序
+ // 根id降序排
+{{ [{"age": 20,"id": 10,"name": "iphone"},
+{"age": 12,"id": 11,"name": "sunm xing"},
+{"age": 44,"id": 12,"name": "test abc"}
+] | orderBy:'id':true }}
+
+// 根据id升序排
+{{ [{"age": 20,"id": 10,"name": "iphone"},
+{"age": 12,"id": 11,"name": "sunm xing"},
+{"age": 44,"id": 12,"name": "test abc"}
+] | orderBy:'id' }}
+===========================================
+
+
+===================格式化字符串的基本参数：========================
+
+ yyyy: 用4位数字表示年（例如：AD 1 => 0001, AD 2010 => 2010）
+ yy: 用两位数字表示年（00-99）（例如：AD 2001 => 01, AD 2010 => 10）
+ y: 用一位数字代表年（例如：AD 1 => 1, AD 199 => 199）
+ MMMM: 英文全称表示月（January-December）
+ MMM: 英文缩写表示月（Jan-Dec）
+ MM: 两位数字表示月（01-12）
+ M: 月（1-12）
+ dd: 两位数字表示日（01-31）
+ d: 日（1-31）
+ EEEE: 英文全称的一周中的天（Sunday-Saturday）
+ EEE: 英文缩写的一周中的天（Sun-Sat）
+ HH: 两位数表示24小时制的时（00-23）
+ H: 24小时制的时（0-23）
+ hh: 两位数字表示上午或下午的时（01-12）
+ h: 上午或下午的时（1-12）
+ mm: 两位数字表示分（00-59）
+ m: 分（0-59）
+ ss: 两位数字表示秒（00-59）
+ s: 秒（0-59）
+ sss: 毫秒（000-999）
+ a: AM/PM
+ Z: 4位数字（+符号）代表时区偏移量（-1200——+1200）
+ ww: 用两位数字表示一年的周数（00-53），第一周（01）是一年中的第一个星期四
+ w: 一年的周数(0-53)，第一周（1）是一年中的第一个星期四
+ G,GG,GGG: 年代字符串的缩写形式，例如AD（公元）
+ GGGG: 年代字符串的全称，例如Anno Domini（公元）
+上面这些参数我们可以根据自己的意愿自由组合得到自己想要的格式，例如 yyyy-MM-dd 等。
+格式化字符串也提供了一些预定义的本地化格式，可以方便我们使用：
+ medium：'MMM d,y h:mm:ss a' 例如：Sep 3, 2010 12:05:08 PM
+ short：'M/d/yy h:mm a' 例如： 9/3/10 12:05 PM
+ fullDate: 'EEEE,MMMM d,y' 例如：Friday, September 3, 2010
+ longDate: 'MMMM d,y' 例如：September 3, 2010
+ mediumDate: 'MMM d,y' 例如： Sep 3, 2010
+ shortDate: 'M/d/y' 例如： 9/3/10
+ mediumTime: 'h:mm:ss a' 例如：12:05:08 PM
+ shortTime: 'h:mm a' 例如：12:05 PM
+格式化字符串可以包含文本值。这些需要被单引号包围（例如 "h 'in the morning'"）,如果想输出一对单引号，就在一个序列中用两个双引号（例如："h 'o''clock'"）
+date过滤器的用法：
+1.在html中用法：{{ date_expression | date : format : timezone}}
+实例：
+<span>{{1288323623006 | date:'medium'}}</span><br>
+<span>{{1288323623006 | date:'yyyy-MM-dd HH:mm:ss Z'}}</span><br>
+<span>{{'1288323623006' | date:'MM/dd/yyyy @ h:mma'}}</span><br>
+<span>{{'1288323623006' | date:"MM/dd/yyyy 'at' h:mma"}}</span><br>
+
+2.在javascript中的用法：$filter('date')(date, format, timezone)
+实例：
+var today = new Date();
+$scope.formatDate = $filter('date')(today, 'yyyy-MM-dd');
+
+===========================================
+
+
+=====================AngularJS 模块======================
+
+模块定义了一个应用程序。
+模块是应用程序中不同部分的容器。
+模块是应用控制器的容器。
+控制器通常属于一个模块。
+
+===========================================
+
+==================AngularJS 全局 API=========================
+AngularJS 全局 API 用于执行常见任务的 JavaScript 函数集合，如：
+比较对象
+迭代对象
+转换对象
+全局 API 函数使用 angular 对象进行访问。
+以下列出了一些通用的 API 函数：
+API	描述
+angular.lowercase()	转换字符串为小写
+angular.uppercase()	转换字符串为大写
+angular.isString()	判断给定的对象是否为字符串，如果是返回 true。
+angular.isNumber()	判断给定的对象是否为数字，如果是返回 true。
+===========================================
+
+======================跨域包含=====================
+默认情况下， ng-include 指令不允许包含其他域名的文件。
+如果你需要包含其他域名的文件，你需要设置域名访问白名单：
+sites.htm 文件代码：
+<body ng-app="myApp">
+ 
+<div ng-include="'http://c.runoob.com/runoobtest/angular_include.php'"></div>
+ 
+<script>
+var app = angular.module('myApp', [])
+app.config(function($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
+        'http://c.runoob.com/runoobtest/**'
+    ]);
+});
+</script>
+ 
+</body>
+===========================================
+
+
+
