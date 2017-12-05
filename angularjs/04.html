@@ -1,0 +1,22 @@
+<!DOCUTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<script type="text/javascript" src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+
+<body>
+	<div ng-app="myApp" ng-controller="myCtrl">
+		名：<input ng-model="firstName"/>
+		姓：<input ng-model="lastName"/>
+	</div>
+	<script type="text/javascript">
+		var app = angular.module("myApp", []);
+		app.controller("myCtrl", function($scope){
+			$scope.firstName = "John";
+			$scope.lastName = "Doe";
+		});
+	</script>
+</body>
+
+</html>
