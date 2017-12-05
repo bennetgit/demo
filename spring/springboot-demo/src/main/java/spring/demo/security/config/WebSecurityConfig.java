@@ -3,13 +3,11 @@ package spring.demo.security.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import spring.demo.security.service.MyAccessDecisionManager;
 import spring.demo.security.service.MyAuthenticationProvider;
@@ -39,12 +37,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login").usernameParameter("username").passwordParameter("password")
                 .defaultSuccessUrl("/index")// 先defaultSuccessUrl后successHandler，不然successHandler不会执行
                 .successHandler(myLoginSuccessHandler())
-                .withObjectPostProcessor(new ObjectPostProcessor<UsernamePasswordAuthenticationFilter>() {// 高级设置-拦截器
-                    public <O extends UsernamePasswordAuthenticationFilter> O postProcess(O fsi) {
-                        return fsi;
-                    }
-
-                }).permitAll();
+//                .withObjectPostProcessor(new ObjectPostProcessor<UsernamePasswordAuthenticationFilter>() {// 高级设置-拦截器
+//                    public <O extends UsernamePasswordAuthenticationFilter> O postProcess(O fsi) {
+//                        return fsi;
+//                    }
+//
+//                })
+                .permitAll();
 
         http.logout()// 登出
                 .logoutUrl("/logout").logoutSuccessUrl("/login").logoutSuccessHandler(myLogoutSuccessHandler())
