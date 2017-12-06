@@ -14,6 +14,13 @@
 //
 //     };
 
+//隔离的scope，通常用于创建可复用的指令，也就是它不用管父scope中的model。然而虽然说是“隔离”，但通常我们还是需要让这个子scope跟父scope中的变量进行绑定。绑定的策略有3种：
+
+//@：单向绑定，外部scope能够影响内部scope，但反过来不成立
+//  =：双向绑定，外部scope和内部scope的model能够相互改变
+///&：把内部scope的函数的返回值和外部scope的任何属性绑定起来
+
+
 
 mainApp.directive("mineAction", function () {
     return {
