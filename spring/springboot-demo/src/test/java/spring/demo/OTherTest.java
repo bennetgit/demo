@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +20,8 @@ public class OTherTest {
     private static final String REGEX_PATTERN_START = "\"\"\"\"";
     private static final String REGEX_PATTERN_END = "\"";
 
+    private static final String INVALID_RECORD_PATTERN = "///";
+
     private static final String FIELD_NAME_PREFIX = "field_name_";
     private static final String FIELD_PHONE_PREFIX = "field_phone_";
     private static final String BLANK_PREFIX = "field_blank_";
@@ -31,13 +34,44 @@ public class OTherTest {
             FIELD_NAME_PREFIX + "21", FIELD_PHONE_PREFIX + "22", "field_blank_23", "field_blank_24",
             FIELD_NAME_PREFIX + "25", FIELD_PHONE_PREFIX + "26" };
 
+    private static final List<String> UN_NEED_RECORDS = new ArrayList<String>() {
+        {
+            add("徐远远");
+            add("徐乐然");
+            add("徐先生");
+            add("徐正华");
+        }
+    };
+
     @Test
     public void test() throws Exception {
 
         List<List<Object>> results = ExcelHelper.readExcel("/home/facheng/Downloads/11_report.xlsx");
 
-        List<TestUserInfo> resultMap = results.stream().skip(1).map(r -> convert(r)).collect(Collectors.toList());
+        Set<TestUserInfo> userInfos = results.stream().skip(1)
+                .filter(r -> !r.toString().contains(INVALID_RECORD_PATTERN) && isNeed(r.toString()))
+                .map(r -> convert(r)).collect(Collectors.toSet());
 
+        Set<TestUserInfo> unUserInfos = results.stream().skip(1)
+                .filter(r -> r.toString().contains(INVALID_RECORD_PATTERN) && isNeed(r.toString())).map(r -> convert(r))
+                .collect(Collectors.toSet());
+
+        String validFilePath = "/home/facheng/backup/excel/convert_report.xlsx";
+        String unValidFilePath = "/home/facheng/backup/excel/convert_report_un.xlsx";
+
+        export(new ArrayList<>(userInfos), validFilePath);
+        export(new ArrayList<>(unUserInfos), unValidFilePath);
+
+        System.out.println("xxxxx user size -->" + userInfos.size());
+        System.out.println("xxxxx un valid user size -->" + unUserInfos.size());
+
+    }
+
+    private boolean isNeed(String record) {
+        return UN_NEED_RECORDS.stream().allMatch(t -> !record.contains(t));
+    }
+
+    private void export(List<TestUserInfo> userInfos, String exportPath) throws Exception {
         List<Map<String, Object>> dataList = new ArrayList<>();
         Map<String, Object> rowData = new LinkedHashMap<>();
 
@@ -45,7 +79,7 @@ public class OTherTest {
         int fieldLength = FIELDS.length;
         String fieldFirst;
         String fieldSec;
-        for (TestUserInfo tu : resultMap) {
+        for (TestUserInfo tu : userInfos) {
 
             if ((index % fieldLength) == 0) {
                 index = 0;
@@ -84,10 +118,7 @@ public class OTherTest {
 
         }
 
-        ExcelHelper.createExcel("/home/facheng/backup/excel/convert_report.xlsx", new String[] {}, FIELDS, dataList);
-
-        System.out.println(resultMap);
-
+        ExcelHelper.createExcel(exportPath, new String[] {}, FIELDS, dataList);
     }
 
     private TestUserInfo convert(List<Object> row) {
@@ -117,6 +148,27 @@ public class OTherTest {
 
         public String getPhone() {
             return phone;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
+
+            TestUserInfo that = (TestUserInfo) o;
+
+            if (username != null ? !username.equals(that.username) : that.username != null)
+                return false;
+            return phone != null ? phone.equals(that.phone) : that.phone == null;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = username != null ? username.hashCode() : 0;
+            result = 31 * result + (phone != null ? phone.hashCode() : 0);
+            return result;
         }
     }
 }
