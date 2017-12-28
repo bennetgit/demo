@@ -1,0 +1,11 @@
+otms-core.war
+otms-rmi.tar.gz
+otms-webservice.war
+otms-tariff.war
+otms-analysis.war
+otms-mail.tar.gz
+otms-lbs.war
+otms-search-manager.war
+otms-order-export-server.war
+mp/
+map/

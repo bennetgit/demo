@@ -1,0 +1,30 @@
+########## RabbitMQ setting start #####################
+rabbitmq.host=rabbitmq
+rabbitmq.port=5672
+rabbitmq.username=guest
+rabbitmq.password=guest
+########## RabbitMQ setting end #####################
+message.mq.service.start=true
+message.mq.listener.start=true
+#annotation value in
+core.api.mq.consumer.handler.retryAttempt=3
+#set 1 for local debug easily; could increase it on QA / UAT /DEMO/PROD; max could be the core number of cpu * 2
+core.api.mq.consumer.num=2
+#RMI Service configuration
+core.api.server.name=core-api-rmi
+external.zookeeper.host.address=zookeeper://zookeeper:2181
+internal.zookeeper.host.address=zookeeper://zookeeper:2181
+coreApi.protocol=rmi
+coreApi.port=1099
+dubbo.consumer.timeout=60000
+dubbo.consumer.retries=0
+
+master.host=otms-master-service
+master.port=8080
+master.timeout.connection=10000
+master.timeout.socket=10000
+master.auth.username=user
+master.auth.password=pass
+
+service.name=otms-core
+service.env=test

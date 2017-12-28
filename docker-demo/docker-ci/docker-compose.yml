@@ -1,0 +1,212 @@
+version: '2'
+services:
+  otms-core:
+    image: otms-core:${ENV_NAME}
+    hostname: otms-core
+    ports:
+     - "48080:8080"
+    links:
+     - otms-position
+     - otms-export
+     - redis
+     - rabbitmq
+     - zookeeper
+     - otms-search-manager
+     - otms-master-service
+    depends_on:
+     - otms-position
+     - otms-export
+     - redis
+     - rabbitmq
+     - zookeeper
+     - otms-search-manager
+     - otms-master-service
+    extends:
+      file: docker-compose-base.yml
+      service: service-base
+  otms-search-manager:
+    image: otms-search-manager:${ENV_NAME}
+    hostname: otms-search-manager
+    ports:
+     - "48085:8080"
+    links:
+     - rabbitmq
+     - zookeeper
+    depends_on:
+     - rabbitmq
+     - zookeeper
+    extends:
+      file: docker-compose-base.yml
+      service: service-base
+  otms-export:
+    image: otms-export:${ENV_NAME}
+    hostname: otms-export
+    ports:
+     - "48086:8080"
+    links:
+     - redis
+    depends_on:
+     - redis
+    extends:
+      file: docker-compose-base.yml
+      service: service-base
+  otms-tariff:
+    image: otms-tariff:${ENV_NAME}
+    hostname: otms-tariff
+    ports:
+     - "48081:8080"
+    links:
+     - otms-core
+     - redis
+     - rabbitmq
+     - zookeeper
+    depends_on:
+     - otms-core
+     - redis
+     - rabbitmq
+     - zookeeper
+    extends:
+      file: docker-compose-base.yml
+      service: service-base
+  otms-analysis:
+    image: otms-analysis:${ENV_NAME}
+    hostname: otms-analysis
+    ports:
+     - "48082:8080"
+    links:
+     - otms-core
+     - rabbitmq
+     - zookeeper
+    depends_on:
+     - otms-core
+     - rabbitmq
+     - zookeeper
+    extends:
+      file: docker-compose-base.yml
+      service: service-base
+  otms-rmi:
+    image: otms-rmi:${ENV_NAME}
+    hostname: otms-rmi
+    links:
+     - otms-position
+     - redis
+     - rabbitmq
+     - zookeeper
+    depends_on:
+     - otms-position
+     - redis
+     - rabbitmq
+     - zookeeper
+    extends:
+      file: docker-compose-base.yml
+      service: service-base
+  otms-mail:
+    image: otms-mail:${ENV_NAME}
+    hostname: otms-mail
+    links:
+     - rabbitmq
+     - zookeeper
+    depends_on:
+     - rabbitmq
+     - zookeeper
+    extends:
+      file: docker-compose-base.yml
+      service: service-base
+  otms-mobilews:
+    image: otms-mobilews:${ENV_NAME}
+    hostname: otms-mobilews
+    ports:
+     - "49090:8080"
+    links:
+     - redis
+     - rabbitmq
+     - zookeeper
+    depends_on:
+     - redis
+     - rabbitmq
+     - zookeeper
+    extends:
+      file: docker-compose-base.yml
+      service: service-base
+  otms-position:
+    image: otms-position:${ENV_NAME}
+    hostname: otms-position
+    ports:
+     - "48088:8080"
+    links:
+     - redis
+     - rabbitmq
+     - otms-mobilews
+    depends_on:
+     - redis
+     - rabbitmq
+     - otms-mobilews
+    extends:
+      file: docker-compose-base.yml
+      service: service-base
+  core-api:
+    image: core-api:${ENV_NAME}
+    hostname: core-api
+    ports:
+     - "48090:8080"
+    links:
+     - zookeeper
+     - rabbitmq
+     - otms-master-service
+    depends_on:
+     - zookeeper
+     - rabbitmq
+     - otms-master-service
+    extends:
+      file: docker-compose-base.yml
+      service: service-base
+  otms-master-service:
+    image: otms-master-service:${ENV_NAME}
+    hostname: otms-master-service
+    ports:
+     - "48192:8080"
+    links:
+     - zookeeper
+    depends_on:
+     - zookeeper
+    extends:
+      file: docker-compose-base.yml
+      service: service-base
+  otms-master-service-helper:
+    image: otms-master-service-helper:${ENV_NAME}
+    hostname: otms-master-service-helper
+    links:
+     - otms-master-service
+     - zookeeper
+    depends_on:
+     - otms-master-service
+     - zookeeper
+    extends:
+      file: docker-compose-base.yml
+      service: service-base
+  redis:
+    image: redis
+    hostname: redis
+    ports:
+     - "6379"
+    volumes:
+     - /etc/localtime:/etc/localtime:ro
+  rabbitmq:
+    image: rabbitmq:management
+    hostname: rabbitmq
+    ports:
+     - "5672"
+     - "5671"
+     - "15672"
+     - "15671"
+     - "4369"
+     - "25672"
+    volumes:
+     - /etc/localtime:/etc/localtime:ro
+  zookeeper:
+    image: zookeeper
+    hostname: zookeeper
+    ports:
+     - "2181"
+    volumes:
+     - /etc/localtime:/etc/localtime:ro

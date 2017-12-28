@@ -1,0 +1,110 @@
+database.driverClassName=org.postgresql.Driver
+database.meta.read.url=jdbc:postgresql://otms-meta-db:5432/otmsmeta
+database.meta.read.username=postgres
+database.meta.read.password=postgres
+database.meta.read.initialSize=1
+database.meta.read.maxActive=32
+database.meta.read.maxIdle=16
+
+database.meta.write.url=jdbc:postgresql://otms-meta-db:5432/otmsmeta
+database.meta.write.username=postgres
+database.meta.write.password=postgres
+database.meta.write.initialSize=1
+database.meta.write.maxActive=32
+database.meta.write.maxIdle=16
+
+application.path.baseHomePage=http://localhost:8080
+application.path.baseHomePage.internalAddress=http://localhost:8080
+application.path.fullCompanyRegistration=http://localhost:8080/JjAybVcQE7X24mgEQLPI4S8nl5iA1J56dXYs9zy5UxEp4M
+application.path.userRegistration=/userregistration
+application.path.fullUserRegistration=http://localhost:8080/userregistration
+
+##########RabbitMQ setting
+
+#enable rabbitMQ in RMImessageService for insert the messagedto into MQ
+rabbitmq.host=rabbitmq
+rabbitmq.port=5672
+rabbitmq.username=guest
+rabbitmq.password=guest
+
+message.mq.service.start=true
+message.mq.listener.start=true
+
+#mail queue
+mail.mq.service.start=true
+mail.mq.listener.start=false
+mail.mq.consumer.num=1
+
+# sms queue only producer
+sms.mq.service.start=true
+sms.mq.listener.start=true
+sms.mq.consumer.num=1
+
+#registerLogin queue
+registerLogin.mq.service.start=true
+registerLogin.mq.listener.start=true
+registerLogin.mq.consumer.num=1
+
+#annotation value in  
+temp.mq.consumer.handler.retryAttempt=3
+
+#set 1 for local debug easily; could increase it on QA / UAT /DEMO/PROD; max could be the core number of cpu * 2
+temp.mq.consumer.num=1
+
+
+
+#RMI Service configuration
+otms.meta.rmi.server.name=otms-meta-rmi
+zookeeper.host.address=zookeeper://zookeeper:2181
+otms.meta.protocol=rmi
+otms.meta.port=1099
+dubbo.consumer.timeout=60000
+dubbo.consumer.retries=0
+
+
+# temp file for timeline
+storage.company.local=~/otmsdev/log/otmsdoc/company
+storage.file.cache=~/otmsdev/log/otmsdoc/temp
+storage.company.oss=                          otms-dev-company:LTAIpsZbW6Cznlgi:KHqMs1A1qR59XHMI45SXl2lThWQZL9
+storage.company.vault=                        otms-dev-company:AKIAJGZNMHYHTICRJRTA:TeoRznl0a3f9HgvVDYtuTsfOI+R5qxmnPoZKjb64
+storage.epod.oss=                             otms-dev-epod:LTAIjdi4jZskbRed:PUDq4uxiwgzS9ZoDesKG1Wt5PElc4j
+storage.epod.vault=                           otms-dev-epod:AKIAJGZNMHYHTICRJRTA:TeoRznl0a3f9HgvVDYtuTsfOI+R5qxmnPoZKjb64
+storage.company.oss.retry=3
+storage.company.vault.retry=3
+storage.epod.local=~/otmsdev/log/otmsdoc/epod
+storage.epod.oss.retry=1
+storage.epod.vault.retry=1
+## the file keep in local server days; after the days, if file is uploaded to oss , the local file will be removed
+storage.alive.days=1
+storage.priority.alive.hours=24
+
+
+mailer.address=mailer@otms.cn
+mailer.skipSending=false
+mailer.smtp.host=email-smtp.us-east-1.amazonaws.com
+mailer.smtp.username=AKIAJWLIF4LNSM6KHAVQ
+mailer.smtp.password=ApXDMFi7xImFYPvF0ufxyxxDm5EWys343xR7Ye3FE4XP
+mailer.smtp.connectiontimeout=60000
+mailer.smtp.timeout=60000
+mailer.useSendCloud=false
+mailer.sendCloud.httpClientTimeout=30
+
+#two factor sms first level max count
+two.factgor.sms.firstLevel.max.count=5
+#two factor sms interval, unit:minute
+two.factor.sms.firstLevel.interval=1
+two.factor.sms.secondLevel.interval=30
+#period of validity, unit:minute
+two.factor.sms.period.validity=30
+#two factor max sms count per login
+two.factor.login.sms.max.count=10
+#two factor max sms count per day
+two.factor.sms.max.count=50
+
+
+suspend.user.mail.reminder.start = 35
+suspend.user.mail.reminder.end = 40
+
+xtt.mq.service.start=true
+xtt.mq.listener.start=true
+xtt.mq.consumer.num=1

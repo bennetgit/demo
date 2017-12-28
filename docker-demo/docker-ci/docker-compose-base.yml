@@ -1,0 +1,17 @@
+version: '2'
+services:
+  service-base:
+    env_file:
+     - .env
+    volumes:
+     - /etc/localtime:/etc/localtime:ro
+    dns: 223.5.5.5
+    extra_hosts:
+     - "otms-core-db:0.0.0.0"
+     - "otms-xtt-db:0.0.0.0"
+     - "otms-tariff-db:0.0.0.0"
+     - "otms-position-db:0.0.0.0"
+     - "otms-analysis-db:0.0.0.0"
+     - "otms-search-db:0.0.0.0"
+     - "otms-schedule-db:0.0.0.0"
+     - "elasticsearch:0.0.0.0"

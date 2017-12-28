@@ -1,0 +1,15 @@
+Configuration:
+  status: info
+
+  Appenders:
+    Console:
+      name: Console
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "%d %p %t %c - %m%n"
+
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+        ref: Console
