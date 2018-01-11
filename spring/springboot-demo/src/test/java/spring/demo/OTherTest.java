@@ -171,4 +171,11 @@ public class OTherTest {
             return result;
         }
     }
+
+    @Test
+    public void createFile() throws ClassNotFoundException, InterruptedException {
+
+        Class.forName(ClassLoaderTest.class.getName());
+        System.out.println("测试" + ClassLoaderTest.class.getName());
+    }
 }
