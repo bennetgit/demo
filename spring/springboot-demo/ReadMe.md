@@ -1,1 +1,1 @@
-springboot + springsecurity + hibernate + ehcache
+springboot + springsecurity + hibernate + ehcache + angularjs
