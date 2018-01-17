@@ -1,1 +1,2 @@
-exercise of zookeeper
+## exercise of zookeeper
+### master-slave
