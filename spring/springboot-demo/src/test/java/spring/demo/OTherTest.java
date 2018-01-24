@@ -8,14 +8,19 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spring.demo.util.helper.ExcelHelper;
 
 /**
  * Created by wangfacheng on 2017-11-09.
  */
 public class OTherTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(OTherTest.class);
 
     private static final String REGEX_PATTERN_START = "\"\"\"\"";
     private static final String REGEX_PATTERN_END = "\"";
@@ -43,6 +48,7 @@ public class OTherTest {
         }
     };
 
+    @Ignore
     @Test
     public void test() throws Exception {
 
@@ -172,10 +178,16 @@ public class OTherTest {
         }
     }
 
+    @Ignore
     @Test
     public void createFile() throws ClassNotFoundException, InterruptedException {
 
         Class.forName(ClassLoaderTest.class.getName());
         System.out.println("测试" + ClassLoaderTest.class.getName());
+    }
+
+    @Test
+    public void log4jTest() {
+        LOGGER.info("hello world");
     }
 }
