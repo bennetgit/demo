@@ -6,25 +6,46 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Created by wangfacheng on 2018-02-05.
  */
-public class ReenLockTest {
+public class ReentrantLockTest {
 
     private ReentrantLock lock = new ReentrantLock();
-    private Condition test1 = lock.newCondition();
 
-    class MyTask implements Runnable {
+    private Condition notStart = lock.newCondition();
 
-        @Override
-        public void run() {
+    private volatile boolean start;
 
-            lock.lock();
+    public String take() throws InterruptedException {
 
-            try {
+        lock.lock();
+        try {
 
-            } finally {
-                lock.unlock();
+            while (!start) {
+                System.out.println();
+                System.out.println(
+                        "not start ---------> " + Thread.currentThread().getName() + "  isLocked " + lock.isLocked());
+                System.out.println("--------start await----------" + Thread.currentThread().getName());
+                notStart.await();
+                System.out.println("--------end await----------" + Thread.currentThread().getName());
+            }
+            return "hello world";
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void offer() {
+        lock.lock();
+        try {
+            while (!start) {
+                start = true;
+                System.out.println("--------start ----------" + Thread.currentThread().getName());
+                System.out.println("--------start signalAll----------" + Thread.currentThread().getName());
+                notStart.signalAll();
+                System.out.println("--------end signalAll----------" + Thread.currentThread().getName());
             }
 
-            System.out.println("current thread " + Thread.currentThread().getName());
+        } finally {
+            lock.unlock();
         }
     }
 }
