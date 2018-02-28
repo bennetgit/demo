@@ -35,8 +35,8 @@ public class CountTask extends RecursiveTask<Integer> {
             int middle = (start + end) / 2;
             CountTask left = new CountTask(start, middle);
             CountTask right = new CountTask(middle + 1, end);
-            left.fork();
-            right.fork();
+            left.fork();// 浪费了当前工作线程，可使用invokeAll方法
+            right.fork();//
             int leftSum = left.join();
             int rightSum = right.join();
             sum = leftSum + rightSum;
