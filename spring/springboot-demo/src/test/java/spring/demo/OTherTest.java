@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Ignore;
 import org.junit.Test;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import spring.demo.util.helper.ExcelHelper;
 
 /**
@@ -190,4 +190,51 @@ public class OTherTest {
     public void log4jTest() {
         LOGGER.info("hello world");
     }
+
+    @Test
+    public void reverseNodeTest() {
+        Node secondNext = new Node(2, null, "secondNext");
+        Node firstNext = new Node(1, secondNext, "firstNext");
+        Node root = new Node(0, firstNext, "root");
+
+        print(root);
+        reverse(root);
+        print(secondNext);
+
+    }
+
+    private void print(Node head) {
+        if (head == null) {
+            return;
+        }
+        System.out.println(head.name + "  " + head.value);
+        print(head.next);
+    }
+
+    class Node {
+        public int value;
+        public Node next;
+        public String name;
+
+        public Node(int value, Node next, String name) {
+            this.value = value;
+            this.next = next;
+            this.name = name;
+        }
+    }
+
+    private Node reverse(Node head) {
+
+        System.out.println(head.name);
+        if (head.next == null) {
+            return head;
+        }
+
+        Node tail = reverse(head.next);
+        tail.next = head;
+        head.next = null;
+
+        return head;
+    }
+
 }
