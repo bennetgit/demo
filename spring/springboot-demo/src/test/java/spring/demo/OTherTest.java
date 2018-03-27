@@ -186,11 +186,29 @@ public class OTherTest {
         System.out.println("测试" + ClassLoaderTest.class.getName());
     }
 
+    @Ignore
     @Test
     public void log4jTest() {
         LOGGER.info("hello world");
     }
 
+    @Test
+    public void noNameTest() {
+
+        System.out.println("2 power n = " + tableSizeFor(16));
+    }
+
+    static final int tableSizeFor(int cap) {
+        int n = cap - 1;
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+        return n + 1;
+    }
+
+    @Ignore
     @Test
     public void reverseNodeTest() {
         Node secondNext = new Node(2, null, "secondNext");

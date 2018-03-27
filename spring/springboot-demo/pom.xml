@@ -33,9 +33,32 @@
         <zookeeper-server.version>3.4.11</zookeeper-server.version>
         <jsonwebtoken.version>0.7.0</jsonwebtoken.version>
         <disruptor.version>3.3.7</disruptor.version>
+        <shani-parser.version>1.4.17</shani-parser.version>
+        <core-renderer.version>R8</core-renderer.version>
+        <yahp.version>1.3</yahp.version>
     </properties>
 
     <dependencies>
+
+        <!-- pdf util start-->
+        <!--<dependency>-->
+            <!--<groupId>com.google.code.maven-play-plugin.org.allcolor.shanidom</groupId>-->
+            <!--<artifactId>shani-parser</artifactId>-->
+            <!--<version>${shani-parser.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.xhtmlrenderer</groupId>-->
+            <!--<artifactId>core-renderer</artifactId>-->
+            <!--<version>${core-renderer.version}</version>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>com.google.code.maven-play-plugin.org.allcolor.yahp</groupId>
+            <artifactId>yahp</artifactId>
+            <version>${yahp.version}</version>
+        </dependency>
+        <!-- pdf util end-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -69,7 +92,6 @@
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
