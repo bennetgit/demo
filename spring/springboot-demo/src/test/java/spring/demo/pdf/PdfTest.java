@@ -45,7 +45,12 @@ public class PdfTest {
         StringWriter writer = new StringWriter();
 
         Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("data", PdfPrintModel.emptyInstance().withName("wangfacheng"));
+
+        PdfPrintModel model = PdfPrintModel.emptyInstance();
+        model.withName("wangfacheng");
+        model.withOtmsLogPath(getClass().getResource("/otmspdflogo.png").getFile());
+
+        dataMap.put("data", model);
         template.process(dataMap, writer);
         System.out.println(writer.toString());
 

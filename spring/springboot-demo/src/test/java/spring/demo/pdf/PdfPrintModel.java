@@ -10,13 +10,7 @@ public class PdfPrintModel implements Serializable {
 
     private String name;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private String otmsLogoPath;
 
     public static PdfPrintModel emptyInstance() {
         return new PdfPrintModel();
@@ -25,5 +19,26 @@ public class PdfPrintModel implements Serializable {
     public PdfPrintModel withName(String name) {
         this.name = name;
         return this;
+    }
+
+    public PdfPrintModel withOtmsLogPath(String otmsLogoPath) {
+        this.otmsLogoPath = otmsLogoPath;
+        return this;
+    }
+
+    public String getOtmsLogoPath() {
+        return otmsLogoPath;
+    }
+
+    public void setOtmsLogoPath(String otmsLogoPath) {
+        this.otmsLogoPath = otmsLogoPath;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
