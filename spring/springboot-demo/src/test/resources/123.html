@@ -3,14 +3,18 @@
         <title>Test pagebreak</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" name="meta"></meta>
         <style>
-            .login {
-                    outline-offset: 5px;
-                    outline:solid 3px #fe0000;
+            .login_outer {
                     border:solid 2px #fe0000;
-                    object-fit: contain;
                     height: 60px;
                     width: 110px;
                     color: red;
+                }
+              .login_inner {
+                    border:solid 1px #fe0000;
+                    height: 54px;
+                    width: 104px;
+                    color: red;
+                    margin:2px;
                 }
                 .content{
                     position: absolute;
@@ -22,13 +26,22 @@
                     margin-top: -150px;
                     color: red;
              }
+
+             .line {
+                  width: 92px;
+                  margin-top:20px;
+                  border: solid 0.2px #fe0000;
+            }
         </style>
     </head>
     <body style="font-family:SimHei;font-size:11px;">
     <div class="content">
-        <a href="https://www.baidu.com">查看详情</a>
-    <div class="login">
-    </div>
+        <div class="login_outer">
+            <div class="login_inner">
+            <a href="https://www.baidu.com">查看详情</a>
+            <hr class="line"/>
+            </div>
+        </div>
     </div>
         <table style="border-collapse:collapse;padding-left:2px;width:100%;">
             <tr style="height:60px;">
