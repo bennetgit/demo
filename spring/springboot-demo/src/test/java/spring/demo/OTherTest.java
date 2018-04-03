@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +31,8 @@ public class OTherTest {
     private static final String FIELD_NAME_PREFIX = "field_name_";
     private static final String FIELD_PHONE_PREFIX = "field_phone_";
     private static final String BLANK_PREFIX = "field_blank_";
+
+    private final Pattern pattern = Pattern.compile(".*(?=.*?[A-Z])(?=.*?[a-z]).*");
 
     private static final String[] FIELDS = { FIELD_NAME_PREFIX + "1", FIELD_PHONE_PREFIX + "2", "field_blank_3",
             "field_blank_4", FIELD_NAME_PREFIX + "5", FIELD_PHONE_PREFIX + "6", "field_blank_7", "field_blank_8",
@@ -193,9 +196,18 @@ public class OTherTest {
     }
 
     @Test
+    @Ignore
     public void noNameTest() {
 
         System.out.println("2 power n = " + tableSizeFor(16));
+    }
+
+    @Test
+    public void regexTest() {
+        System.out.println("Only upper --> " + pattern.matcher("AECD").matches());
+        System.out.println("Only lower --> " + pattern.matcher("abc").matches());
+        System.out.println("upper and lower --> " + pattern.matcher("@.edsd#Dw`12").matches());
+
     }
 
     static final int tableSizeFor(int cap) {

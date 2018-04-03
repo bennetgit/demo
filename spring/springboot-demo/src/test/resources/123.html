@@ -2,8 +2,39 @@
     <head>
         <title>Test pagebreak</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" name="meta"></meta>
+        <style>
+            .login {
+                    height: 60px;
+                    width: 110px;
+                    color: red;
+                    border: 2px solid red;
+                    /*border-bottom-color: #FFFFFF;*/
+                    /*border-right-color: #0e212e;*/
+                    border-radius: 8px;
+                    -webkit-border-radius: 8px;
+                    -moz-border-radius: 8px;
+                    -ms-border-radius: 8px;
+                    -o-border-radius: 8px;
+
+                }
+                .content{
+                    position: absolute;
+                    width: 150px;
+                    height: 100px;
+                    left: 50%;
+                    top: 50%;
+                    margin-left: -250px;
+                    margin-top: -150px;
+                    color: red;
+             }
+        </style>
     </head>
     <body style="font-family:SimHei;font-size:11px;">
+    <div class="content">
+        <a href="https://www.baidu.com">查看详情</a>
+    <div class="login">
+    </div>
+    </div>
         <table style="border-collapse:collapse;padding-left:2px;width:100%;">
             <tr style="height:60px;">
                 <td colspan="2" style="width:30%;text-align:center"><img src="file:/home/j3z/source/c4/integration/esb-carrefour/src/main/resources/c4.png" style="width:60px;height:45px;"></td>
