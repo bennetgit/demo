@@ -1,336 +1,318 @@
+<!DOCTYPE html>
 <html xmlns:yahp="http://www.allcolor.org/xmlns/yahp">
     <head>
         <title>Test pagebreak</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" name="meta"></meta>
-        <style>
-            .login_outer {
+        <style type="text/css">
+            .seal_outer {
                     border:solid 2px #fe0000;
                     height: 60px;
                     width: 110px;
                     color: red;
                 }
-              .login_inner {
+              .seal_inner {
                     border:solid 1px #fe0000;
                     height: 54px;
                     width: 104px;
                     color: red;
                     margin:2px;
                 }
-                .content{
+                .content_left{
                     position: absolute;
                     width: 150px;
                     height: 100px;
                     left: 50%;
-                    top: 50%;
-                    margin-left: -250px;
+                    top: 900px;
                     margin-top: -150px;
-                    color: red;
-             }
+                    background-color:#ffffff;
+                    margin-left:-520px;
+                 }
+
+                 .content_right{
+                    float:right;
+                    position: absolute;
+                    width: 150px;
+                    height: 100px;
+                    left: 50%;
+                    top: 900px;
+                    margin-left: -300px;
+                    margin-top: -150px;
+                    margin-left:100px;
+                    background-color:#ffffff;
+                 }
 
              .line {
                   width: 92px;
-                  margin-top:20px;
-                  border: solid 0.2px #fe0000;
-            }
+                  margin-top:37%;
+                  border: solid 0.5px #fe0000;
+               }
+
+               .statement {
+                    text-align: center;
+                    height: 110px;
+                    width: 200px;
+                    border: 2px solid #c9c9c9;
+                    border-top:0px;
+                    border-radius:0px 0px 8px 8px;
+                    margin-top:0px;
+               }
+               .identity {
+                   background-color:#4a90e2;
+                   width: 204px;
+                   height:18px;
+                   text-align:center;
+                   font-size:7px;
+                   line-height:20px;
+                   border-radius:8px 8px 0px 0px;
+               }
+
+                td {
+                    width:400px;
+                }
         </style>
     </head>
     <body style="font-family:SimHei;font-size:11px;">
-    <div class="content">
-        <div class="login_outer">
-            <div class="login_inner">
-            <a href="https://www.baidu.com">查看详情</a>
-            <hr class="line"/>
+    <div>
+        <div id="handover_header">
+            <div name="barcode" style="float:right;">
+                <img src="file:/home/facheng/source/fc/demo/spring/springboot-demo/src/test/resources/barcode_test.png">
+            </div>
+            <div name="order_company">
+                order_number, company_name
+                <h2>送货电子交接单</h2>
             </div>
         </div>
+        <br/>
+        <br/>
+        <br/>
+        <div id="handover_order_detail">
+            <div name="order_common_info">
+            <table>
+                <tr>
+                    <td>订单号</td>
+                    <td>参考订单</td>
+                </tr>
+                <tr>
+                    <td>orderNumber</td>
+                    <td>clientReferenceNumber</td>
+                </tr>
+                <tr>
+                    <td>客户</td>
+                    <td>ERP/WMS单号</td>
+                </tr>
+                <tr>
+                    <td>client</td>
+                    <td>erpNumber</td>
+                </tr>
+            </table>
+            </div>
+            <hr/>
+            <div name="shippoint_time_info">
+                <table>
+                    <tr>
+                        <td>提货</td>
+                        <td>送货</td>
+                    </tr>
+                    <tr>
+                        <td>pick_up_time</td>
+                        <td>delivery_time</td>
+                    </tr>
+                    <tr>
+                        <td>预计提货时间</td>
+                        <td>预计送货时间</td>
+                    </tr>
+                    <tr>
+                        <td>sla_pickup_time</td>
+                        <td>sla_delivery_time</td>
+                    </tr>
+                    <tr>
+                        <td>运输时间</td>
+                        <td>leadTime</td>
+                    </tr>
+                </table>
+            </div>
+            <hr/>
+            <div name="shippoint_address_info">
+                <table>
+                    <tr>
+                        <td>发货方</td>
+                        <td>收货方</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>ship_from</span>
+                            <br/>
+                            <span>sdfsd</span>
+                        </td>
+                        <td>ship_to</td>
+                    </tr>
+                    <tr>
+                        <td>custom_field1 /</td>
+                        <td>custom_field2 /</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="handover_order_line_detail">
+            <table style="border-collapse:collapse;border:1px solid; width:100%;">
+                <thead>
+                    <tr style="border:1px solid; width:100%;">
+                        <td>名称</td>
+                        <td>数量</td>
+                        <td>单位</td>
+                        <td>单位重量（公斤）</td>
+                        <td>长（米）</td>
+                        <td>宽（米）</td>
+                        <td>高（米）</td>
+                        <td>体积（立方）</td>
+                        <td>总重量（公斤）</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border:1px solid; width:100%;">
+                        <td>cargo_name1</td>
+                        <td>quantity1</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                    </tr>
+                    <tr style="border:1px solid; width:100%;">
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                    </tr>
+                    <tr style="border:1px solid; width:100%;">
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                        <td>cargo_name</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="handover_order_total_detail">
+            <table>
+                <tr>
+                    <td>运输模式</td>
+                    <td>数量</td>
+                    <td>重量（公斤）</td>
+                    <td>体积（立方）</td>
+                </tr>
+                <tr>
+                    <td>transport_type</td>
+                    <td>1211</td>
+                    <td>12.22</td>
+                    <td>2343.33</td>
+                </tr>
+                <tr>
+                    <td>等级</td>
+                    <td>单位</td>
+                    <td>备注</td>
+                </tr>
+                <tr>
+                    <td>1.普通货物</td>
+                    <td>A、散箱，可堆叠，人工装卸货</td>
+                    <td>hello world</td>
+                </tr>
+                <tr>
+                    <td>承运商</td>
+                </tr>
+                <tr>
+                    <td>order#vender</td>
+                </tr>
+            </table>
+        </div>
+        <div id="handover_exception_detail">
+            <h2>异常信息：</h2>
+            <table style="border-collapse:collapse;border:1px solid; width:40%;">
+                <thead>
+                <tr style="border:1px solid; width:100%;">
+                    <td>货物代码</td>
+                    <td>货物名称</td>
+                    <td>异常类别</td>
+                    <td>异常数量</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="border:1px solid; width:100%;">
+                    <td>cargo_name1</td>
+                    <td>quantity1</td>
+                    <td>cargo_name</td>
+                    <td>cargo_name</td>
+                </tr>
+                <tr style="border:1px solid; width:100%;">
+                    <td>cargo_name</td>
+                    <td>cargo_name</td>
+                    <td>cargo_name</td>
+                    <td>cargo_name</td>
+                </tr>
+                <tr style="border:1px solid; width:100%;">
+                    <td>cargo_name</td>
+                    <td>cargo_name</td>
+                    <td>cargo_name</td>
+                    <td>cargo_name</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="handover_info">
+            <h2>交接信息：</h2>
+            <span>交接时间：</span>
+            <span>xxx年xx月xx日 10:00:00</span>
+            <br/>
+            <span>交接位置：</span>
+            <span>（x.xxxxx）</span>
+            <br/>
+            <span>上海市峨山路xxxx</span>
+        </div>
+        <div>
+        <div id="handover_identity_info" class="content_left">
+            <div class="identity">
+                <span style="color:#ffffff;">本人已认真查阅以上电子交接单，认可交接单内容与实物一致</span>
+            </div>
+            <div class="statement">
+            </div>
+            <div class="seal_outer" style="margin-top:-50px;margin-left:150px;">
+                <div class="seal_inner">
+                    <span></span>
+                    <hr class="line"/>
+                </div>
+            </div>
+        </div>
+
+        <div id="handover_identity_driver_info" class="content_right">
+            <div class="identity" style="background-color:#fd5e0f;">
+                <span style="color:#ffffff;">本人已认真查阅以上电子交接单，认可交接单内容与实物一致</span>
+            </div>
+            <div class="statement">
+            </div>
+            <div class="seal_outer" style="margin-top:-50px;margin-left:150px;">
+                <div class="seal_inner">
+                    <span></span>
+                    <hr class="line"/>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div style="margin-left:400px;margin-top:170px;">
+            <img src="file:/home/facheng/source/fc/demo/spring/springboot-demo/src/test/resources/otmspdflogo.png"
+                 style="width:200px;height:45px;">
+        </div>
     </div>
-        <table style="border-collapse:collapse;padding-left:2px;width:100%;">
-            <tr style="height:60px;">
-                <td colspan="2" style="width:30%;text-align:center"><img src="file:${data.otmsLogoPath}" style="width:200px;height:45px;"></td>
-              <td colspan="8" style="width:70%;font-size:18px;">多点提货运输配送确认单<span style="font-size:12px">(POD for multi pick up loction)</span></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="10" style="width:100%;border:1px solid #000;font-size:14px;">装货信息-Loading Information</td>
-            </tr>
-            <tr style="height:20px;">
-                <td style="width:10%;border:1px solid #000;background-color:green;">配送日期</td>
-                <td style="width:10%;border:1px solid #000;">${data.name}</td>
-                <td style="width:10%;border:1px solid #000;">配送仓库</td>
-                <td style="width:10%;border:1px solid #000;"></td>
-                <td style="width:10%;border:1px solid #000;">配送车号</td>
-                <td style="width:10%;border:1px solid #000;"></td>
-                <td style="width:10%;border:1px solid #000;">车辆型号</td>
-                <td style="width:10%;border:1px solid #000;"></td>
-                <td style="width:10%;border:1px solid #000;">码头号</td>
-                <td style="width:10%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="2" style="width:20%;border:1px solid #000;">预计到达仓库时间</td>
-                <td colspan="2" style="width:20%;border:1px solid #000;">实际到达仓库时间</td>
-                <td colspan="2" style="width:20%;border:1px solid #000;">实际开始装货时间</td>
-                <td colspan="2" style="width:20%;border:1px solid #000;">实际结束装货时间</td>
-                <td colspan="2" style="width:20%;border:1px solid #000;">实际离开仓库时间</td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;">封签号码：</td>
-                <td colspan="9" style="width:90%;border:1px solid #000;"></td>
-            </tr style="height:20px;">
-            <tr style="height:20px;">
-                <td colspan="10" style="width:100%;border:1px solid #000;">装货备注：</td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="10" style="width:100%;border:1px solid #000;border-bottom:0px;font-size:14px;">货物信息-Cargo Information</td>
-            </tr style="height:20px;">
-            <tr style="height:20px;">
-                <td colspan="10" style="width:100%;border:1px solid #000;border-bottom:0px;">运输单号：</td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;">门店编码</td>
-                <td colspan="2" style="width:20%;border:1px solid #000;">门店名称</td>
-                <td colspan="1" style="width:10%;border:1px solid #000;">Pallet ID</td>
-                <td colspan="1" style="width:10%;border:1px solid #000;">单位</td>
-                <td colspan="1" style="width:10%;border:1px solid #000;">门店编码</td>
-                <td colspan="2" style="width:20%;border:1px solid #000;">门店名称</td>
-                <td colspan="1" style="width:10%;border:1px solid #000;">Pallet ID</td>
-                <td colspan="1" style="width:10%;border:1px solid #000;">单位</td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:40px;">
-                <td colspan="10" style="width:100%;border:1px solid #000;border-bottom:0px;font-weight:bold;">
-                <!-- 合计中加入了６个中文空格来占位,请在显示空格模式下查看 -->
-                合计：Pallets（日字)　　　　　（川字）　　　　　Roll-cage　　　　　Basket　　　　　TC box　　　　　Pallet-Cage
-                </td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="3" style="width:30%;border:1px solid #000;">物流发货员签字</td>
-                <td colspan="3" style="width:30%;border:1px solid #000;">物流发货部联系电话</td>
-                <td colspan="1" style="width:10%;border:1px solid #000;">物流备注</td>
-                <td colspan="3" style="width:30%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="3" style="width:30%;border:1px solid #000;">提货司机签字</td>
-                <td colspan="3" style="width:30%;border:1px solid #000;">提货司机电话</td>
-                <td colspan="1" style="width:10%;border:1px solid #000;">运输备注</td>
-                <td colspan="3" style="width:30%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="10" style="width:100%;border:1px solid #000;border-bottom:0px;font-size:14px;">送货信息-Delivery Information</td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="4" style="width:40%;border:1px solid #000;">下一提货仓地址</td>
-                <td colspan="6" style="width:60%;border:1px solid #000;">下一提货仓联系人</td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="2" style="width:20%;border:1px solid #000;">预计到达下一提货仓时间</td>
-                <td colspan="2" style="width:20%;border:1px solid #000;">实际到达下一提货仓时间</td>
-                <td colspan="2" style="width:20%;border:1px solid #000;">实际卸货开始时间</td>
-                <td colspan="2" style="width:20%;border:1px solid #000;">实际结束卸货时间</td>
-                <td colspan="2" style="width:20%;border:1px solid #000;">实际离开提货仓时间</td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td rowspan="12" colspan="4" style="width:40%;border:1px solid #000;vertical-align:top;">门店签字盖章</td>
-                <td rowspan="6" colspan="2" style="width:20%;border:1px solid #000;vertical-align:top;">回收包装容器数量：</td>
-                <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;">容器类型</td>
-                <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;">数量</td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-                <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td rowspan="6" colspan="2" style="width:20%;border:1px solid #000;vertical-align:top;">退货商品数量：</td>
-                <td colspan="1" style="width:10%;border:1px solid #000;text-align:center;">容器类型</td>
-                <td colspan="1" style="width:10%;border:1px solid #000;text-align:center;">数量</td>
-                 <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;">箱数</td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;text-align:center;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;text-align:center;"></td>
-                 <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;text-align:center;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;text-align:center;"></td>
-                 <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;text-align:center;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;text-align:center;"></td>
-                 <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;text-align:center;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;text-align:center;"></td>
-                 <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="1" style="width:10%;border:1px solid #000;text-align:center;"></td>
-                <td colspan="1" style="width:10%;border:1px solid #000;text-align:center;"></td>
-                 <td colspan="2" style="width:20%;border:1px solid #000;text-align:center;"></td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="10" style="width:100%;border:1px solid #000;">下一提货仓备注：</td>
-            </tr>
-            <tr style="height:20px;">
-                <td colspan="10" style="width:100%;border:1px solid #000;border-bottom:0px;">
-                配送规则：
-                </td>
-            </tr>
-            <tr>
-                <td colspan="10" style="width:100%;border:1px solid #000;border-top:0px;font-size:10px;padding-bottom:5px;">
-                1.依据《中华人民共和国道路交通安全法》、《中华人民共和国道路交通安全法则实施条例》，规范驾驶操作行为，保障车辆运行安全。<br>
-                2.卸货时，应选择路面坚实地段停车，以防卸货后起步时车轮滑转。<br>
-                3.上站台卸货时，应低速平稳驶达站台合理位置，然后拉紧手制动器拉杆，以防溜车。<br>
-                </td>
-            </tr>
-        </table>
     </body>
 </html>

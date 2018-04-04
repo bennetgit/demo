@@ -6,17 +6,19 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
-import freemarker.template.DefaultObjectWrapperBuilder;
-import freemarker.template.Template;
 import org.allcolor.yahp.converter.CYaHPConverter;
 import org.allcolor.yahp.converter.IHtmlToPdfTransformer;
 import org.junit.Test;
+
+import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapperBuilder;
+import freemarker.template.Template;
 
 public class PdfTest {
 
@@ -24,6 +26,7 @@ public class PdfTest {
 
     @Test
     public void createPdfTest() throws Exception {
+
         String outfile = "/home/facheng/backup/pdf/123.pdf";
         // String fontPath =
         // "/home/facheng/source/fc/demo/spring/springboot-demo/src/test/resources/font";
@@ -55,8 +58,8 @@ public class PdfTest {
         System.out.println(writer.toString());
 
         try {
-//            String content = readTxtFile(
-//                    "/home/facheng/source/fc/demo/spring/springboot-demo/src/test/resources/123.html");
+            // String content = readTxtFile(
+            // "/home/facheng/source/fc/demo/spring/springboot-demo/src/test/resources/123.html");
             File fout = new File(outfile);
 
             FileOutputStream out = new FileOutputStream(fout);
@@ -69,7 +72,8 @@ public class PdfTest {
             properties.put(IHtmlToPdfTransformer.PDF_CREATOR, "J3z");
             properties.put(IHtmlToPdfTransformer.PDF_PRODUCER, "oTMS");
 
-            converter.convertToPdf(writer.toString(), IHtmlToPdfTransformer.A4P, Collections.EMPTY_LIST, null, out, properties);
+            converter.convertToPdf(writer.toString(), IHtmlToPdfTransformer.A4P, Collections.EMPTY_LIST, null, out,
+                    properties);
             System.out.println("after conversion");
             out.flush();
             out.close();
