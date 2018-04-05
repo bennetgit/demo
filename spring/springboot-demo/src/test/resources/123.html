@@ -25,7 +25,7 @@
                     top: 900px;
                     margin-top: -150px;
                     background-color:#ffffff;
-                    margin-left:-520px;
+                    margin-left:-350px;
                  }
 
                  .content_right{
@@ -35,7 +35,6 @@
                     height: 100px;
                     left: 50%;
                     top: 900px;
-                    margin-left: -300px;
                     margin-top: -150px;
                     margin-left:100px;
                     background-color:#ffffff;
@@ -43,11 +42,11 @@
 
              .line {
                   width: 92px;
-                  margin-top:37%;
+                  margin-top:17%;
                   border: solid 0.5px #fe0000;
                }
 
-               .statement {
+               .identity_body{
                     text-align: center;
                     height: 110px;
                     width: 200px;
@@ -56,7 +55,7 @@
                     border-radius:0px 0px 8px 8px;
                     margin-top:0px;
                }
-               .identity {
+               .identity_header {
                    background-color:#4a90e2;
                    width: 204px;
                    height:18px;
@@ -282,29 +281,69 @@
         </div>
         <div>
         <div id="handover_identity_info" class="content_left">
-            <div class="identity">
+            <div class="identity_header">
                 <span style="color:#ffffff;">本人已认真查阅以上电子交接单，认可交接单内容与实物一致</span>
             </div>
-            <div class="statement">
+            <div class="identity_body">
+                <div style="border:1px solid #c9c9c9;width: 50px;height: 60px;float:left;margin-top:10px;margin-left:10px;">
+                    <div style="margin-top: 10px;" >
+                         <img src="file:/Users/feng/sources/myself/demo/spring/springboot-demo/src/test/resources/account.png"/>
+                    </div>
+                </div>
+                <div style="font-size: 7px;margin-top: 20px;margin-left: 5px;float:left;text-align: left;">
+                    <span>收货方</span>
+                    <br/>
+                    <span>送货地址</span>
+                    <br/>
+                    <span>收货点经纬度</span>
+                    <br/>
+                    <span>xxx 手机号</span>
+                    <br/>
+                    <span>交接人邮箱</span>
+                </div>
             </div>
-            <div class="seal_outer" style="margin-top:-50px;margin-left:150px;">
+            <div class="seal_outer" style="margin-top:-50px;margin-left:150px;text-align: center;font-size: 80%;">
                 <div class="seal_inner">
-                    <span></span>
-                    <hr class="line"/>
+                    <div style="margin-top: 2px;">
+                        <span>绫致时装(天津)有限公司</span>
+                        <span>上海大悦城店</span>
+                        <span>xxxx@xx.com</span>
+                    </div>
+                    <hr class="line" style="margin-top: 1px;"/>
+                    <div style="margin-top: 0.5px;">
+                        <span>收发货电子章</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="handover_identity_driver_info" class="content_right">
-            <div class="identity" style="background-color:#fd5e0f;">
+            <div class="identity_header" style="background-color:#fd5e0f;">
                 <span style="color:#ffffff;">本人已认真查阅以上电子交接单，认可交接单内容与实物一致</span>
             </div>
-            <div class="statement">
+            <div class="identity_body">
+                <div style="border:1px solid #c9c9c9;width: 50px;height: 60px;float:left;margin-top:10px;margin-left:10px;">
+                    <div style="margin-top: 10px;" >
+                        <img src="file:/Users/feng/sources/myself/demo/spring/springboot-demo/src/test/resources/account.png"/>
+                    </div>
+                </div>
+                <div style="font-size: 7px;margin-top: 20px;margin-left: 5px;float:left;text-align: left;">
+                    <span>李大仁</span>
+                    <br/>
+                    <span>18323232323</span>
+                    <br/>
+                    <span>车牌号</span>
+                </div>
             </div>
-            <div class="seal_outer" style="margin-top:-50px;margin-left:150px;">
+            <div class="seal_outer" style="margin-top:-50px;margin-left:130px;text-align: center;">
                 <div class="seal_inner">
-                    <span></span>
-                    <hr class="line"/>
+                    <div style="margin-top: 10px;font-weight: 900;">
+                        <span style="">司机用户卡卡APP</span>
+                    </div>
+                    <hr class="line" style="margin-top: 5px;"/>
+                    <div>
+                        <span>送货电子章</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -313,6 +352,6 @@
             <img src="file:/home/facheng/source/fc/demo/spring/springboot-demo/src/test/resources/otmspdflogo.png"
                  style="width:200px;height:45px;">
         </div>
-    </div>
+    </div style="height:20px;"><!--I don't know why, CYaHPConverter need this, otherwise the seal is wrong in pdf.-->
     </body>
 </html>
