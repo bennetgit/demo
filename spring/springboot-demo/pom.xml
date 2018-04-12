@@ -38,9 +38,18 @@
         <yahp.version>1.3</yahp.version>
         <yahp-internal.version>1.3</yahp-internal.version>
         <freemarker.version>2.3.23</freemarker.version>
+        <guava.version>24.1-jre</guava.version>
     </properties>
 
     <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
 
         <!-- pdf util start-->
         <dependency>
