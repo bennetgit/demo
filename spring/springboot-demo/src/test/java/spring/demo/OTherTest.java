@@ -1,5 +1,11 @@
 package spring.demo;
 
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -203,10 +209,61 @@ public class OTherTest {
     }
 
     @Test
+    @Ignore
     public void regexTest() {
         System.out.println("Only upper --> " + pattern.matcher("AECD").matches());
         System.out.println("Only lower --> " + pattern.matcher("abc").matches());
         System.out.println("upper and lower --> " + pattern.matcher("@.edsd#Dw`12").matches());
+
+    }
+
+    @Test
+    public void examTest() throws Exception {
+        List<List<Object>> result = ExcelHelper.readExcel("/Users/feng/backup/exercise/exam_1.xlsx");
+        File examFile = new File("/Users/feng/backup/exercise/wenjuan_exam_102_152.txt");
+        if (examFile.exists()) {
+            examFile.delete();
+        }
+        System.out.println(result);
+        BufferedWriter writer = new BufferedWriter(new FileWriter(examFile));
+        String content;
+        List<Object> items;
+        int sequence = 0;
+        for (int i = 0; i < result.size(); i++) {
+
+            items = result.get(i);
+            content="";
+            boolean newLine = false;
+            if (items.size()>1&&i%5 == 0) {
+                newLine= true;
+                System.out.println(items);
+                // title
+                sequence= Integer.parseInt(String.valueOf(items.get(0)).replace(".0",""));
+                content += sequence + "." + items.get(1) + "(" + items.get(2)
+                        + ")[单选题]";
+            } else {
+                // choice
+                content = String.valueOf(items.get(0));
+            }
+
+            if (sequence != 0 && (sequence < 102||sequence>152)){
+                continue;
+            }
+
+            if (newLine){
+                writer.newLine();
+            }
+            writer.write(content);
+            writer.newLine();
+
+            if (i%200 == 0){
+                writer.flush();
+            }
+
+        }
+
+        writer.flush();
+
 
     }
 
