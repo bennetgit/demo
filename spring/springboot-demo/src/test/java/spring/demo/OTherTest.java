@@ -240,12 +240,12 @@ public class OTherTest {
 
     @Test
     public void examGenerateTest() throws Exception {
-        boolean single = false;
-        int needSize = 50;
+        boolean single = true;
+        int needSize = 30;
         boolean needRandom = true;
         int startIndex = 0;
-        String outPath = "/home/facheng/backup/excel/test_2_" + needSize + ".txt";
-        String inputPath = "/home/facheng/backup/excel/exam2.xlsx";
+        String outPath = "/home/facheng/backup/excel/test_" + needSize + ".txt";
+        String inputPath = "/home/facheng/backup/excel/exam.xlsx";
 
         List<List<Object>> result = ExcelHelper.readExcel(inputPath);
         generateExam(subList(needRandom, needSize, convert(result, single), startIndex), outPath);
@@ -269,7 +269,7 @@ public class OTherTest {
                 }
                 index++;
             } else {
-                originDataIndex = startIndex + index++;
+                originDataIndex = (startIndex + index++);
             }
             tempSubject = originData.get(originDataIndex);
             tempSubject.sequence = index;
@@ -287,6 +287,7 @@ public class OTherTest {
         for (int i = 0; i < excelData.size(); i++) {
             items = excelData.get(i);
             if (items.size() > 1) {
+                System.out.println(items);
                 // title
                 subject = new Subject(sequence++, String.valueOf(items.get(1)), "", String.valueOf(items.get(2)),
                         single);
