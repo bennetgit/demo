@@ -219,8 +219,8 @@ public class OTherTest {
 
     @Test
     public void examTest() throws Exception {
-        List<List<Object>> result = ExcelHelper.readExcel("/Users/feng/backup/exercise/exam_1.xlsx");
-        File examFile = new File("/Users/feng/backup/exercise/wenjuan_exam_102_152.txt");
+        List<List<Object>> result = ExcelHelper.readExcel("/home/facheng/backup/excel/exam.xlsx");
+        File examFile = new File("/home/facheng/backup/excel/wenjuan_exam.txt");
         if (examFile.exists()) {
             examFile.delete();
         }
@@ -229,6 +229,7 @@ public class OTherTest {
         String content;
         List<Object> items;
         int sequence = 0;
+        String answer = "";
         for (int i = 0; i < result.size(); i++) {
 
             items = result.get(i);
@@ -239,16 +240,18 @@ public class OTherTest {
                 System.out.println(items);
                 // title
                 sequence= Integer.parseInt(String.valueOf(items.get(0)).replace(".0",""));
-                content += sequence + "." + items.get(1) + "(" + items.get(2)
-                        + ")[单选题]";
+                content += sequence + "." + items.get(1);
+                // + "(" + items.get(2)
+                //+ ")[单选题]"
+                answer += (sequence+"."+items.get(2)+"  ");
             } else {
                 // choice
                 content = String.valueOf(items.get(0));
             }
 
-            if (sequence != 0 && (sequence < 102||sequence>152)){
-                continue;
-            }
+//            if (sequence != 0 && (sequence < 102||sequence>152)){
+//                continue;
+//            }
 
             if (newLine){
                 writer.newLine();
@@ -262,7 +265,10 @@ public class OTherTest {
 
         }
 
+        writer.newLine();
+        writer.write(answer);
         writer.flush();
+        writer.close();
 
 
     }
