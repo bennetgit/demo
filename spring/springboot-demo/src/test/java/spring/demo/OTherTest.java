@@ -222,7 +222,7 @@ public class OTherTest {
         if (examFile.exists()) {
             examFile.delete();
         }
-        System.out.println(excelData);
+        // System.out.println(excelData);
         BufferedWriter writer = new BufferedWriter(new FileWriter(examFile));
         for (int i = 0; i < excelData.size(); i++) {
             writer.write(excelData.get(i).toString());
@@ -241,11 +241,11 @@ public class OTherTest {
     @Test
     public void examGenerateTest() throws Exception {
         boolean single = true;
-        int needSize = 30;
+        int needSize = 50;
         boolean needRandom = true;
         int startIndex = 0;
-        String outPath = "/home/facheng/backup/excel/test_" + needSize + ".txt";
-        String inputPath = "/home/facheng/backup/excel/exam.xlsx";
+        String outPath = "/Users/feng/backup/exercise/test_" + needSize + ".txt";
+        String inputPath = "/Users/feng/backup/exercise/exam_1.xlsx";
 
         List<List<Object>> result = ExcelHelper.readExcel(inputPath);
         generateExam(subList(needRandom, needSize, convert(result, single), startIndex), outPath);
@@ -259,12 +259,17 @@ public class OTherTest {
         int originDataIndex;
         int index = 0;
         Subject tempSubject;
+        System.out.println("originData size -->" + originData.size());
         while (index < needSize) {
             if (needRandom) {
                 originDataIndex = random.nextInt(originDataSize);
-                if (randomCache.contains(originDataIndex)) {
+                if (randomCache.contains(originDataIndex + "")) {
+                    System.out.println("check is contains originDataIndex (" + originDataIndex + ")-->" + true
+                            + ", current random cache -->" + randomCache);
                     continue;
                 } else {
+                    System.out.println("check is contains originDataIndex (" + originDataIndex + ")-->" + false
+                            + ", current random cache -->" + randomCache);
                     randomCache.add(originDataIndex + "");
                 }
                 index++;
@@ -272,22 +277,24 @@ public class OTherTest {
                 originDataIndex = (startIndex + index++);
             }
             tempSubject = originData.get(originDataIndex);
+            System.out.println("tempSubject -->" + tempSubject + ", index --> " + index);
             tempSubject.sequence = index;
-            result.add(originData.get(originDataIndex));
+            System.out.println("subject sequence after --> " + tempSubject.sequence);
+            result.add(tempSubject);
         }
+        System.out.println("random cache -->" + randomCache);
         return result;
     }
 
     private List<Subject> convert(List<List<Object>> excelData, boolean single) {
-        System.out.println(excelData);
         List<Subject> subjects = new ArrayList<>();
         List<Object> items;
         Subject subject = new Subject();
         int sequence = 1;
         for (int i = 0; i < excelData.size(); i++) {
             items = excelData.get(i);
-            if (items.size() > 1) {
-                System.out.println(items);
+            if (items.size() > 2) {
+                // System.out.println(items);
                 // title
                 subject = new Subject(sequence++, String.valueOf(items.get(1)), "", String.valueOf(items.get(2)),
                         single);
