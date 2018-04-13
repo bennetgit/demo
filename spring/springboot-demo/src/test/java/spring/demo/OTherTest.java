@@ -1,15 +1,15 @@
 package spring.demo;
 
 import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -217,60 +217,112 @@ public class OTherTest {
 
     }
 
-    @Test
-    public void examTest() throws Exception {
-        List<List<Object>> result = ExcelHelper.readExcel("/home/facheng/backup/excel/exam.xlsx");
-        File examFile = new File("/home/facheng/backup/excel/wenjuan_exam.txt");
+    private void generateExam(List<Subject> excelData, String outPath) throws IOException {
+        File examFile = new File(outPath);
         if (examFile.exists()) {
             examFile.delete();
         }
-        System.out.println(result);
+        System.out.println(excelData);
         BufferedWriter writer = new BufferedWriter(new FileWriter(examFile));
-        String content;
-        List<Object> items;
-        int sequence = 0;
-        String answer = "";
-        for (int i = 0; i < result.size(); i++) {
-
-            items = result.get(i);
-            content="";
-            boolean newLine = false;
-            if (items.size()>1&&i%5 == 0) {
-                newLine= true;
-                System.out.println(items);
-                // title
-                sequence= Integer.parseInt(String.valueOf(items.get(0)).replace(".0",""));
-                content += sequence + "." + items.get(1);
-                // + "(" + items.get(2)
-                //+ ")[单选题]"
-                answer += (sequence+"."+items.get(2)+"  ");
-            } else {
-                // choice
-                content = String.valueOf(items.get(0));
-            }
-
-//            if (sequence != 0 && (sequence < 102||sequence>152)){
-//                continue;
-//            }
-
-            if (newLine){
-                writer.newLine();
-            }
-            writer.write(content);
+        for (int i = 0; i < excelData.size(); i++) {
+            writer.write(excelData.get(i).toString());
             writer.newLine();
 
-            if (i%200 == 0){
+            if (i % 200 == 0) {
                 writer.flush();
             }
 
         }
 
-        writer.newLine();
-        writer.write(answer);
         writer.flush();
         writer.close();
+    }
 
+    @Test
+    public void examGenerateTest() throws Exception {
+        boolean single = false;
+        int needSize = 50;
+        boolean needRandom = true;
+        int startIndex = 0;
+        String outPath = "/home/facheng/backup/excel/test_2_" + needSize + ".txt";
+        String inputPath = "/home/facheng/backup/excel/exam2.xlsx";
 
+        List<List<Object>> result = ExcelHelper.readExcel(inputPath);
+        generateExam(subList(needRandom, needSize, convert(result, single), startIndex), outPath);
+    }
+
+    private List<Subject> subList(boolean needRandom, int needSize, List<Subject> originData, int startIndex) {
+        Set<String> randomCache = new HashSet<>();
+        List<Subject> result = new ArrayList<>(needSize + 1);
+        Random random = new Random();
+        int originDataSize = originData.size();
+        int originDataIndex;
+        int index = 0;
+        Subject tempSubject;
+        while (index < needSize) {
+            if (needRandom) {
+                originDataIndex = random.nextInt(originDataSize);
+                if (randomCache.contains(originDataIndex)) {
+                    continue;
+                } else {
+                    randomCache.add(originDataIndex + "");
+                }
+                index++;
+            } else {
+                originDataIndex = startIndex + index++;
+            }
+            tempSubject = originData.get(originDataIndex);
+            tempSubject.sequence = index;
+            result.add(originData.get(originDataIndex));
+        }
+        return result;
+    }
+
+    private List<Subject> convert(List<List<Object>> excelData, boolean single) {
+        System.out.println(excelData);
+        List<Subject> subjects = new ArrayList<>();
+        List<Object> items;
+        Subject subject = new Subject();
+        int sequence = 1;
+        for (int i = 0; i < excelData.size(); i++) {
+            items = excelData.get(i);
+            if (items.size() > 1) {
+                // title
+                subject = new Subject(sequence++, String.valueOf(items.get(1)), "", String.valueOf(items.get(2)),
+                        single);
+                subjects.add(subject);
+            } else {
+                // choice
+                subject.content += (items.get(0) + "\n");
+            }
+        }
+
+        return subjects;
+    }
+
+    private class Subject {
+
+        int sequence;
+        String title;
+        String content;
+        String answer;
+        boolean single;
+
+        public Subject() {
+        }
+
+        public Subject(int sequence, String title, String content, String answer, boolean single) {
+            this.sequence = sequence;
+            this.title = title;
+            this.content = content;
+            this.answer = answer;
+            this.single = single;
+        }
+
+        @Override
+        public String toString() {
+            return sequence + "." + title + "(" + answer + ")" + (single ? "[单选题]" : "[多选题]") + "\n" + content;
+        }
     }
 
     static final int tableSizeFor(int cap) {
