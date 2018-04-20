@@ -242,21 +242,21 @@ public class OTherTest {
     public void examGenerateTest() throws Exception {
         boolean single = false;
         int needSize = 30;
-        boolean needRandom = true;
-        int startIndex = 0;
-        String outPath = "/Users/feng/backup/exercise/test2_" + needSize + ".txt";
+        boolean needRandom = false;
+        int startIndex = 150;
+        String outPath = "/home/facheng/backup/excel/test2_" + needSize + ".txt";
         String inputPath = "/Users/feng/backup/exercise/exam_2.xlsx";
 
-        List<List<Object>> result = ExcelHelper.readExcel(inputPath);
+        // List<List<Object>> result = ExcelHelper.readExcel(inputPath);
 
-        List<List<Object>> resultSingle = ExcelHelper.readExcel("/Users/feng/backup/exercise/exam_1.xlsx");
+        List<List<Object>> resultSingle = ExcelHelper.readExcel("/home/facheng/backup/excel/exam.xlsx");
 
-        List<Subject> multipleSubjects = convert(result, false);
+        // List<Subject> multipleSubjects = convert(result, false);
         List<Subject> singleSubjects = convert(resultSingle, true);
 
-        multipleSubjects.addAll(singleSubjects);
+        // multipleSubjects.addAll(singleSubjects);
 
-        generateExam(subList(needRandom, needSize, multipleSubjects, startIndex), outPath);
+        generateExam(subList(needRandom, needSize, singleSubjects, startIndex), outPath);
     }
 
     private List<Subject> subList(boolean needRandom, int needSize, List<Subject> originData, int startIndex) {
@@ -280,8 +280,14 @@ public class OTherTest {
             } else {
                 originDataIndex = (startIndex + index++);
             }
+
+            if (originDataIndex >= originData.size()) {
+                break;
+            }
             tempSubject = originData.get(originDataIndex);
-            tempSubject.sequence = index;
+            if (needRandom) {
+                tempSubject.sequence = index;
+            }
             result.add(tempSubject);
         }
         return result;

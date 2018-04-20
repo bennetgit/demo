@@ -1,6 +1,5 @@
 package spring.demo.exercise.pdf;
 
-import org.allcolor.yahp.converter.CYaHPConverter;
 import org.hibernate.sql.Template;
 
 import javax.servlet.http.HttpServletResponse;
