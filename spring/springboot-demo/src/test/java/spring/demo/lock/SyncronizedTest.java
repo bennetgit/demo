@@ -6,12 +6,18 @@ package spring.demo.lock;
 public class SyncronizedTest {
 
     public static void main(String[] args) {
-        try {
-            synchronized ("1") {
-                "1".wait();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+//            synchronized ("1") {
+//                "1".wait();
+//            }
+
+            Version st = new Version();
+            st.ttt();
+    }
+
+    public static class Version{
+
+        public static void ttt(){
+            System.out.println("xxfsdf");
         }
     }
 }
