@@ -1,0 +1,2 @@
+1.一直很好奇dubbo是怎么实现自己的命名空间，可以直接将自己的实例归于spring管理的。查看源码，看到了在META-INF下的两个spring相关的配置文件spring.handlers spring.schemas。感觉应该是有些关系，就发现了原来是通过NamespaceHandlerSupport来实现的。网上找了相关的教程，自己弄了一个，留着备用。。。
+2.原文：https://blog.csdn.net/cutesource/article/details/5864562

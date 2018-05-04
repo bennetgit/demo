@@ -1,0 +1,1 @@
+http\://com.demo.spring/schema/people=com.veen.spring.demo.extension.parser.MyNamespaceHandler

@@ -202,10 +202,9 @@ public class OTherTest {
     }
 
     @Test
-    @Ignore
     public void noNameTest() {
 
-        System.out.println("2 power n = " + tableSizeFor(16));
+        System.out.println("2 power n = " + tableSizeFor(17));
     }
 
     @Test
@@ -249,10 +248,10 @@ public class OTherTest {
 
         // List<List<Object>> result = ExcelHelper.readExcel(inputPath);
 
-        List<List<Object>> resultSingle = ExcelHelper.readExcel("/home/facheng/backup/excel/exam.xlsx");
+        List<List<Object>> resultSingle = ExcelHelper.readExcel("/home/facheng/backup/excel/exam2.xlsx");
 
         // List<Subject> multipleSubjects = convert(result, false);
-        List<Subject> singleSubjects = convert(resultSingle, true);
+        List<Subject> singleSubjects = convert(resultSingle, false);
 
         // multipleSubjects.addAll(singleSubjects);
 
