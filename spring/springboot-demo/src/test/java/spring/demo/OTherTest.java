@@ -4,6 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -21,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import spring.demo.util.helper.ExcelHelper;
+import sun.misc.Unsafe;
 
 /**
  * Created by wangfacheng on 2017-11-09.
@@ -393,6 +397,24 @@ public class OTherTest {
         head.next = null;
 
         return head;
+    }
+
+    @Test
+    public void unsafeTest() {
+        Unsafe unsafe;
+        unsafe = AccessController.doPrivileged((PrivilegedAction<Unsafe>) () -> {
+            Field f = null;
+            try {
+                f = Unsafe.class.getDeclaredField("theUnsafe");
+                f.setAccessible(true);
+                return (Unsafe) f.get(null);
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            return null;
+        });
     }
 
 }
