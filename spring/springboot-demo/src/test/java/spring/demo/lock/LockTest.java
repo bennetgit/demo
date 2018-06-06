@@ -41,4 +41,8 @@ public class LockTest {
 
         countDownLatch.await();
     }
+
+    public synchronized static void test(){
+        System.out.println("xxx");
+    }
 }
