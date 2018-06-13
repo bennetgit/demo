@@ -2,7 +2,6 @@ package spring.demo.exercise.nio;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.ServerSocket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -19,10 +18,7 @@ public class NioServer {
 
         ServerSocketChannel ssChannel = ServerSocketChannel.open();
         ssChannel.configureBlocking(false);
-//        ssChannel.bind(new InetSocketAddress("127.0.0.1", 9999));
-
-        ServerSocket socket = ssChannel.socket();
-        socket.bind(new InetSocketAddress("127.0.0.1", 9999));
+        ssChannel.bind(new InetSocketAddress("127.0.0.1", 9999));
 
         Selector selector = Selector.open();
         //将通道注册到选择器上,并且指定"监听接收事件"
