@@ -39,9 +39,18 @@
         <yahp-internal.version>1.3</yahp-internal.version>
         <freemarker.version>2.3.23</freemarker.version>
         <guava.version>24.1-jre</guava.version>
+        <curator.version>4.0.1</curator.version>
     </properties>
 
     <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-recipes -->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+            <version>${curator.version}</version>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
