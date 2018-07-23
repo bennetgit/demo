@@ -15,33 +15,25 @@ public class RecipesBarrier {
     static DistributedBarrier barrier;
 
     public static void main(String[] args) throws Exception {
-//        for (int i = 0; i < 5; i++) {
-//            new Thread(() -> {
-//                CuratorFramework client = CuratorFrameworkFactory.builder().connectString("127.0.0.1:2181").retryPolicy(new ExponentialBackoffRetry(1000, 3)).build();
-//
-//                client.start();
-//                barrier = new DistributedBarrier(client, barrierPath);
-//                try {
-//                    barrier.setBarrier();
-//                    barrier.waitOnBarrier();
-//                    System.out.println(Thread.currentThread().getName() + "启动");
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }).start();
-//        }
-//
-//        Thread.sleep(2000l);
-//        barrier.removeBarrier();
+        for (int i = 0; i < 5; i++) {
+            new Thread(() -> {
+                CuratorFramework client = CuratorFrameworkFactory.builder().connectString("127.0.0.1:2181").retryPolicy(new ExponentialBackoffRetry(1000, 3)).build();
 
+                client.start();
+                barrier = new DistributedBarrier(client, barrierPath);
+                try {
+                    barrier.setBarrier();
+                    barrier.waitOnBarrier();
+                    System.out.println(Thread.currentThread().getName() + "启动");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-        int i = 0;
-        int ii = 1;
-        int iii = 2;
+            }).start();
+        }
 
-        System.out.println(i | ii);
-        System.out.println(i | iii);
-        System.out.println(ii | iii);
+        Thread.sleep(2000l);
+        barrier.removeBarrier();
+
     }
 }
