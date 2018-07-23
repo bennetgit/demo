@@ -80,6 +80,8 @@ public class RedisUtil {
         if (StringUtils.isBlank(lockName) || StringUtils.isBlank(id)) {
             return;
         }
+
+
         redisTemplate.execute(new SessionCallback<Object>() {
             @Override
             public <String, V> Object execute(RedisOperations<String, V> operations) throws DataAccessException {
