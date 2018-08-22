@@ -40,9 +40,16 @@
         <freemarker.version>2.3.23</freemarker.version>
         <guava.version>24.1-jre</guava.version>
         <curator.version>4.0.1</curator.version>
+        <jackson-jaxrs.version>1.9.13</jackson-jaxrs.version>
     </properties>
 
     <dependencies>
+
+    <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
+            <version>${jackson-jaxrs.version}</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-recipes -->
         <dependency>
