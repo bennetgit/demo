@@ -88,7 +88,7 @@ public class HttpClientUtils {
         return result;
     }
 
-    public static String doPost(String url, Map<String, String> headers, Map<String, Object> payload) {
+    public static String doPost(String url, Map<String, String> headers, String payload) {
         HttpClientBuilder clientBuilder = HttpClientBuilder.create().useSystemProperties();
         clientBuilder.setDefaultRequestConfig(RequestConfig.custom().setConnectTimeout(CONNECTION_TIME_OUT)
                 .setSocketTimeout(SOCKET_TIME_OUT).build());
@@ -105,9 +105,7 @@ public class HttpClientUtils {
                 headers.forEach((k, v) -> httpPost.setHeader(k, v));
             }
 
-            if (MapUtils.isNotEmpty(payload)) {
-                httpPost.setEntity(new StringEntity(objectMapper.writeValueAsString(payload), DEFAULT_CHAR_SET));
-            }
+            httpPost.setEntity(new StringEntity(objectMapper.writeValueAsString(payload), DEFAULT_CHAR_SET));
             HttpResponse response = httpClient.execute(httpPost);
             if (response != null) {
                 HttpEntity resEntity = response.getEntity();
