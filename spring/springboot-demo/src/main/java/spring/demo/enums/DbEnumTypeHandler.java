@@ -8,24 +8,22 @@ import java.sql.SQLException;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
-import com.opentrans.otms.api.domain.DbEnum;
+public class DBEnumTypeHandler extends BaseTypeHandler<DBEnum> {
 
-public class DbEnumTypeHandler extends BaseTypeHandler<DbEnum> {
+    private Class<DBEnum> type;
 
-    private Class<DbEnum> type;
-
-    public DbEnumTypeHandler(Class<DbEnum> type) {
+    public DBEnumTypeHandler(Class<DBEnum> type) {
         this.type = type;
     }
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, DbEnum parameter, JdbcType jdbcType)
+    public void setNonNullParameter(PreparedStatement ps, int i, DBEnum parameter, JdbcType jdbcType)
             throws SQLException {
         ps.setInt(i, parameter.getConstant());
     }
 
     @Override
-    public DbEnum getNullableResult(ResultSet rs, String columnName) throws SQLException {
+    public DBEnum getNullableResult(ResultSet rs, String columnName) throws SQLException {
         int constant = rs.getInt(columnName);
         if (rs.wasNull()) {
             return null;
@@ -35,7 +33,7 @@ public class DbEnumTypeHandler extends BaseTypeHandler<DbEnum> {
     }
 
     @Override
-    public DbEnum getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+    public DBEnum getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
         int constant = rs.getInt(columnIndex);
         if (rs.wasNull()) {
             return null;
@@ -45,7 +43,7 @@ public class DbEnumTypeHandler extends BaseTypeHandler<DbEnum> {
     }
 
     @Override
-    public DbEnum getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+    public DBEnum getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
         int constant = cs.getInt(columnIndex);
         if (cs.wasNull()) {
             return null;
@@ -54,11 +52,11 @@ public class DbEnumTypeHandler extends BaseTypeHandler<DbEnum> {
         }
     }
 
-    private DbEnum convert(int constant) {
-        DbEnum[] dbEnums = type.getEnumConstants();
-        for (DbEnum dbEnum : dbEnums) {
-            if (dbEnum.getConstant().equals(constant)) {
-                return dbEnum;
+    private DBEnum convert(int constant) {
+        DBEnum[] DBEnums = type.getEnumConstants();
+        for (DBEnum DBEnum : DBEnums) {
+            if (DBEnum.getConstant().equals(constant)) {
+                return DBEnum;
             }
         }
         return null;
