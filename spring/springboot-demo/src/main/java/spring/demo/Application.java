@@ -20,11 +20,11 @@ import spring.demo.util.SpringContextHolder;
 // @EnableWebSocket
 @EnableScheduling
 @EnableWebSecurity
-@EnableAsync(mode = AdviceMode.ASPECTJ)
-@EnableCaching(order = CacheConfig.CACHE_ORDER, mode = AdviceMode.ASPECTJ)
+@EnableAsync(mode = AdviceMode.PROXY)
+@EnableCaching(order = CacheConfig.CACHE_ORDER, mode = AdviceMode.PROXY)
 @EnableRabbit
-@EnableTransactionManagement(order = TransactionConfig.ORDER, mode = AdviceMode.ASPECTJ)
-@ImportResource({"classpath:META-INF/spring/applicationContext*.xml"})
+@EnableTransactionManagement(order = TransactionConfig.ORDER, mode = AdviceMode.PROXY)
+@ImportResource({ "classpath:META-INF/spring/applicationContext*.xml" })
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -36,7 +36,7 @@ public class Application {
     }
 
     @Bean
-    //test for disposable bean
+    // test for disposable bean
     public DisposableBeanTest getDisposableBeanTest() {
         return new DisposableBeanTest();
     }
