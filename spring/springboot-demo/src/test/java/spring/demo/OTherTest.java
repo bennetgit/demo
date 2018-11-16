@@ -208,7 +208,7 @@ public class OTherTest {
     @Test
     public void noNameTest() {
 
-        System.out.println("2 power n = " + tableSizeFor(17));
+        System.out.println("2 power n = " + tableSizeFor(9));
     }
 
     @Test

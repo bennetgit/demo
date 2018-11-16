@@ -10,8 +10,13 @@ public class Log4jTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(Log4jTest.class);
 
     @Test
-    public void testLog4j() {
-        LOGGER.info("hello world");
-    }
+    public void tett() {
 
+        System.out.println("s".hashCode());
+
+        switch ("hello") {
+        case "s":
+            break;
+        }
+    }
 }
