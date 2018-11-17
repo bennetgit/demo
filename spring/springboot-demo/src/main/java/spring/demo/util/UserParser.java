@@ -50,17 +50,19 @@ public class UserParser {
         List<MenuDto> menus = new ArrayList<>();
         userDto.setMenus(menus);
 
-        if (CollectionUtils.isEmpty(user.getRoles())) {
+
+        List<Role> roles = user.getRoles();
+        if (roles == null) {
             return userDto;
         }
 
-        List<Long> roleIds = user.getRoles().stream().map(Role::getId).collect(Collectors.toList());
+        List<Long> roleIds = roles.stream().map(Role::getId).collect(Collectors.toList());
         userDto.withRoleIds(roleIds);
 
         Map<Long, MenuDto> tempTreeMenuMap = new HashMap<>();
 
         MenuDto tempMenu;
-        for (Role role : user.getRoles()) {
+        for (Role role : roles) {
 
             for (Menu menu : role.getMenus()) {
                 tempMenu = MenuParser.fromDomain(menu);

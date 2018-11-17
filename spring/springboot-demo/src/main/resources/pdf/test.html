@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html xmlns:yahp="http://www.allcolor.org/xmlns/yahp">
+<head>
+    <title>Test pagebreak</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" name="meta"></meta>
+    <style type="text/css">
+            .seal_outer {
+                    border:solid 2px #fe0000;
+                    height: 60px;
+                    width: 120px;
+                    color: red;
+                }
+              .seal_inner {
+                    border:solid 1px #fe0000;
+                    height: 54px;
+                    width: 114px;
+                    color: red;
+                    margin:2px;
+                }
+                .content_left_a{
+                    <!--position: absolute;-->
+                    width: 150px;
+                    height: 100px;
+
+                    <!--left: 50%;-->
+                    <!--top: 900px;-->
+                    background-color:#ffffff;
+                 }
+
+                 .content_right{
+                    <!--position: absolute;-->
+                    <!--float:right;-->
+                    width: 150px;
+                    height: 100px;
+                    <!--left: 50%;-->
+                    <!--top: 900px;-->
+                    margin-left:100px;
+                    background-color:#ffffff;
+                 }
+
+             .line {
+                  width: 92px;
+                  margin-top:17%;
+                  border: solid 0.5px #fe0000;
+               }
+
+               .identity_body{
+                    text-align: center;
+                    height: 110px;
+                    width: 226px;
+                    border: 2px solid #c9c9c9;
+                    border-top:0px;
+                    border-radius:0px 0px 8px 8px;
+                    margin-top:0px;
+               }
+               .identity_header {
+                   background-color:#4a90e2;
+                   width: 230px;
+                   height:18px;
+                   text-align:center;
+                   font-size:7px;
+                   line-height:20px;
+                   border-radius:8px 8px 0px 0px;
+               }
+
+                td {
+                    width:400px;
+                }
+
+    </style>
+</head>
+<body style="font-family:SimHei;font-size:11px;">
+<div>
+    <div id="handover_header">
+        <div name="barcode" style="float:right;">
+            <img src="file:/home/facheng/source/fc/demo/spring/springboot-demo/src/test/resources/barcode_test.png">
+        </div>
+        <div name="order_company">
+            order_number, company_name
+            <h2 id="delivery_epod">送货电子交接单</h2>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <div id="handover_order_detail">
+        <div name="order_common_info">
+            <table>
+                <tr>
+                    <td>订单号</td>
+                    <td>参考订单</td>
+                </tr>
+                <tr>
+                    <td>orderNumber</td>
+                    <td>clientReferenceNumber</td>
+                </tr>
+                <tr>
+                    <td>客户</td>
+                    <td>ERP/WMS单号</td>
+                </tr>
+                <tr>
+                    <td>client</td>
+                    <td>erpNumber</td>
+                </tr>
+            </table>
+        </div>
+        <hr/>
+        <div name="shippoint_time_info">
+            <table>
+                <tr>
+                    <td>提货</td>
+                    <td>送货</td>
+                </tr>
+                <tr>
+                    <td>pick_up_time</td>
+                    <td>delivery_time</td>
+                </tr>
+                <tr>
+                    <td>预计提货时间</td>
+                    <td>预计送货时间</td>
+                </tr>
+                <tr>
+                    <td>sla_pickup_time</td>
+                    <td>sla_delivery_time</td>
+                </tr>
+                <tr>
+                    <td>运输时间</td>
+                    <td>leadTime</td>
+                </tr>
+            </table>
+        </div>
+        <hr/>
+        <div name="shippoint_address_info">
+            <table>
+                <tr>
+                    <td>发货方</td>
+                    <td>收货方</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>ship_from</span>
+                        <br/>
+                        <span>sdfsd</span>
+                    </td>
+                    <td>ship_to</td>
+                </tr>
+                <tr>
+                    <td>custom_field1 /</td>
+                    <td>custom_field2 /</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="handover_order_line_detail">
+        <table style="border-collapse:collapse;border:1px solid; width:100%;">
+            <thead>
+            <tr style="border:1px solid; width:100%;">
+                <td>名称</td>
+                <td>数量</td>
+                <td>单位</td>
+                <td>单位重量（公斤）</td>
+                <td>长（米）</td>
+                <td>宽（米）</td>
+                <td>高（米）</td>
+                <td>体积（立方）</td>
+                <td>总重量（公斤）</td>
+            </tr>
+            </thead>
+            <tbody>
+            <#list data.test as index>
+                <tr style="border:1px solid; width:100%;">
+                    <td>${index}</td>
+                    <td>数量</td>
+                    <td>单位</td>
+                    <td>单位重量（公斤）</td>
+                    <td>长（米）</td>
+                    <td>宽（米）</td>
+                    <td>高（米）</td>
+                    <td>体积（立方）</td>
+                    <td>总重量（公斤）</td>
+                </tr>
+            </#list>
+            </tbody>
+        </table>
+    </div>
+    <div id="handover_order_total_detail">
+        <table>
+            <tr>
+                <td>运输模式</td>
+                <td>数量</td>
+                <td>重量（公斤）</td>
+                <td>体积（立方）</td>
+            </tr>
+            <tr>
+                <td>transport_type</td>
+                <td>1211</td>
+                <td>12.22</td>
+                <td>2343.33</td>
+            </tr>
+            <tr>
+                <td>等级</td>
+                <td>单位</td>
+                <td>备注</td>
+            </tr>
+            <tr>
+                <td>1.普通货物</td>
+                <td>A、散箱，可堆叠，人工装卸货</td>
+                <td>hello world</td>
+            </tr>
+            <tr>
+                <td>承运商</td>
+            </tr>
+            <tr>
+                <td>order#vender</td>
+            </tr>
+        </table>
+    </div>
+    <div id="handover_exception_detail">
+        <h2>异常信息：</h2>
+        <table style="border-collapse:collapse;border:1px solid; width:45%;">
+            <thead>
+            <tr style="border:1px solid; width:100%;">
+                <td>货物代码</td>
+                <td>货物名称</td>
+                <td>异常类别</td>
+                <td>异常数量</td>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr style="border:1px solid; width:100%;">
+                <td>xxxx</td>
+                <td>quantity1-> </td>
+                <td>cargo_name-></td>
+                <td>cargo_name-></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div id="handover_info">
+        <h2>交接信息：</h2>
+        <span>交接时间：</span>
+        <span>水电费水电费</span>
+        <a href="#delivery_epod">xcvsdfv</a>
+        <br/>
+        <span>交接位置：</span>
+        <span>（x.xxxxx）</span>
+        <br/>
+        <span>上海市峨山路xxxx</span>
+    </div>
+    <br/>
+    <br/>
+        <div style="height:150px;">
+            <table style="width:100%;">
+            <tr>
+            <td>
+
+            <div id="handover_identity_info" style="height:150px;">
+                <div class="identity_header">
+                    <span style="color:#ffffff;">本人已认真查阅以上电子交接单，认可交接单内容与实物一致</span>
+                </div>
+                <div class="identity_body">
+                    <div style="border:1px solid #c9c9c9;width: 50px;height: 60px;float:left;margin-top:10px;margin-left:10px;">
+                        <div style="margin-top: 10px;">
+                            <img src="file:/home/facheng/source/fc/demo/spring/springboot-demo/src/test/resources/account.png"/>
+                        </div>
+                    </div>
+                    <div style="font-size: 11px;margin-top: 20px;margin-left: 5px;float:left;text-align: left;">
+                        <span>收货方</span>
+                        <br/>
+                        <span>送货地址</span>
+                        <br/>
+                        <span>收货点经纬度</span>
+                        <br/>
+                        <span>xxx 手机号</span>
+                        <br/>
+                        <span>交接人邮箱</span>
+                    </div>
+                </div>
+                <div class="seal_outer" style="margin-top:-50px;margin-left:150px;text-align: center;font-size: 80%;">
+                    <div class="seal_inner">
+                        <div style="margin-top: 2px;">
+                            <span>绫致时装(天津)有限公司</span>
+                            <span>上海大悦城店</span>
+                            <span>xxxx@xx.com</span>
+                        </div>
+                        <hr class="line" style="margin-top: 1px;"/>
+                        <div style="margin-top: 0.5px;">
+                            <span>收发货电子章</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </td>
+            <td>
+            <div id="handover_identity_driver_info" style="float:right">
+                <div class="identity_header" style="background-color:#fd5e0f;">
+                    <span style="color:#ffffff;">本人已认真查阅以上电子交接单，认可交接单内容与实物一致</span>
+                </div>
+                <div class="identity_body">
+                    <div style="border:1px solid #c9c9c9;width: 50px;height: 60px;float:left;margin-top:10px;margin-left:10px;">
+                        <div style="margin-top: 10px;">
+                            <img src="file:/home/facheng/source/fc/demo/spring/springboot-demo/src/test/resources/account.png"/>
+                        </div>
+                    </div>
+                    <div style="font-size: 11px;margin-top: 20px;margin-left: 5px;float:left;text-align: left;">
+                        <span>李大仁</span>
+                        <br/>
+                        <span>18323232323</span>
+                        <br/>
+                        <span>车牌号</span>
+                    </div>
+                </div>
+                <div class="seal_outer" style="margin-top:-50px;margin-left:150px;text-align: center;">
+                    <div class="seal_inner">
+                        <div style="margin-top: 10px;font-weight: 900;">
+                            <span style="">司机用户卡卡APP</span>
+                        </div>
+                        <hr class="line" style="margin-top: 5px;"/>
+                        <div>
+                            <span>送货电子章</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </td>
+        </tr>
+        </table>
+    </div>
+</div style="height:20px;"><!--I don't know why, CYaHPConverter need this, otherwise the seal is wrong in pdf.-->
+</body>
+</html>

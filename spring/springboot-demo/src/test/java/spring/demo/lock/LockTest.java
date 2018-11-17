@@ -64,14 +64,14 @@ public class LockTest {
 
     }
 
-    private synchronized void access(CountDownLatch countDownLatch){
-        while (true){
-        System.out.println("current thread "+Thread.currentThread().getName()+"current index = "+index);
-        if (index >= 1000){
-            countDownLatch.countDown();
-            return;
-        }
-        index++;
+    private synchronized void access(CountDownLatch countDownLatch) {
+        while (true) {
+            System.out.println("current thread " + Thread.currentThread().getName() + "current index = " + index);
+            if (index >= 1000) {
+                countDownLatch.countDown();
+                return;
+            }
+            index++;
         }
     }
 }
