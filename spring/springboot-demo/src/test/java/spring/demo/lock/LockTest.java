@@ -41,4 +41,37 @@ public class LockTest {
 
         countDownLatch.await();
     }
+
+    int index;
+
+    @Test
+    public void syncLockTest(){
+
+        CountDownLatch countDownLatch = new CountDownLatch(3);
+
+        new Thread(()->access(countDownLatch)).start();
+
+        new Thread(()->access(countDownLatch)).start();
+
+        new Thread(()->access(countDownLatch)).start();
+
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("index ->" + index);
+
+    }
+
+    private synchronized void access(CountDownLatch countDownLatch){
+        while (true){
+        System.out.println("current thread "+Thread.currentThread().getName()+"current index = "+index);
+        if (index >= 1000){
+            countDownLatch.countDown();
+            return;
+        }
+        index++;
+        }
+    }
 }
