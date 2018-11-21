@@ -6,7 +6,7 @@
     <groupId>spring.demo</groupId>
     <artifactId>springboot-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>springboot-demo</name>
     <description>Demo project for Spring Boot</description>
@@ -273,16 +273,21 @@
         <!--cache end-->
 
         <!--ehcache start-->
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>net.sf.ehcache</groupId>-->
+            <!--<artifactId>ehcache</artifactId>-->
+        <!--</dependency>-->
         <!--ehcache end-->
 
         <!--redis start-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
         </dependency>
         <!--redis end-->
 

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import spring.demo.constant.Constants.CacheConfig;
 import spring.demo.constant.Constants.TransactionConfig;
@@ -24,6 +25,7 @@ import spring.demo.util.SpringContextHolder;
 @EnableCaching(order = CacheConfig.CACHE_ORDER, mode = AdviceMode.PROXY)
 @EnableRabbit
 @EnableTransactionManagement(order = TransactionConfig.ORDER, mode = AdviceMode.PROXY)
+@EnableRedisHttpSession
 @ImportResource({ "classpath:META-INF/spring/applicationContext*.xml" })
 public class Application {
     public static void main(String[] args) {
